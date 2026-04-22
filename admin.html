@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Found & Formed — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root {
+      --brown:     #5c4a45;
+      --olive:     #8e8151;
+      --parchment: #dddad1;
+      --blue:      #a5bbc6;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--parchment);
+      color: var(--brown);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 12px 28px; border-radius: 50px; border: none; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none;
+      transition: opacity 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .btn-olive  { background: var(--olive); color: var(--parchment); }
+    .btn-olive:hover { opacity: 0.85; }
+    .btn-ghost  { background: transparent; color: var(--olive); border: 1.5px solid rgba(142,129,81,0.45); }
+    .btn-ghost:hover { border-color: var(--olive); }
+    .btn-danger { background: transparent; color: #a84a42; border: 1.5px solid rgba(168,74,66,0.35); font-size: 10.5px; padding: 8px 18px; }
+    .btn-danger:hover { border-color: #a84a42; background: rgba(168,74,66,0.06); }
+
+    /* Inputs */
+    .field { margin-bottom: 16px; }
+    label {
+      display: block; font-size: 10.5px; font-weight: 500; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(92,74,69,0.5); margin-bottom: 6px;
+    }
+    input, select, textarea {
+      width: 100%; background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(92,74,69,0.18); border-radius: 12px;
+      padding: 11px 14px; font-family: 'DM Sans', sans-serif;
+      font-size: 13px; color: var(--brown); outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: rgba(142,129,81,0.55);
+      box-shadow: 0 0 0 3px rgba(142,129,81,0.09);
+    }
+    textarea { resize: vertical; }
+
+    /* Cards */
+    .card {
+      background: rgba(255,255,255,0.38);
+      border: 1px solid rgba(92,74,69,0.1);
+      border-radius: 20px;
+      padding: 28px 32px;
+    }
+
+    /* Alert banners */
+    .alert { border-radius: 12px; padding: 11px 16px; font-size: 12.5px; margin-bottom: 16px; display: none; }
+    .alert-error   { background: rgba(168,74,66,0.09);  border: 1px solid rgba(168,74,66,0.25); color: #a84a42; }
+    .alert-success { background: rgba(80,120,80,0.09);  border: 1px solid rgba(80,120,80,0.25); color: #3d6b3d; }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(221,218,209,0.94); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(92,74,69,0.09);
+      padding: 14px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    /* Grid */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
+
+    /* Event list item */
+    .event-row {
+      background: rgba(255,255,255,0.38); border: 1px solid rgba(92,74,69,0.1);
+      border-radius: 16px; padding: 18px 22px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      margin-bottom: 10px;
+    }
+    .event-label { font-size: 10.5px; letter-spacing: 0.13em; text-transform: uppercase; color: rgba(142,129,81,0.85); margin-bottom: 3px; }
+    .event-title { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 400; }
+    .event-sub   { font-size: 12px; color: rgba(92,74,69,0.45); margin-top: 2px; }
+  </style>
+</head>
+<body>
+
+  <!-- ── LOGIN VIEW ───────────────────────────────── -->
+  <div id="login-view" style="min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;">
+    <div style="width:100%; max-width:360px;">
+
+      <div style="text-align:center; margin-bottom:32px;">
+        <p class="serif" style="font-size:34px; font-weight:300; color:var(--brown);">found & formed</p>
+        <p style="font-size:10.5px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(92,74,69,0.4); margin-top:4px;">admin</p>
+      </div>
+
+      <div class="card">
+        <div id="login-error" class="alert alert-error"></div>
+
+        <div class="field">
+          <label>Email</label>
+          <input type="email" id="login-email" placeholder="you@email.com" autocomplete="email">
+        </div>
+        <div class="field" style="margin-bottom:24px;">
+          <label>Password</label>
+          <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
+        </div>
+        <button class="btn btn-olive" style="width:100%; border-radius:12px; padding:13px 0;" onclick="handleLogin()">
+          sign in
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── DASHBOARD VIEW ──────────────────────────── -->
+  <div id="dashboard-view" style="display:none; min-height:100vh;">
+
+    <header>
+      <p class="serif" style="font-size:22px; font-weight:300;">
+        found & formed
+        <span style="font-family:'DM Sans',sans-serif; font-size:13px; color:rgba(92,74,69,0.38); margin-left:6px;">/ events</span>
+      </p>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <a href="index.html" class="btn btn-ghost" style="font-size:10.5px;">view site</a>
+        <button class="btn btn-ghost" style="font-size:10.5px;" onclick="handleLogout()">sign out</button>
+      </div>
+    </header>
+
+    <main style="max-width:780px; margin:0 auto; padding:40px 24px 80px;">
+
+      <!-- Create event form -->
+      <section class="card" style="margin-bottom:44px;">
+        <p class="serif" style="font-size:28px; font-weight:300; margin-bottom:24px;">add a new event</p>
+
+        <div id="form-error"   class="alert alert-error"></div>
+        <div id="form-success" class="alert alert-success"></div>
+
+        <div class="field">
+          <label>Event Title</label>
+          <input type="text" id="ev-title" placeholder="e.g. spring charm bar night">
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label>Date</label>
+            <input type="date" id="ev-date">
+          </div>
+          <div class="field">
+            <label>Time</label>
+            <input type="text" id="ev-time" placeholder="e.g. 6–8 PM">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Location</label>
+          <input type="text" id="ev-location" placeholder="e.g. the found & formed studio">
+        </div>
+
+        <div class="field">
+          <label>Description <span style="font-weight:300; text-transform:none; font-size:10px; letter-spacing:0;">(optional — any details guests should know)</span></label>
+          <textarea id="ev-description" rows="3" placeholder="what to expect, what's included, anything guests should bring…"></textarea>
+        </div>
+
+        <button id="save-btn" class="btn btn-olive">save event →</button>
+      </section>
+
+      <!-- Scheduled events list -->
+      <section>
+        <p class="serif" style="font-size:28px; font-weight:300; margin-bottom:20px;">scheduled events</p>
+        <div id="events-list">
+          <p style="font-size:13px; color:rgba(92,74,69,0.4);">loading…</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'https://akviuwiqtqqfmlvusstm.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_171Z0fasXaye_oqF8N9NtQ_olxCJK_9';
+    let sb;
+
+    try {
+      if (!window.supabase) throw new Error('Supabase library did not load. Check your internet connection.');
+      sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    } catch (initErr) {
+      document.addEventListener('DOMContentLoaded', () => {
+        document.body.innerHTML = `<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#dddad1;padding:24px;">
+          <div style="background:#fff3f3;border:1px solid #a84a42;border-radius:16px;padding:32px;max-width:460px;text-align:center;">
+            <p style="font-size:16px;color:#a84a42;font-weight:500;margin-bottom:8px;">Admin failed to load</p>
+            <p style="font-size:13px;color:#5c4a45;">${initErr.message}</p>
+          </div></div>`;
+      });
+    }
+
+    function showAlert(id, msg) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.textContent = msg;
+      el.style.display = 'block';
+    }
+    function hideAlerts() {
+      ['form-error','form-success','login-error'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+    }
+
+    async function handleLogin() {
+      hideAlerts();
+      const email    = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+      const { error } = await sb.auth.signInWithPassword({ email, password });
+      if (error) {
+        showAlert('login-error', error.message);
+      } else {
+        showDashboard();
+      }
+    }
+
+    async function handleLogout() {
+      await sb.auth.signOut();
+      document.getElementById('dashboard-view').style.display = 'none';
+      document.getElementById('login-view').style.display    = 'flex';
+    }
+
+    function showDashboard() {
+      document.getElementById('login-view').style.display    = 'none';
+      document.getElementById('dashboard-view').style.display = 'block';
+      loadEvents();
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return '';
+      const d = new Date(dateStr + 'T12:00:00');
+      return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }).toUpperCase();
+    }
+
+    async function loadEvents() {
+      const { data, error } = await sb
+        .from('events')
+        .select('*')
+        .order('event_date', { ascending: true });
+
+      const container = document.getElementById('events-list');
+
+      if (error) {
+        container.innerHTML = `<p style="color:#a84a42; font-size:13px;">could not load events: ${error.message}</p>`;
+        return;
+      }
+      if (!data || data.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:32px; background:rgba(255,255,255,0.3); border-radius:16px; border:1px solid rgba(92,74,69,0.08);">
+            <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:20px; color:rgba(92,74,69,0.35);">no events scheduled yet.</p>
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = data.map(ev => `
+        <div class="event-row" style="flex-direction:column; align-items:stretch;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:16px;">
+            <div style="flex:1; min-width:0;">
+              <p class="event-label">${formatDate(ev.event_date)}${ev.event_time ? ' · ' + ev.event_time : ''}${ev.location ? ' · ' + ev.location : ''}</p>
+              <p class="event-title">${ev.title}</p>
+              ${ev.description ? `<p class="event-sub">${ev.description}</p>` : ''}
+            </div>
+            <div style="display:flex; gap:8px; flex-shrink:0;">
+              <button class="btn btn-ghost" style="font-size:10.5px;" onclick="toggleReservations('${ev.id}')">view list</button>
+              <button class="btn btn-ghost" style="font-size:10.5px;" onclick="exportCSV('${ev.id}', '${ev.title.replace(/'/g, "\\'")}')">export ↓</button>
+              <button class="btn btn-danger" onclick="deleteEvent('${ev.id}')">delete</button>
+            </div>
+          </div>
+          <div id="res-${ev.id}" style="display:none; margin-top:16px; padding-top:16px; border-top:1px solid rgba(92,74,69,0.1);"></div>
+        </div>
+      `).join('');
+    }
+
+    async function createEvent() {
+      const btn = document.getElementById('save-btn');
+      const formError = document.getElementById('form-error');
+
+      // Immediately show we heard the click — visible before any async work
+      if (btn) { btn.disabled = true; btn.textContent = 'saving…'; }
+      hideAlerts();
+
+      // Safety check: make sure Supabase loaded
+      if (!sb) {
+        if (btn) { btn.disabled = false; btn.textContent = 'save event →'; }
+        if (formError) {
+          formError.textContent = 'admin failed to initialise — check your internet and reload the page.';
+          formError.style.display = 'block';
+          formError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return;
+      }
+
+      try {
+        const title       = document.getElementById('ev-title').value.trim();
+        const date        = document.getElementById('ev-date').value;
+        const time        = document.getElementById('ev-time').value.trim();
+        const location    = document.getElementById('ev-location').value.trim();
+        const description = document.getElementById('ev-description').value.trim();
+
+        if (!title || !date) {
+          if (btn) { btn.disabled = false; btn.textContent = 'save event →'; }
+          showAlert('form-error', 'please fill in event title and date before saving.');
+          formError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+
+        const { data, error } = await sb.from('events').insert({
+          title,
+          event_date:  date,
+          event_time:  time        || null,
+          location:    location    || null,
+          description: description || null,
+        }).select();
+
+        if (btn) { btn.disabled = false; btn.textContent = 'save event →'; }
+
+        if (error) {
+          showAlert('form-error', 'could not save: ' + error.message + (error.code ? ' (' + error.code + ')' : ''));
+          formError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          showAlert('form-success', 'event saved! it\'s now live on the website.');
+          document.getElementById('form-success').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          ['ev-title','ev-date','ev-time','ev-location','ev-description']
+            .forEach(id => { document.getElementById(id).value = ''; });
+          loadEvents();
+        }
+      } catch (err) {
+        if (btn) { btn.disabled = false; btn.textContent = 'save event →'; }
+        showAlert('form-error', 'unexpected error: ' + err.message);
+        formError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    async function deleteEvent(id) {
+      if (!confirm('delete this event? this cannot be undone.')) return;
+      await sb.from('events').delete().eq('id', id);
+      loadEvents();
+    }
+
+    function escHtml(str) {
+      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    async function toggleReservations(eventId) {
+      const panel = document.getElementById('res-' + eventId);
+      if (panel.style.display !== 'none') {
+        panel.style.display = 'none';
+        return;
+      }
+      await loadReservationsPanel(eventId);
+    }
+
+    async function loadReservationsPanel(eventId) {
+      const panel = document.getElementById('res-' + eventId);
+      panel.style.display = 'block';
+      panel.innerHTML = '<p style="font-size:13px; color:rgba(92,74,69,0.4); padding:4px 0;">loading…</p>';
+
+      const { data, error } = await sb
+        .from('reservations')
+        .select('*')
+        .eq('event_id', eventId)
+        .order('created_at', { ascending: true });
+
+      if (error) {
+        panel.innerHTML = `<p style="color:#a84a42; font-size:13px;">error: ${escHtml(error.message)}</p>`;
+        return;
+      }
+      if (!data || data.length === 0) {
+        panel.innerHTML = '<p style="font-family:\'Cormorant Garamond\',serif; font-style:italic; font-size:18px; color:rgba(92,74,69,0.35); padding:4px 0;">no reservations yet.</p>';
+        return;
+      }
+
+      panel.innerHTML = `
+        <p style="font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:rgba(92,74,69,0.4); margin-bottom:12px;">
+          ${data.length} reservation${data.length === 1 ? '' : 's'}
+        </p>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          ${data.map(r => `
+            <div style="background:rgba(255,255,255,0.5); border:1px solid rgba(92,74,69,0.08); border-radius:12px; padding:12px 16px; display:flex; justify-content:space-between; align-items:start; gap:12px;">
+              <div style="flex:1; min-width:0;">
+                <p style="font-size:14px; font-weight:500; color:var(--brown);">${escHtml(r.name)}</p>
+                <p style="font-size:12px; color:rgba(92,74,69,0.5); margin-top:2px;">${escHtml(r.email)}${r.phone ? ' · ' + escHtml(r.phone) : ''}</p>
+                ${r.preorder_notes ? `<p style="font-size:12.5px; color:rgba(92,74,69,0.55); margin-top:6px; font-style:italic; line-height:1.65;">"${escHtml(r.preorder_notes)}"</p>` : ''}
+              </div>
+              <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
+                <p style="font-size:10.5px; color:rgba(92,74,69,0.3);">${new Date(r.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>
+                <button class="btn btn-danger" style="padding:6px 14px; font-size:10px;" onclick="deleteReservation('${r.id}', '${eventId}')">remove</button>
+              </div>
+            </div>
+          `).join('')}
+        </div>`;
+    }
+
+    async function deleteReservation(resId, eventId) {
+      if (!confirm('remove this reservation?')) return;
+      await sb.from('reservations').delete().eq('id', resId);
+      loadReservationsPanel(eventId);
+    }
+
+    async function exportCSV(eventId, eventTitle) {
+      const { data, error } = await sb
+        .from('reservations')
+        .select('*')
+        .eq('event_id', eventId)
+        .order('created_at', { ascending: true });
+
+      if (error || !data || data.length === 0) {
+        alert(error ? 'could not load reservations.' : 'no reservations yet for this event.');
+        return;
+      }
+
+      // Build CSV
+      const escape = v => '"' + String(v ?? '').replace(/"/g, '""') + '"';
+      const rows = [
+        ['Name', 'Email', 'Phone', 'Preorder Notes', 'Date Reserved'],
+        ...data.map(r => [
+          escape(r.name),
+          escape(r.email),
+          escape(r.phone),
+          escape(r.preorder_notes),
+          escape(new Date(r.created_at).toLocaleDateString('en-US')),
+        ])
+      ];
+      const csv = rows.map(r => r.join(',')).join('\r\n');
+
+      // Trigger download
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href     = url;
+      a.download = eventTitle.replace(/[^a-z0-9 ]/gi, '').trim().replace(/\s+/g, '-').toLowerCase()
+                   + '-reservations.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // Wire up button and keyboard after DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+      const saveBtn = document.getElementById('save-btn');
+      if (saveBtn) saveBtn.addEventListener('click', createEvent);
+
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Enter' && document.getElementById('login-view').style.display !== 'none') {
+          handleLogin();
+        }
+      });
+    });
+
+    // Check for existing session on load
+    if (sb) {
+      sb.auth.getSession().then(({ data }) => {
+        if (data.session) showDashboard();
+      });
+    }
+  </script>
+
+</body>
+</html>

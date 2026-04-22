@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cmd.exe /c start msedge \"c:\\\\Users\\\\Courtney\\\\Desktop\\\\f&f website 4.9.26\\\\index.html\")",
+      "WebFetch(domain:campaign-statistics.com)",
+      "Bash(git --version)"
+    ]
+  }
+}
