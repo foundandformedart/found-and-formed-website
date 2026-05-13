@@ -99,7 +99,7 @@
       font-size: 10.5px;
       font-weight: 500;
       letter-spacing: 0.17em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       border-radius: 50px;
       text-decoration: none;
       transition:
@@ -185,7 +185,7 @@
       font-size: 9.5px;
       font-weight: 500;
       letter-spacing: 0.3em;
-      text-transform: uppercase;
+      text-transform: lowercase;
     }
 
     /* ── Ornament divider ── */
@@ -272,7 +272,7 @@
     }
 
     /* ── Menu section — override uppercase labels ── */
-    #menu .label { text-transform: none; }
+    #menu .label { text-transform: lowercase; }
 
     /* Non-flip card (rotating special, kids) */
     .static-card {
@@ -307,8 +307,8 @@
       <li><a href="#menu"       class="label text-brand-brown/55 hover:text-brand-olive transition-colors">Menu</a></li>
       <li><a href="#about"      class="label text-brand-brown/55 hover:text-brand-olive transition-colors">About</a></li>
       <li><a href="#experience" class="label text-brand-brown/55 hover:text-brand-olive transition-colors">Experience</a></li>
-      <li><a href="#popup"      class="label text-brand-brown/55 hover:text-brand-olive transition-colors">Pop-Up</a></li>
-      <li><a href="#book"       class="label text-brand-brown/55 hover:text-brand-olive transition-colors">Visit</a></li>
+      <li><a href="#popup"      class="label text-brand-brown/55 hover:text-brand-olive transition-colors">host</a></li>
+      <li><a href="#book"       class="label text-brand-brown/55 hover:text-brand-olive transition-colors">connect</a></li>
     </ul>
 
     <a href="#events" class="btn btn-olive hidden md:inline-flex">Reserve a Seat</a>
@@ -331,8 +331,8 @@
       <li><a href="#menu"       class="label text-brand-brown/65">Menu</a></li>
       <li><a href="#about"      class="label text-brand-brown/65">About</a></li>
       <li><a href="#experience" class="label text-brand-brown/65">Experience</a></li>
-      <li><a href="#popup"      class="label text-brand-brown/65">Pop-Up</a></li>
-      <li><a href="#book"       class="label text-brand-brown/65">Visit</a></li>
+      <li><a href="#popup"      class="label text-brand-brown/65">host</a></li>
+      <li><a href="#book"       class="label text-brand-brown/65">connect</a></li>
     </ul>
     <a href="#events" class="btn btn-olive w-full text-center">Reserve a Seat</a>
   </div>
@@ -347,7 +347,7 @@
   <!-- Left: text -->
   <div class="relative z-10 min-h-screen flex items-center px-8 md:px-16 lg:px-24 pt-28 pb-20">
     <div class="max-w-lg">
-      <p class="label text-brand-olive mb-5" style="text-transform:none;">a place to rest, create &amp; reconnect</p>
+      <p class="label text-brand-olive mb-5" style="text-transform:lowercase;">a place to rest, create &amp; reconnect</p>
 
       <p class="font-serif text-[24px] md:text-[28px] font-light italic text-brand-brown/58 leading-snug mb-3">
         where perfection isn't required<br>and joy is the goal.
@@ -517,19 +517,8 @@
             <p class="font-sans text-[12px] text-brand-brown/55 leading-[1.75] mb-auto">
               cotton paper, your choice of sketched design or blank canvas, 6 hand-selected watercolors.
             </p>
-            <div class="border-t border-brand-brown/10 pt-4 mt-4 space-y-2">
-              <div class="flex justify-between items-baseline">
-                <span class="font-sans text-[11px] text-brand-brown/48">5 × 7</span>
-                <span class="font-serif text-[15px] font-medium text-brand-brown">$20</span>
-              </div>
-              <div class="flex justify-between items-baseline">
-                <span class="font-sans text-[11px] text-brand-brown/48">6 × 8</span>
-                <span class="font-serif text-[15px] font-medium text-brand-brown">$22</span>
-              </div>
-              <div class="flex justify-between items-baseline">
-                <span class="font-sans text-[11px] text-brand-brown/48">8 × 10</span>
-                <span class="font-serif text-[15px] font-medium text-brand-brown">$24</span>
-              </div>
+            <div class="border-t border-brand-brown/10 pt-4 mt-4">
+              <p class="font-sans text-[11px] text-brand-brown/48">available in 5×7 · 6×8 · 8×10</p>
             </div>
           </div>
         </div>
@@ -554,19 +543,8 @@
             <p class="font-sans text-[12px] text-brand-brown/55 leading-[1.75] mb-auto">
               cotton paper, your choice of sketched design or blank canvas, 14 hand-selected oil pastels.
             </p>
-            <div class="border-t border-brand-brown/10 pt-4 mt-4 space-y-2">
-              <div class="flex justify-between items-baseline">
-                <span class="font-sans text-[11px] text-brand-brown/48">5 × 7</span>
-                <span class="font-serif text-[15px] font-medium text-brand-brown">$20</span>
-              </div>
-              <div class="flex justify-between items-baseline">
-                <span class="font-sans text-[11px] text-brand-brown/48">6 × 8</span>
-                <span class="font-serif text-[15px] font-medium text-brand-brown">$22</span>
-              </div>
-              <div class="flex justify-between items-baseline">
-                <span class="font-sans text-[11px] text-brand-brown/48">8 × 10</span>
-                <span class="font-serif text-[15px] font-medium text-brand-brown">$24</span>
-              </div>
+            <div class="border-t border-brand-brown/10 pt-4 mt-4">
+              <p class="font-sans text-[11px] text-brand-brown/48">available in 5×7 · 6×8 · 8×10</p>
             </div>
           </div>
         </div>
@@ -591,19 +569,8 @@
             <p class="font-sans text-[12px] text-brand-brown/55 leading-[1.75] mb-auto">
               a trio of inks (black, blue &amp; brown), paintbrush for flowing strokes, calligraphy pen for delicate detail work.
             </p>
-            <div class="border-t border-brand-brown/10 pt-4 mt-4 space-y-2">
-              <div class="flex justify-between items-baseline">
-                <span class="font-sans text-[11px] text-brand-brown/48">5 × 7</span>
-                <span class="font-serif text-[15px] font-medium text-brand-brown">$18</span>
-              </div>
-              <div class="flex justify-between items-baseline">
-                <span class="font-sans text-[11px] text-brand-brown/48">6 × 8</span>
-                <span class="font-serif text-[15px] font-medium text-brand-brown">$20</span>
-              </div>
-              <div class="flex justify-between items-baseline">
-                <span class="font-sans text-[11px] text-brand-brown/48">8 × 10</span>
-                <span class="font-serif text-[15px] font-medium text-brand-brown">$22</span>
-              </div>
+            <div class="border-t border-brand-brown/10 pt-4 mt-4">
+              <p class="font-sans text-[11px] text-brand-brown/48">available in 5×7 · 6×8 · 8×10</p>
             </div>
           </div>
         </div>
@@ -628,12 +595,6 @@
             <p class="font-sans text-[12px] text-brand-brown/55 leading-[1.75] mb-auto">
               air-dry clay, pottery tools, wedge board, sponge for smoothing &amp; finishing touches. instruction card included.
             </p>
-            <div class="border-t border-brand-brown/10 pt-4 mt-4">
-              <div class="flex justify-between items-baseline">
-                <span class="font-sans text-[11px] text-brand-brown/48">per visit</span>
-                <span class="font-serif text-[15px] font-medium text-brand-brown">$22</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -648,7 +609,7 @@
                  style="filter: grayscale(1) brightness(0.72);">
             <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(92,74,69,0.72) 0%, transparent 55%);"></div>
             <div class="absolute top-4 right-4">
-              <span style="background:rgba(221,218,209,0.18); border:1px solid rgba(221,218,209,0.35); color:rgba(221,218,209,0.85); font-family:'DM Sans',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; border-radius:50px; padding:5px 12px;">coming soon</span>
+              <span style="background:rgba(221,218,209,0.18); border:1px solid rgba(221,218,209,0.35); color:rgba(221,218,209,0.85); font-family:'DM Sans',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.2em; text-transform:lowercase; border-radius:50px; padding:5px 12px;">coming soon</span>
             </div>
             <div class="absolute bottom-0 left-0 right-0 p-6">
               <p class="label text-brand-parchment/40 mb-1">mixed media</p>
@@ -661,12 +622,6 @@
             <p class="font-sans text-[12px] text-brand-brown/55 leading-[1.75] mb-auto">
               paper, curated magazines &amp; paper cutouts, scissors, stickers &amp; glue. space for your creativity to lead.
             </p>
-            <div class="border-t border-brand-brown/10 pt-4 mt-4">
-              <div class="flex justify-between items-baseline">
-                <span class="font-sans text-[11px] text-brand-brown/48">per visit</span>
-                <span class="font-serif text-[15px] font-medium text-brand-brown">$20</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -690,12 +645,6 @@
             <p class="font-sans text-[12px] text-brand-brown/55 leading-[1.75] mb-auto">
               string, a curated selection of beads &amp; charms, scissors + tools. ready to make, gift, or keep close.
             </p>
-            <div class="border-t border-brand-brown/10 pt-4 mt-4">
-              <div class="flex justify-between items-baseline">
-                <span class="font-sans text-[11px] text-brand-brown/48">per visit</span>
-                <span class="font-serif text-[15px] font-medium text-brand-brown">$14</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -713,12 +662,6 @@
         <p class="font-sans text-[12.5px] text-brand-brown/55 leading-[1.78] mb-6">
           playful, fresh &amp; ever-changing — a limited time offering inspired by the moment.
         </p>
-        <div class="border-t border-brand-brown/10 pt-4">
-          <div class="flex justify-between items-baseline">
-            <span class="font-sans text-[11.5px] text-brand-brown/45">per visit</span>
-            <span class="font-serif text-[15px] font-medium text-brand-brown">$18 – 24</span>
-          </div>
-        </div>
       </div>
 
       <!-- Kid's Menu -->
@@ -728,19 +671,8 @@
         <p class="font-sans text-[12.5px] text-brand-brown/55 leading-[1.78] mb-6">
           washable and joyful — for little hands &amp; big imaginations.
         </p>
-        <div class="border-t border-brand-brown/10 pt-4 space-y-2">
-          <div class="flex justify-between items-baseline">
-            <span class="font-sans text-[11.5px] text-brand-brown/50">paint sticks</span>
-            <span class="font-serif text-[15px] font-medium text-brand-brown">$10</span>
-          </div>
-          <div class="flex justify-between items-baseline">
-            <span class="font-sans text-[11.5px] text-brand-brown/50">homemade playdoh</span>
-            <span class="font-serif text-[15px] font-medium text-brand-brown">$12</span>
-          </div>
-          <div class="flex justify-between items-baseline">
-            <span class="font-sans text-[11.5px] text-brand-brown/50">crayons</span>
-            <span class="font-serif text-[15px] font-medium text-brand-brown">$6</span>
-          </div>
+        <div class="border-t border-brand-brown/10 pt-4">
+          <p class="font-sans text-[11.5px] text-brand-brown/50">paint sticks · homemade playdoh · crayons</p>
         </div>
       </div>
     </div>
@@ -755,7 +687,7 @@
 <section id="about" class="py-24 px-6 relative overflow-hidden"
          style="background: linear-gradient(140deg, var(--parchment) 55%, rgba(165,187,198,0.17) 100%);">
   <div class="max-w-6xl mx-auto">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-start">
 
       <div>
         <p class="label text-brand-olive mb-4">our story</p>
@@ -784,33 +716,30 @@
       <div class="flex flex-col gap-4">
         <div class="flex items-stretch gap-4">
           <div class="flex flex-col items-center gap-3 flex-1">
-            <div class="w-full overflow-hidden"
-                 style="border-radius: 16px; aspect-ratio: 4/5; box-shadow: 0 4px 16px rgba(92,74,69,0.10), 0 16px 48px rgba(92,74,69,0.09);">
+            <div class="w-full"
+                 style="aspect-ratio: 4/5; box-shadow: 0 4px 16px rgba(92,74,69,0.10), 0 16px 48px rgba(92,74,69,0.09); border-radius: 16px;">
               <img src="brand_assets/Alison photos/445A4528-Copy1.jpg"
                    alt="Courtney, co-founder of Found & Formed"
                    class="w-full h-full object-cover object-top"
-                   style="filter: saturate(0.92);">
+                   style="border-radius: 16px; display: block;">
             </div>
             <p class="font-serif italic text-[15px] text-brand-brown/55">courtney</p>
           </div>
           <div class="flex flex-col items-center gap-3 flex-1">
-            <div class="w-full overflow-hidden"
-                 style="border-radius: 16px; aspect-ratio: 4/5; box-shadow: 0 4px 16px rgba(92,74,69,0.10), 0 16px 48px rgba(92,74,69,0.09);">
+            <div class="w-full"
+                 style="aspect-ratio: 4/5; box-shadow: 0 4px 16px rgba(92,74,69,0.10), 0 16px 48px rgba(92,74,69,0.09); border-radius: 16px;">
               <img src="brand_assets/Alison photos/445A4035.jpg"
                    alt="Michael, co-founder of Found & Formed"
                    class="w-full h-full object-cover object-top"
-                   style="filter: saturate(0.92);">
+                   style="border-radius: 16px; display: block;">
             </div>
             <p class="font-serif italic text-[15px] text-brand-brown/55">michael</p>
           </div>
         </div>
-        <div class="w-full overflow-hidden"
-             style="border-radius: 16px; aspect-ratio: 3/2; box-shadow: 0 4px 16px rgba(92,74,69,0.10), 0 16px 48px rgba(92,74,69,0.09);">
-          <img src="brand_assets/Alison photos/445A4741.jpg"
-               alt="Courtney and Michael, co-founders of Found & Formed"
-               class="w-full h-full object-cover object-center"
-               style="filter: saturate(0.92);">
-        </div>
+        <img src="brand_assets/Alison%20photos/445A4741.jpg"
+             alt="Courtney and Michael, co-founders of Found &amp; Formed"
+             style="width: 100%; height: auto; display: block; border-radius: 16px;
+                    box-shadow: 0 4px 16px rgba(92,74,69,0.10), 0 16px 48px rgba(92,74,69,0.09);">
       </div>
 
     </div>
@@ -893,9 +822,9 @@
 
       <!-- Left: copy -->
       <div>
-        <p class="label text-brand-olive mb-4" style="text-transform:none;">bring the studio to you</p>
+        <p class="label text-brand-olive mb-4" style="text-transform:lowercase;">bring the studio to you</p>
         <h2 class="font-serif text-[44px] md:text-[54px] font-light text-brand-brown leading-[1.06] mb-6">
-          host a pop-up
+          host
         </h2>
         <p class="font-sans text-[13.5px] text-brand-brown/60 leading-[1.92] mb-5">
           bring found &amp; formed to your business, market, or event. we set up, bring the supplies, and create the experience — you just invite the people.
@@ -968,7 +897,7 @@
                     class="w-full bg-white/55 border border-brand-brown/15 rounded-[12px] px-4 py-3 font-sans text-[13px] text-brand-brown focus:outline-none focus:border-brand-olive transition-colors appearance-none"
                     style="background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235c4a45' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E\"); background-repeat: no-repeat; background-position: right 14px center;">
               <option value="" disabled selected style="color:rgba(92,74,69,0.3);">select one…</option>
-              <option value="Business Pop-Up">business pop-up (boutique, café, salon, market…)</option>
+              <option value="Business host">business pop-up (boutique, café, salon, market…)</option>
               <option value="Private Party or Shower">private party or shower</option>
               <option value="Corporate or Team Event">corporate or team event</option>
               <option value="Birthday Party">birthday party</option>
@@ -1151,7 +1080,7 @@
         <a href="#menu"       class="label text-brand-parchment/38 hover:text-brand-parchment/65 transition-colors">Menu</a>
         <a href="#about"      class="label text-brand-parchment/38 hover:text-brand-parchment/65 transition-colors">About</a>
         <a href="#experience" class="label text-brand-parchment/38 hover:text-brand-parchment/65 transition-colors">Experience</a>
-        <a href="#book"       class="label text-brand-parchment/38 hover:text-brand-parchment/65 transition-colors">Visit</a>
+        <a href="#book"       class="label text-brand-parchment/38 hover:text-brand-parchment/65 transition-colors">connect</a>
         <a href="https://foundandformedart.com" class="label text-brand-parchment/38 hover:text-brand-parchment/65 transition-colors">foundandformedart.com</a>
       </nav>
       <div class="flex items-center gap-2">
@@ -1181,7 +1110,10 @@
       <p class="font-serif italic text-brand-parchment/16 text-[12.5px]">
         made whole, not made perfect.
       </p>
-      <a href="admin.html" style="font-family:'DM Sans',sans-serif; font-size:9.5px; color:rgba(221,218,209,0.18); text-decoration:none; letter-spacing:0.08em;" title="admin">⬡</a>
+      <div style="display:flex; gap:14px; align-items:center;">
+        <a href="cogs.html" style="font-family:'DM Sans',sans-serif; font-size:9.5px; color:rgba(221,218,209,0.18); text-decoration:none; letter-spacing:0.08em;" title="cogs calculator">◈</a>
+        <a href="admin.html" style="font-family:'DM Sans',sans-serif; font-size:9.5px; color:rgba(221,218,209,0.18); text-decoration:none; letter-spacing:0.08em;" title="admin">⬡</a>
+      </div>
     </div>
   </div>
 </footer>
@@ -1189,44 +1121,86 @@
 
 <!-- ── Reservation Modal ──────────────────────────────────────────── -->
 <div id="reserve-modal" style="display:none; position:fixed; inset:0; z-index:100; align-items:center; justify-content:center; padding:24px; background:rgba(92,74,69,0.5); backdrop-filter:blur(8px);">
-  <div style="width:100%; max-width:460px; background:#dddad1; border-radius:28px; padding:40px; box-shadow:0 32px 80px rgba(92,74,69,0.28); max-height:90vh; overflow-y:auto;">
+  <div style="width:100%; max-width:520px; background:#dddad1; border-radius:28px; padding:36px 40px; box-shadow:0 32px 80px rgba(92,74,69,0.28); max-height:90vh; overflow-y:auto;">
 
+    <!-- Header -->
     <div style="display:flex; align-items:start; justify-content:space-between; margin-bottom:24px; gap:12px;">
       <div>
-        <p id="modal-label" style="font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:#8e8151; margin-bottom:5px;"></p>
+        <p id="modal-label" style="font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.15em; text-transform:lowercase; color:#8e8151; margin-bottom:5px;"></p>
         <h2 id="res-modal-title" style="font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:300; color:#5c4a45; line-height:1.2;"></h2>
       </div>
       <button onclick="closeReserve()" style="background:none; border:none; cursor:pointer; font-size:26px; color:rgba(92,74,69,0.28); line-height:1; padding:0; margin-top:2px; flex-shrink:0;" aria-label="close">×</button>
     </div>
 
+    <!-- Alerts -->
     <div id="res-error"   style="display:none; background:rgba(168,74,66,0.09); border:1px solid rgba(168,74,66,0.25); color:#a84a42; border-radius:12px; padding:11px 14px; font-family:'DM Sans',sans-serif; font-size:12.5px; margin-bottom:14px;"></div>
     <div id="res-success" style="display:none; background:rgba(80,120,80,0.09); border:1px solid rgba(80,120,80,0.25); color:#3d6b3d; border-radius:12px; padding:11px 14px; font-family:'DM Sans',sans-serif; font-size:12.5px; margin-bottom:14px;"></div>
 
+    <!-- Step 1: Arrival time -->
+    <div style="margin-bottom:22px;">
+      <p style="font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:lowercase; color:rgba(92,74,69,0.5); margin-bottom:12px;">choose your arrival time</p>
+
+      <p style="font-family:'DM Sans',sans-serif; font-size:9.5px; font-weight:500; letter-spacing:0.12em; text-transform:lowercase; color:rgba(142,129,81,0.7); margin-bottom:8px;">morning · 10:30 am – 12:30 pm</p>
+      <div id="slots-morning" style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:16px;"></div>
+
+      <p style="font-family:'DM Sans',sans-serif; font-size:9.5px; font-weight:500; letter-spacing:0.12em; text-transform:lowercase; color:rgba(142,129,81,0.7); margin-bottom:8px;">afternoon · 1:00 pm – 3:00 pm</p>
+      <div id="slots-afternoon" style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px;"></div>
+    </div>
+
+    <!-- Step 2: Party size (revealed after time pick) -->
+    <div id="party-section" style="display:none; margin-bottom:22px; padding:18px 20px; background:rgba(255,255,255,0.3); border-radius:16px;">
+      <p style="font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:lowercase; color:rgba(92,74,69,0.5); margin-bottom:12px;">how many guests?</p>
+      <div style="display:flex; align-items:center; gap:18px;">
+        <button id="party-minus" onclick="adjustParty(-1)"
+          style="width:32px; height:32px; border-radius:50%; border:1px solid rgba(92,74,69,0.2); background:rgba(255,255,255,0.65); color:#5c4a45; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:opacity 0.15s;">−</button>
+        <span id="party-count" style="font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:300; color:#5c4a45; min-width:24px; text-align:center;">1</span>
+        <button id="party-plus" onclick="adjustParty(1)"
+          style="width:32px; height:32px; border-radius:50%; border:1px solid rgba(92,74,69,0.2); background:rgba(255,255,255,0.65); color:#5c4a45; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:opacity 0.15s;">+</button>
+        <span id="party-avail" style="font-family:'DM Sans',sans-serif; font-size:11px; color:rgba(92,74,69,0.42); letter-spacing:0.04em;"></span>
+      </div>
+    </div>
+
+    <!-- Experience interest (required) -->
     <div style="margin-bottom:14px;">
-      <label style="display:block; font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:rgba(92,74,69,0.5); margin-bottom:6px;">Name</label>
+      <label style="display:block; font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:lowercase; color:rgba(92,74,69,0.5); margin-bottom:6px;">which experience are you most looking forward to?</label>
+      <select id="res-experience"
+              style="width:100%; background:rgba(255,255,255,0.55); border:1px solid rgba(92,74,69,0.18); border-radius:12px; padding:11px 14px; font-family:'DM Sans',sans-serif; font-size:13px; color:#5c4a45; outline:none; box-sizing:border-box; appearance:none; background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(92,74,69,0.4)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E\"); background-repeat:no-repeat; background-position:right 14px center; cursor:pointer;">
+        <option value="" disabled selected>choose one...</option>
+        <option value="watercolor flight">watercolor flight</option>
+        <option value="oil pastel plate">oil pastel plate</option>
+        <option value="ink sampler">ink sampler</option>
+        <option value="clay soufflé">clay soufflé</option>
+        <option value="charm bar">charm bar</option>
+        <option value="rotating special">rotating special</option>
+        <option value="kid's menu">kid's menu</option>
+        <option value="not sure yet">not sure yet — i'll decide on-site!</option>
+      </select>
+    </div>
+
+    <!-- Contact fields -->
+    <div style="margin-bottom:14px;">
+      <label style="display:block; font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:lowercase; color:rgba(92,74,69,0.5); margin-bottom:6px;">name</label>
       <input type="text" id="res-name" placeholder="your name"
              style="width:100%; background:rgba(255,255,255,0.55); border:1px solid rgba(92,74,69,0.18); border-radius:12px; padding:11px 14px; font-family:'DM Sans',sans-serif; font-size:13px; color:#5c4a45; outline:none; box-sizing:border-box;">
     </div>
     <div style="margin-bottom:14px;">
-      <label style="display:block; font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:rgba(92,74,69,0.5); margin-bottom:6px;">Email</label>
+      <label style="display:block; font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:lowercase; color:rgba(92,74,69,0.5); margin-bottom:6px;">email</label>
       <input type="email" id="res-email" placeholder="you@email.com"
              style="width:100%; background:rgba(255,255,255,0.55); border:1px solid rgba(92,74,69,0.18); border-radius:12px; padding:11px 14px; font-family:'DM Sans',sans-serif; font-size:13px; color:#5c4a45; outline:none; box-sizing:border-box;">
     </div>
-    <div style="margin-bottom:14px;">
-      <label style="display:block; font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:rgba(92,74,69,0.5); margin-bottom:6px;">Phone <span style="font-weight:300; text-transform:none; letter-spacing:0; font-size:10px;">(optional)</span></label>
+    <div style="margin-bottom:26px;">
+      <label style="display:block; font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:lowercase; color:rgba(92,74,69,0.5); margin-bottom:6px;">phone <span style="font-weight:300; text-transform:none; letter-spacing:0; font-size:10px;">(optional)</span></label>
       <input type="tel" id="res-phone" placeholder="(555) 000-0000"
              style="width:100%; background:rgba(255,255,255,0.55); border:1px solid rgba(92,74,69,0.18); border-radius:12px; padding:11px 14px; font-family:'DM Sans',sans-serif; font-size:13px; color:#5c4a45; outline:none; box-sizing:border-box;">
     </div>
-    <div style="margin-bottom:26px;">
-      <label style="display:block; font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:rgba(92,74,69,0.5); margin-bottom:6px;">What would you like to preorder? <span style="font-weight:300; text-transform:none; letter-spacing:0; font-size:10px;">(optional)</span></label>
-      <textarea id="res-notes" rows="3" placeholder="let us know what you'd like to create or any items you'd like to have ready for you…"
-                style="width:100%; background:rgba(255,255,255,0.55); border:1px solid rgba(92,74,69,0.18); border-radius:12px; padding:11px 14px; font-family:'DM Sans',sans-serif; font-size:13px; color:#5c4a45; outline:none; resize:vertical; box-sizing:border-box;"></textarea>
-    </div>
 
     <button id="res-submit-btn" type="button"
-            style="width:100%; background:#8e8151; color:#dddad1; border:none; border-radius:50px; padding:14px 28px; font-family:'DM Sans',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; cursor:pointer;">
-      reserve my seat →
+            style="width:100%; background:#8e8151; color:#dddad1; border:none; border-radius:50px; padding:14px 28px; font-family:'DM Sans',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.15em; text-transform:lowercase; cursor:pointer; transition:background 0.2s;">
+      reserve & pay →
     </button>
+    <p style="font-family:'DM Sans',sans-serif; font-size:10.5px; color:rgba(92,74,69,0.35); text-align:center; margin-top:12px; line-height:1.6;">
+      you'll be redirected to square to complete your payment
+    </p>
   </div>
 </div>
 
@@ -1410,21 +1384,97 @@
   }
 
   // ── Reservation modal ────────────────────────────────────────────
+  const MAX_CAPACITY = 8;
+
+  const TIME_SLOTS = [
+    { key: '10:30am', label: '10:30 am', window: 'morning'   },
+    { key: '10:45am', label: '10:45 am', window: 'morning'   },
+    { key: '11:00am', label: '11:00 am', window: 'morning'   },
+    { key: '11:15am', label: '11:15 am', window: 'morning'   },
+    { key: '11:30am', label: '11:30 am', window: 'morning'   },
+    { key: '11:45am', label: '11:45 am', window: 'morning'   },
+    { key: '12:00pm', label: '12:00 pm', window: 'morning'   },
+    { key: '12:15pm', label: '12:15 pm', window: 'morning'   },
+    { key: '1:00pm',  label: '1:00 pm',  window: 'afternoon' },
+    { key: '1:15pm',  label: '1:15 pm',  window: 'afternoon' },
+    { key: '1:30pm',  label: '1:30 pm',  window: 'afternoon' },
+    { key: '1:45pm',  label: '1:45 pm',  window: 'afternoon' },
+    { key: '2:00pm',  label: '2:00 pm',  window: 'afternoon' },
+    { key: '2:15pm',  label: '2:15 pm',  window: 'afternoon' },
+  ];
+
   let currentEventId    = null;
   let currentEventTitle = null;
+  let currentSquareLink = '';
+  let selectedSession   = null;
+  let partySize         = 1;
+  let allReservations   = [];
 
-  function openReserve(eventId, title, dateLine) {
+  function computeAvailable(slotKey) {
+    const booked = allReservations
+      .filter(r => r.session === slotKey)
+      .reduce((sum, r) => sum + (r.party_size || 1), 0);
+    return Math.max(0, MAX_CAPACITY - booked);
+  }
+
+  function renderTimeSlots() {
+    function slotBtn(slot) {
+      const avail  = computeAvailable(slot.key);
+      const full   = avail <= 0;
+      const active = slot.key === selectedSession;
+      const bg     = active ? '#8e8151'                : full ? 'rgba(92,74,69,0.05)' : 'rgba(255,255,255,0.45)';
+      const border = active ? '#8e8151'                : full ? 'rgba(92,74,69,0.1)'  : 'rgba(92,74,69,0.15)';
+      const tColor = active ? '#dddad1'                : full ? 'rgba(92,74,69,0.28)' : '#5c4a45';
+      const aColor = active ? 'rgba(221,218,209,0.65)' : full ? 'rgba(92,74,69,0.22)' : 'rgba(92,74,69,0.38)';
+      const aText  = full ? 'full' : avail + ' left';
+      return `<button onclick="${full ? '' : `pickSession('${slot.key}')`}"
+        style="background:${bg}; border:1.5px solid ${border}; border-radius:12px; padding:10px 6px; cursor:${full && !active ? 'default' : 'pointer'}; text-align:center; transition:background 0.2s, border-color 0.2s; opacity:${full && !active ? '0.5' : '1'};"
+        ${full && !active ? 'disabled' : ''}>
+        <p style="font-family:'DM Sans',sans-serif; font-size:11.5px; font-weight:500; color:${tColor}; margin:0 0 4px; letter-spacing:0.01em;">${slot.label}</p>
+        <p style="font-family:'DM Sans',sans-serif; font-size:9px; color:${aColor}; margin:0; letter-spacing:0.05em;">${aText}</p>
+      </button>`;
+    }
+    document.getElementById('slots-morning').innerHTML   = TIME_SLOTS.filter(s => s.window === 'morning').map(slotBtn).join('');
+    document.getElementById('slots-afternoon').innerHTML = TIME_SLOTS.filter(s => s.window === 'afternoon').map(slotBtn).join('');
+  }
+
+  async function openReserve(eventId, title, dateLine, squareLink) {
     currentEventId    = eventId;
     currentEventTitle = title;
-    document.getElementById('res-modal-title').textContent = title;
-    document.getElementById('modal-label').textContent     = dateLine;
-    document.getElementById('res-error').style.display    = 'none';
-    document.getElementById('res-success').style.display  = 'none';
-    ['res-name','res-email','res-phone','res-notes'].forEach(id => {
-      document.getElementById(id).value = '';
+    currentSquareLink = squareLink || '';
+    selectedSession   = null;
+    partySize         = 1;
+    allReservations   = [];
+
+    document.getElementById('res-modal-title').textContent  = title;
+    document.getElementById('modal-label').textContent      = dateLine;
+    document.getElementById('res-error').style.display      = 'none';
+    document.getElementById('res-success').style.display    = 'none';
+    document.getElementById('party-section').style.display  = 'none';
+    document.getElementById('party-count').textContent      = '1';
+
+    ['res-name','res-email','res-phone','res-experience'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
     });
+
     const submitBtn = document.getElementById('res-submit-btn');
-    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'reserve my seat →'; }
+    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'reserve & pay →'; }
+
+    // Load all existing reservations once for rolling capacity checks
+    try {
+      const { data, error } = await sb
+        .from('reservations')
+        .select('session, party_size')
+        .eq('event_id', eventId);
+      if (error) console.warn('Reservations fetch error (likely RLS):', error.message);
+      allReservations = data || [];
+    } catch (e) {
+      console.warn('Reservations fetch exception:', e.message);
+      allReservations = [];
+    }
+
+    renderTimeSlots();
     document.getElementById('reserve-modal').style.display = 'flex';
     document.body.style.overflow = 'hidden';
   }
@@ -1434,11 +1484,38 @@
     document.body.style.overflow = '';
   }
 
+  function pickSession(session) {
+    selectedSession = session;
+    partySize       = 1;
+    renderTimeSlots();
+
+    const avail = computeAvailable(session);
+    document.getElementById('party-count').textContent = '1';
+    document.getElementById('party-avail').textContent = avail + ' spots available';
+    updatePartyButtons(avail);
+    document.getElementById('party-section').style.display = 'block';
+  }
+
+  function updatePartyButtons(avail) {
+    const minus = document.getElementById('party-minus');
+    const plus  = document.getElementById('party-plus');
+    if (minus) { minus.disabled = partySize <= 1;    minus.style.opacity = partySize <= 1    ? '0.28' : '1'; minus.style.cursor = partySize <= 1    ? 'default' : 'pointer'; }
+    if (plus)  { plus.disabled  = partySize >= avail; plus.style.opacity  = partySize >= avail ? '0.28' : '1'; plus.style.cursor  = partySize >= avail ? 'default' : 'pointer'; }
+  }
+
+  function adjustParty(delta) {
+    if (!selectedSession) return;
+    const avail = computeAvailable(selectedSession);
+    partySize   = Math.max(1, Math.min(partySize + delta, avail));
+    document.getElementById('party-count').textContent = partySize;
+    updatePartyButtons(avail);
+  }
+
   async function submitReservation() {
-    const name  = document.getElementById('res-name').value.trim();
-    const email = document.getElementById('res-email').value.trim();
-    const phone = document.getElementById('res-phone').value.trim();
-    const notes = document.getElementById('res-notes').value.trim();
+    const name       = document.getElementById('res-name').value.trim();
+    const email      = document.getElementById('res-email').value.trim();
+    const phone      = document.getElementById('res-phone').value.trim();
+    const experience = document.getElementById('res-experience').value.trim();
     const errEl = document.getElementById('res-error');
     const okEl  = document.getElementById('res-success');
     const btn   = document.getElementById('res-submit-btn');
@@ -1446,62 +1523,78 @@
     errEl.style.display = 'none';
     okEl.style.display  = 'none';
 
+    if (!selectedSession) {
+      errEl.textContent = 'please choose an arrival time.';
+      errEl.style.display = 'block'; return;
+    }
+    if (!experience) {
+      errEl.textContent = 'please tell us which experience you\'re most looking forward to.';
+      errEl.style.display = 'block'; return;
+    }
     if (!name || !email) {
-      errEl.textContent   = 'please enter your name and email to reserve your spot.';
-      errEl.style.display = 'block';
-      return;
+      errEl.textContent = 'please enter your name and email.';
+      errEl.style.display = 'block'; return;
     }
 
-    if (btn) { btn.disabled = true; btn.textContent = 'reserving…'; }
+    // Final rolling capacity check before submit
+    const avail = computeAvailable(selectedSession);
+    if (partySize > avail) {
+      errEl.textContent = `only ${avail} spot${avail === 1 ? '' : 's'} remaining for that time — please adjust your party size.`;
+      errEl.style.display = 'block'; return;
+    }
+
+    if (btn) { btn.disabled = true; btn.textContent = 'saving…'; }
 
     try {
-      // 1 — Save to Supabase
       const { error: dbErr } = await sb.from('reservations').insert({
-        event_id:       currentEventId,
+        event_id:   currentEventId,
         name,
         email,
-        phone:          phone || null,
-        preorder_notes: notes || null,
+        phone:      phone || null,
+        session:    selectedSession,
+        craft:      experience,
+        party_size: partySize,
       });
 
       if (dbErr) {
-        errEl.textContent   = 'something went wrong — please try again.';
+        errEl.textContent = 'something went wrong — please try again.';
         errEl.style.display = 'block';
-        if (btn) { btn.disabled = false; btn.textContent = 'reserve my seat →'; }
+        if (btn) { btn.disabled = false; btn.textContent = 'reserve & pay →'; }
         return;
       }
 
-      // 2 — Send email notification via Formspree
-      fetch('https://formspree.io/f/mvzvjgvv', {
+      await fetch('https://formspree.io/f/mvzvjgvv', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
-          _subject:  '✦ New reservation: ' + currentEventTitle,
-          Event:     currentEventTitle,
-          Name:      name,
-          Email:     email,
-          Phone:     phone || '—',
-          'Preorder notes': notes || '—',
+          _subject:              '✦ New reservation: ' + currentEventTitle,
+          Event:                 currentEventTitle,
+          Name:                  name,
+          Email:                 email,
+          Phone:                 phone || '—',
+          'Arrival time':        selectedSession,
+          'Party size':          partySize,
+          'Looking forward to':  experience,
         }),
-      }).catch(() => {}); // email is best-effort — don't block the user if it fails
+      }).catch(() => {});
 
-      // 3 — Show success
-      okEl.textContent   = "you're on the list! we'll see you soon. ✦";
-      okEl.style.display = 'block';
-      ['res-name','res-email','res-phone','res-notes'].forEach(id => {
-        document.getElementById(id).value = '';
-      });
-      if (btn) { btn.disabled = false; btn.textContent = 'reserve my seat →'; }
-      setTimeout(closeReserve, 3000);
+      if (currentSquareLink) {
+        window.location.href = currentSquareLink;
+      } else {
+        okEl.textContent   = "you're on the list! we'll see you soon. ✦";
+        okEl.style.display = 'block';
+        if (btn) { btn.disabled = false; btn.textContent = 'reserve & pay →'; }
+        setTimeout(closeReserve, 3000);
+      }
 
     } catch (err) {
-      errEl.textContent   = 'unexpected error — please try again.';
+      errEl.textContent = 'unexpected error — please try again.';
       errEl.style.display = 'block';
-      if (btn) { btn.disabled = false; btn.textContent = 'reserve my seat →'; }
+      if (btn) { btn.disabled = false; btn.textContent = 'reserve & pay →'; }
     }
   }
 
-  // Wire up submit button and backdrop click + Escape key
+  // Wire up submit button, backdrop click, and Escape key
   document.addEventListener('DOMContentLoaded', () => {
     const submitBtn = document.getElementById('res-submit-btn');
     if (submitBtn) submitBtn.addEventListener('click', submitReservation);
@@ -1516,6 +1609,26 @@
       closeReserve();
     }
   });
+
+  // ── Share button ─────────────────────────────────────────────────
+  async function shareEvent(btn, title) {
+    const url  = window.location.origin + window.location.pathname + '#events';
+    const orig = btn.innerHTML;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'found & formed — ' + (title || 'reserve a seat'),
+          text:  'join us for a creative pop-up! reserve your spot here:',
+          url,
+        });
+      } catch (e) { /* user cancelled */ }
+    } else {
+      await navigator.clipboard.writeText(url).catch(() => {});
+      btn.textContent = 'copied!';
+      setTimeout(() => { btn.innerHTML = orig; }, 2200);
+    }
+  }
 
   // ── Pop-up inquiry form ──────────────────────────────────────────
   async function submitPopupInquiry() {
@@ -1552,7 +1665,7 @@
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
           _subject:          '✦ Pop-up inquiry from ' + name,
-          'Inquiry type':    'Pop-Up Hosting',
+          'Inquiry type':    'host Hosting',
           'Event type':      type,
           Name:              name,
           Email:             email,
@@ -1609,28 +1722,37 @@
       const dateLine = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }).toUpperCase()
                      + (ev.event_time ? ' · ' + ev.event_time : '');
       // Use data-* attributes to avoid quote conflicts with JSON.stringify inside onclick
-      const safeTitle = ev.title.replace(/"/g, '&quot;');
-      const safeDate  = dateLine.replace(/"/g, '&quot;');
+      const safeTitle  = ev.title.replace(/"/g, '&quot;');
+      const safeDate   = dateLine.replace(/"/g, '&quot;');
+      const safeSquare = (ev.square_payment_link || '').replace(/"/g, '&quot;');
       return `
         <div class="rounded-[20px] border border-brand-brown/12 bg-white/35 p-7 flex flex-col">
           <p class="label text-brand-olive mb-1">${dateLine}</p>
           <h3 class="font-serif text-[26px] font-light text-brand-brown leading-tight mb-2">${ev.title}</h3>
           ${ev.location ? `<p class="font-sans text-[11.5px] text-brand-brown/40 mb-3" style="letter-spacing:0.04em;">${ev.location}</p>` : ''}
           ${ev.description ? `<p class="font-sans text-[12.5px] text-brand-brown/50 leading-[1.8] mb-6 flex-1">${ev.description}</p>` : '<div class="flex-1 mb-6"></div>'}
-          <button class="btn btn-olive w-full text-center mt-auto reserve-btn"
-                  data-id="${ev.id}"
-                  data-title="${safeTitle}"
-                  data-date="${safeDate}">reserve a seat →</button>
+          <div class="flex flex-col gap-2 mt-auto">
+            <button class="btn btn-olive w-full text-center reserve-btn"
+                    data-id="${ev.id}"
+                    data-title="${safeTitle}"
+                    data-date="${safeDate}"
+                    data-square="${safeSquare}">reserve a seat →</button>
+            <button class="btn btn-ghost w-full text-center share-btn" data-title="${safeTitle}" aria-label="Share this event">share</button>
+          </div>
         </div>`;
     }).join('');
 
     container.innerHTML = `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">${cards}</div>`;
 
-    // Handle reserve button clicks via delegation (avoids inline onclick quote issues)
+    // Handle reserve and share button clicks via delegation
     container.addEventListener('click', function(e) {
-      const btn = e.target.closest('.reserve-btn');
-      if (!btn) return;
-      openReserve(btn.dataset.id, btn.dataset.title, btn.dataset.date);
+      const reserveBtn = e.target.closest('.reserve-btn');
+      if (reserveBtn) {
+        openReserve(reserveBtn.dataset.id, reserveBtn.dataset.title, reserveBtn.dataset.date, reserveBtn.dataset.square);
+        return;
+      }
+      const shareBtn = e.target.closest('.share-btn');
+      if (shareBtn) shareEvent(shareBtn, shareBtn.dataset.title);
     });
   })();
 </script>
