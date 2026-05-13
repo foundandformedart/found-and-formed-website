@@ -177,6 +177,11 @@
           <textarea id="ev-description" rows="3" placeholder="what to expect, what's included, anything guests should bring…"></textarea>
         </div>
 
+        <div class="field">
+          <label>Square Payment Link <span style="font-weight:300; text-transform:none; font-size:10px; letter-spacing:0;">(optional — customers are redirected here after reserving)</span></label>
+          <input type="url" id="ev-square-link" placeholder="https://square.link/u/…">
+        </div>
+
         <button id="save-btn" class="btn btn-olive">save event →</button>
       </section>
 
@@ -316,6 +321,7 @@
         const time        = document.getElementById('ev-time').value.trim();
         const location    = document.getElementById('ev-location').value.trim();
         const description = document.getElementById('ev-description').value.trim();
+        const squareLink  = document.getElementById('ev-square-link').value.trim();
 
         if (!title || !date) {
           if (btn) { btn.disabled = false; btn.textContent = 'save event →'; }
@@ -326,10 +332,11 @@
 
         const { data, error } = await sb.from('events').insert({
           title,
-          event_date:  date,
-          event_time:  time        || null,
-          location:    location    || null,
-          description: description || null,
+          event_date:          date,
+          event_time:          time        || null,
+          location:            location    || null,
+          description:         description || null,
+          square_payment_link: squareLink  || null,
         }).select();
 
         if (btn) { btn.disabled = false; btn.textContent = 'save event →'; }
@@ -340,7 +347,7 @@
         } else {
           showAlert('form-success', 'event saved! it\'s now live on the website.');
           document.getElementById('form-success').scrollIntoView({ behavior: 'smooth', block: 'center' });
-          ['ev-title','ev-date','ev-time','ev-location','ev-description']
+          ['ev-title','ev-date','ev-time','ev-location','ev-description','ev-square-link']
             .forEach(id => { document.getElementById(id).value = ''; });
           loadEvents();
         }
@@ -400,6 +407,7 @@
               <div style="flex:1; min-width:0;">
                 <p style="font-size:14px; font-weight:500; color:var(--brown);">${escHtml(r.name)}</p>
                 <p style="font-size:12px; color:rgba(92,74,69,0.5); margin-top:2px;">${escHtml(r.email)}${r.phone ? ' · ' + escHtml(r.phone) : ''}</p>
+                ${(r.session || r.craft) ? `<p style="font-size:11.5px; color:rgba(142,129,81,0.85); margin-top:5px; font-weight:500; letter-spacing:0.02em;">${escHtml(r.session || '')}${r.craft ? ' · ' + escHtml(r.craft) : ''}${r.party_size ? ' · party of ' + r.party_size : ''}</p>` : ''}
                 ${r.preorder_notes ? `<p style="font-size:12.5px; color:rgba(92,74,69,0.55); margin-top:6px; font-style:italic; line-height:1.65;">"${escHtml(r.preorder_notes)}"</p>` : ''}
               </div>
               <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
@@ -431,13 +439,16 @@
 
       // Build CSV
       const escape = v => '"' + String(v ?? '').replace(/"/g, '""') + '"';
+      const sessionLabel = s => s || '';
       const rows = [
-        ['Name', 'Email', 'Phone', 'Preorder Notes', 'Date Reserved'],
+        ['Name', 'Email', 'Phone', 'Session', 'Craft', 'Party Size', 'Date Reserved'],
         ...data.map(r => [
           escape(r.name),
           escape(r.email),
           escape(r.phone),
-          escape(r.preorder_notes),
+          escape(sessionLabel(r.session)),
+          escape(r.craft),
+          escape(r.party_size),
           escape(new Date(r.created_at).toLocaleDateString('en-US')),
         ])
       ];

@@ -3,7 +3,9 @@
     "allow": [
       "Bash(cmd.exe /c start msedge \"c:\\\\Users\\\\Courtney\\\\Desktop\\\\f&f website 4.9.26\\\\index.html\")",
       "WebFetch(domain:campaign-statistics.com)",
-      "Bash(git --version)"
+      "Bash(git --version)",
+      "Bash(curl -s -X GET 'https://akviuwiqtqqfmlvusstm.supabase.co/rest/v1/reservations?select=*&limit=5' -H 'apikey: sb_publishable_171Z0fasXaye_oqF8N9NtQ_olxCJK_9' -H 'Authorization: Bearer sb_publishable_171Z0fasXaye_oqF8N9NtQ_olxCJK_9')",
+      "Bash(curl -s -X POST https://akviuwiqtqqfmlvusstm.supabase.co/rest/v1/reservations -H 'apikey: sb_publishable_171Z0fasXaye_oqF8N9NtQ_olxCJK_9' -H 'Authorization: Bearer sb_publishable_171Z0fasXaye_oqF8N9NtQ_olxCJK_9' -H 'Content-Type: application/json' -H 'Prefer: return=minimal' -d '{\"event_id\":\"rls-test-delete-me\",\"name\":\"RLS Test\",\"email\":\"rls-test@delete.me\"}')"
     ]
   }
 }
