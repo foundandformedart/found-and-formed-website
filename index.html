@@ -1683,19 +1683,21 @@
         return;
       }
 
-      await fetch('https://formspree.io/f/mvzvjgvv', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          _subject:              '✦ New reservation: ' + currentEventTitle,
-          Event:                 currentEventTitle,
-          Name:                  name,
-          Email:                 email,
-          Phone:                 phone || '—',
-          'Arrival time':        selectedSession,
-          'Party size':          partySize,
-          'Looking forward to':  experience,
-        }),
+      await sb.functions.invoke('notify-admin', {
+        body: {
+          subject: '✦ New reservation: ' + currentEventTitle,
+          type: 'reservation',
+          data: {
+            'Event':                 currentEventTitle,
+            'Name':                  name,
+            'Email':                 email,
+            'Phone':                 phone || '—',
+            'Arrival time':          selectedSession,
+            'Party size':            partySize,
+            'Looking forward to':    experience,
+            'Preorder notes':        notes || '—'
+          }
+        }
       }).catch(() => {});
 
       // Clear forms
@@ -1787,23 +1789,24 @@
     if (btn) { btn.disabled = true; btn.textContent = 'sending…'; }
 
     try {
-      const res = await fetch('https://formspree.io/f/mvzvjgvv', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          _subject:          '✦ Pop-up inquiry from ' + name,
-          'Inquiry type':    'host Hosting',
-          'Event type':      type,
-          Name:              name,
-          Email:             email,
-          Phone:             phone  || '—',
-          'Estimated guests': guests || '—',
-          'Preferred date':  date   || '—',
-          Message:           msg    || '—',
-        }),
+      const res = await sb.functions.invoke('notify-admin', {
+        body: {
+          subject: '✦ Pop-up inquiry from ' + name,
+          type: 'inquiry',
+          data: {
+            'Inquiry type':      'host Hosting',
+            'Event type':        type,
+            'Name':              name,
+            'Email':             email,
+            'Phone':             phone  || '—',
+            'Estimated guests':  guests || '—',
+            'Preferred date':    date   || '—',
+            'Message':           msg    || '—'
+          }
+        }
       });
 
-      if (res.ok) {
+      if (!res.error) {
         okEl.textContent   = "inquiry received — we'll be in touch soon. ✦";
         okEl.style.display = 'block';
         ['pi-name','pi-email','pi-phone','pi-guests','pi-date','pi-message'].forEach(id => {
