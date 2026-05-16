@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Found & Formed — COGS Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Caveat:wght@500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --brown:     #5c4a45;
+      --olive:     #8e8151;
+      --blue:      #a5bbc6;
+      --parchment: #dddad1;
+      --white-card: rgba(255,255,255,0.45);
+      --border:    rgba(92,74,69,0.13);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--parchment);
+      color: var(--brown);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(221,218,209,0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px;
+      display: flex; align-items: center; gap: 14px;
+      height: 58px;
+    }
+    header img { height: 28px; opacity: 0.88; }
+    header .title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px; font-weight: 400; letter-spacing: 0.01em;
+      color: var(--brown);
+    }
+    header .title span { font-style: italic; color: var(--olive); }
+    header .back-link {
+      margin-left: auto; font-size: 11px; font-weight: 500;
+      letter-spacing: 0.13em; text-transform: uppercase;
+      color: rgba(92,74,69,0.55); text-decoration: none;
+      transition: color 0.2s;
+    }
+    header .back-link:hover { color: var(--olive); }
+
+    /* ── Layout ── */
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    .page-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 36px; font-weight: 300; letter-spacing: -0.02em;
+      line-height: 1.15; color: var(--brown);
+      margin-bottom: 6px;
+    }
+    .page-title em { font-style: italic; color: var(--olive); }
+    .page-sub {
+      font-size: 13px; color: rgba(92,74,69,0.55);
+      margin-bottom: 36px; line-height: 1.6;
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--white-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+    }
+    .card-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 20px; font-weight: 400;
+      color: var(--brown); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .card-title .icon {
+      width: 28px; height: 28px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; flex-shrink: 0;
+    }
+    .icon-blue   { background: rgba(165,187,198,0.25); }
+    .icon-olive  { background: rgba(142,129,81,0.18); }
+    .icon-brown  { background: rgba(92,74,69,0.12); }
+    .icon-green  { background: rgba(80,120,80,0.12); }
+
+    /* ── Fields ── */
+    .field { margin-bottom: 16px; }
+    .field-row { display: grid; gap: 14px; margin-bottom: 16px; }
+    .field-row.cols-2 { grid-template-columns: 1fr 1fr; }
+    .field-row.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+    label {
+      display: block; font-size: 10.5px; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(92,74,69,0.5); margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      background: rgba(255,255,255,0.6);
+      border: 1px solid rgba(92,74,69,0.18);
+      border-radius: 12px;
+      padding: 11px 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13.5px; color: var(--brown);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input:focus, select:focus {
+      border-color: rgba(142,129,81,0.55);
+      box-shadow: 0 0 0 3px rgba(142,129,81,0.09);
+    }
+    input[type="number"] { -moz-appearance: textfield; }
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+    .input-prefix {
+      position: relative;
+    }
+    .input-prefix span {
+      position: absolute; left: 13px; top: 50%; transform: translateY(-50%);
+      font-size: 13px; color: rgba(92,74,69,0.45); pointer-events: none;
+    }
+    .input-prefix input { padding-left: 26px; }
+
+    /* ── Line-item rows ── */
+    .line-items { display: flex; flex-direction: column; gap: 10px; }
+
+    .line-item {
+      display: grid;
+      grid-template-columns: 1fr 130px 36px;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .remove-btn {
+      width: 36px; height: 36px; border-radius: 10px;
+      border: 1px solid rgba(168,74,66,0.25);
+      background: transparent; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(168,74,66,0.6); font-size: 16px;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .remove-btn:hover {
+      background: rgba(168,74,66,0.07);
+      border-color: rgba(168,74,66,0.5);
+      color: #a84a42;
+    }
+
+    .add-line-btn {
+      margin-top: 12px;
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 9px 18px; border-radius: 50px;
+      border: 1.5px dashed rgba(142,129,81,0.4);
+      background: transparent; cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.13em; text-transform: uppercase;
+      color: var(--olive);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .add-line-btn:hover {
+      border-color: var(--olive);
+      background: rgba(142,129,81,0.06);
+    }
+
+    /* ── Labor rows ── */
+    .labor-item {
+      display: grid;
+      grid-template-columns: 1fr 110px 110px 36px;
+      gap: 10px;
+      align-items: center;
+    }
+
+    /* ── Results panel ── */
+    .results-card {
+      background: linear-gradient(135deg, rgba(92,74,69,0.06) 0%, rgba(142,129,81,0.08) 100%);
+      border: 1.5px solid rgba(92,74,69,0.15);
+      border-radius: 20px;
+      padding: 32px;
+      position: sticky;
+      top: 74px;
+    }
+    .results-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 22px; font-weight: 400; margin-bottom: 24px;
+      color: var(--brown);
+    }
+
+    .result-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(92,74,69,0.08);
+      font-size: 13px;
+    }
+    .result-row:last-of-type { border-bottom: none; }
+    .result-label { color: rgba(92,74,69,0.6); }
+    .result-value { font-weight: 500; color: var(--brown); font-variant-numeric: tabular-nums; }
+
+    .result-divider {
+      height: 1px;
+      background: rgba(92,74,69,0.12);
+      margin: 12px 0;
+    }
+
+    .result-total {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 12px 0 0;
+    }
+    .result-total .label {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px; font-weight: 400; color: var(--brown);
+    }
+    .result-total .value {
+      font-size: 28px; font-weight: 400;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      color: var(--brown); font-variant-numeric: tabular-nums;
+    }
+
+    .margin-pill {
+      display: inline-block; margin-top: 14px;
+      padding: 6px 16px; border-radius: 50px;
+      font-size: 12px; font-weight: 500; letter-spacing: 0.05em;
+      transition: background 0.3s, color 0.3s;
+    }
+    .margin-good  { background: rgba(80,130,80,0.13);  color: #3d6b3d; }
+    .margin-ok    { background: rgba(165,187,198,0.25); color: #3d5a68; }
+    .margin-low   { background: rgba(168,74,66,0.11);  color: #a84a42; }
+
+    .margin-bar-track {
+      width: 100%; height: 6px; border-radius: 4px;
+      background: rgba(92,74,69,0.1);
+      margin-top: 18px; overflow: hidden;
+    }
+    .margin-bar-fill {
+      height: 100%; border-radius: 4px;
+      transition: width 0.4s cubic-bezier(0.34,1.56,0.64,1), background 0.3s;
+    }
+
+    .script-note {
+      font-family: 'Caveat', cursive;
+      font-size: 15px; color: rgba(92,74,69,0.45);
+      margin-top: 10px; text-align: center;
+    }
+
+    /* ── Selling price section ── */
+    .selling-grid {
+      display: grid; gap: 14px;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* ── Reset btn ── */
+    .btn-ghost-sm {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; border-radius: 50px;
+      border: 1.5px solid rgba(92,74,69,0.2);
+      background: transparent; cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10.5px; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(92,74,69,0.5);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost-sm:hover { border-color: var(--brown); color: var(--brown); }
+
+    /* ── Two-column layout for large screens ── */
+    @media (min-width: 700px) {
+      .layout {
+        display: grid;
+        grid-template-columns: 1fr 280px;
+        gap: 24px;
+        align-items: start;
+      }
+      .sidebar { position: sticky; top: 74px; }
+    }
+
+    @media (max-width: 699px) {
+      .field-row.cols-2,
+      .field-row.cols-3 { grid-template-columns: 1fr; }
+      .labor-item { grid-template-columns: 1fr 90px 90px 36px; }
+      .selling-grid { grid-template-columns: 1fr; }
+      .results-card { position: static; }
+      .card { padding: 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .labor-item { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+      .labor-item .remove-btn { grid-column: span 2; justify-self: end; }
+    }
+
+    /* ── Save button ── */
+    .btn-save {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 11px 24px; border-radius: 50px;
+      border: none; cursor: pointer;
+      background: var(--olive); color: var(--parchment);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-save:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-save:active { transform: translateY(0); }
+
+    /* ── Saved item cards ── */
+    .saved-card {
+      background: var(--white-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px 24px;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .saved-card:hover {
+      box-shadow: 0 4px 24px rgba(92,74,69,0.1);
+      transform: translateY(-2px);
+    }
+    .saved-card-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 19px; font-weight: 400; color: var(--brown);
+      line-height: 1.2;
+    }
+    .saved-card-meta {
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .saved-card-stat {
+      display: flex; justify-content: space-between;
+      font-size: 12px; color: rgba(92,74,69,0.6);
+    }
+    .saved-card-stat strong { color: var(--brown); font-weight: 500; }
+    .saved-card-actions {
+      display: flex; gap: 8px; margin-top: 4px;
+    }
+    .btn-load {
+      flex: 1; padding: 8px 0; border-radius: 50px;
+      border: 1.5px solid rgba(142,129,81,0.4);
+      background: transparent; cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10.5px; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--olive);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-load:hover { border-color: var(--olive); background: rgba(142,129,81,0.07); }
+    .btn-delete-saved {
+      width: 34px; height: 34px; border-radius: 50%;
+      border: 1.5px solid rgba(168,74,66,0.2);
+      background: transparent; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(168,74,66,0.5); font-size: 15px;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .btn-delete-saved:hover {
+      background: rgba(168,74,66,0.07);
+      border-color: rgba(168,74,66,0.5);
+      color: #a84a42;
+    }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(12px);
+      background: var(--brown); color: var(--parchment);
+      padding: 10px 22px; border-radius: 50px;
+      font-size: 12px; font-weight: 500; letter-spacing: 0.05em;
+      opacity: 0; transition: opacity 0.25s, transform 0.25s;
+      pointer-events: none; z-index: 100; white-space: nowrap;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── Tooltip hint ── */
+    .hint {
+      font-size: 11px; color: rgba(92,74,69,0.42); margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    /* ── Login view ── */
+    .login-card {
+      background: rgba(255,255,255,0.38);
+      border: 1px solid rgba(92,74,69,0.1);
+      border-radius: 20px;
+      padding: 32px;
+    }
+    .login-input {
+      width: 100%;
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(92,74,69,0.18);
+      border-radius: 12px;
+      padding: 11px 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px; color: var(--brown); outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-sizing: border-box;
+    }
+    .login-input:focus {
+      border-color: rgba(142,129,81,0.55);
+      box-shadow: 0 0 0 3px rgba(142,129,81,0.09);
+    }
+    .login-label {
+      display: block; font-size: 10.5px; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(92,74,69,0.5); margin-bottom: 6px;
+    }
+    .login-btn {
+      width: 100%; padding: 13px 0; border-radius: 12px; border: none;
+      cursor: pointer; background: var(--olive); color: var(--parchment);
+      font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      transition: opacity 0.2s;
+    }
+    .login-btn:hover { opacity: 0.85; }
+    .login-error {
+      display: none; border-radius: 12px; padding: 11px 16px;
+      font-size: 12.5px; margin-bottom: 16px;
+      background: rgba(168,74,66,0.09); border: 1px solid rgba(168,74,66,0.25); color: #a84a42;
+    }
+
+    /* ── Section divider ── */
+    .section-divider {
+      display: flex; align-items: center; gap: 12px;
+      margin: 28px 0 20px;
+    }
+    .section-divider span {
+      font-size: 10px; font-weight: 500; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(92,74,69,0.38);
+      white-space: nowrap;
+    }
+    .section-divider::before, .section-divider::after {
+      content: ''; flex: 1; height: 1px;
+      background: rgba(92,74,69,0.1);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── LOGIN VIEW ── -->
+  <div id="login-view" style="display:none; min-height:100vh; align-items:center; justify-content:center; padding:24px;">
+    <div style="width:100%; max-width:360px;">
+      <div style="text-align:center; margin-bottom:32px;">
+        <p style="font-family:'Cormorant Garamond',Georgia,serif; font-size:34px; font-weight:300; color:var(--brown);">found & formed</p>
+        <p style="font-size:10.5px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(92,74,69,0.4); margin-top:4px;">cogs calculator</p>
+      </div>
+      <div class="login-card">
+        <div id="login-error" class="login-error"></div>
+        <div style="margin-bottom:16px;">
+          <label class="login-label">Email</label>
+          <input type="email" id="login-email" class="login-input" placeholder="you@email.com" autocomplete="email">
+        </div>
+        <div style="margin-bottom:24px;">
+          <label class="login-label">Password</label>
+          <input type="password" id="login-password" class="login-input" placeholder="••••••••" autocomplete="current-password">
+        </div>
+        <button class="login-btn" id="login-btn" onclick="handleLogin()">sign in</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CALCULATOR (shown after login) ── -->
+  <div id="dashboard-view" style="display:none;">
+
+  <!-- Header -->
+  <header>
+    <img src="brand_assets/brand logos & mascot/logo-brown.png" alt="Found & Formed" onerror="this.style.display='none'">
+    <div class="title">COGS <span>Calculator</span></div>
+    <div style="margin-left:auto; display:flex; align-items:center; gap:16px;">
+      <a href="index.html" class="back-link" style="margin-left:0;">← Back to site</a>
+      <button onclick="handleLogout()" style="font-family:'DM Sans',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.13em; text-transform:uppercase; color:rgba(92,74,69,0.4); background:none; border:none; cursor:pointer; padding:0; transition:color 0.2s;" onmouseover="this.style.color='var(--olive)'" onmouseout="this.style.color='rgba(92,74,69,0.4)'">sign out</button>
+    </div>
+  </header>
+
+  <main>
+    <h1 class="page-title">Cost of Goods <em>Sold</em></h1>
+    <p class="page-sub">Break down materials, labor, and overhead per experience — then see your margin at a glance.</p>
+
+    <div class="layout">
+
+      <!-- Left column: form -->
+      <div class="form-col">
+
+        <!-- ── Item Info ── -->
+        <div class="card">
+          <div class="card-title">
+            <div class="icon icon-blue">🏷️</div>
+            Item Details
+          </div>
+
+          <div class="field">
+            <label>Experience / Menu Item Name</label>
+            <input type="text" id="itemName" placeholder="e.g. Watercolor Flight, Clay Soufflé…">
+          </div>
+
+          <div class="field-row cols-2">
+            <div class="field">
+              <label>Expected Guests per Session</label>
+              <input type="number" id="guestCount" min="1" value="8" placeholder="8">
+              <p class="hint">Used to split per-session costs.</p>
+            </div>
+            <div class="field">
+              <label>Selling Price per Person</label>
+              <div class="input-prefix">
+                <span>$</span>
+                <input type="number" id="sellingPrice" min="0" step="0.01" placeholder="0.00">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Materials ── -->
+        <div class="card">
+          <div class="card-title">
+            <div class="icon icon-olive">🎨</div>
+            Materials &amp; Supplies
+          </div>
+          <p class="hint" style="margin-bottom:16px;">Enter cost <em>per person</em> for each supply item.</p>
+
+          <div class="line-items" id="materials-list"></div>
+          <button class="add-line-btn" onclick="addMaterial()">+ Add material</button>
+        </div>
+
+        <!-- ── Packaging ── -->
+        <div class="card">
+          <div class="card-title">
+            <div class="icon icon-blue">📦</div>
+            Packaging &amp; Take-Home
+          </div>
+          <p class="hint" style="margin-bottom:16px;">Cost <em>per person</em> for bags, tissue, boxes, labels, etc.</p>
+
+          <div class="line-items" id="packaging-list"></div>
+          <button class="add-line-btn" onclick="addPackaging()">+ Add packaging item</button>
+        </div>
+
+        <!-- ── Reusable Equipment ── -->
+        <div class="card">
+          <div class="card-title">
+            <div class="icon icon-brown">♻️</div>
+            Reusable Equipment
+          </div>
+          <p class="hint" style="margin-bottom:16px;">Enter the item's total cost and how many sessions you expect to get out of it. Cost is spread across sessions, then divided by guests.</p>
+
+          <div style="display:grid; grid-template-columns: 1fr 100px 100px 36px; gap:10px; margin-bottom:8px; padding:0 2px;">
+            <span style="font-size:10px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:rgba(92,74,69,0.38);">Item</span>
+            <span style="font-size:10px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:rgba(92,74,69,0.38);">Cost</span>
+            <span style="font-size:10px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:rgba(92,74,69,0.38);">Uses</span>
+            <span></span>
+          </div>
+          <div class="line-items" id="reusable-list"></div>
+          <button class="add-line-btn" onclick="addReusable()">+ Add reusable item</button>
+        </div>
+
+        <!-- ── Labor ── -->
+        <div class="card">
+          <div class="card-title">
+            <div class="icon icon-brown">⏱️</div>
+            Labor
+          </div>
+          <p class="hint" style="margin-bottom:16px;">Each row is (hours × rate) ÷ guests. Add prep, teaching, cleanup separately if needed.</p>
+
+          <div class="line-items" id="labor-list"></div>
+          <button class="add-line-btn" onclick="addLabor()">+ Add labor item</button>
+        </div>
+
+        <!-- ── Overhead ── -->
+        <div class="card">
+          <div class="card-title">
+            <div class="icon icon-green">🏠</div>
+            Overhead (per session)
+          </div>
+          <p class="hint" style="margin-bottom:16px;">Total session overhead costs — automatically divided by number of guests.</p>
+
+          <div class="line-items" id="overhead-list"></div>
+          <button class="add-line-btn" onclick="addOverhead()">+ Add overhead item</button>
+        </div>
+
+        <!-- ── Other ── -->
+        <div class="card">
+          <div class="card-title">
+            <div class="icon icon-olive">+</div>
+            Other Variable Costs
+          </div>
+          <p class="hint" style="margin-bottom:16px;">Any other cost <em>per person</em> not covered above (credit card fees, platform fees, etc.)</p>
+
+          <div class="line-items" id="other-list"></div>
+          <button class="add-line-btn" onclick="addOther()">+ Add item</button>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; gap:10px;">
+          <button class="btn-ghost-sm" onclick="resetAll()">↺ Reset all</button>
+          <button class="btn-save" onclick="saveItem()">Save this item</button>
+        </div>
+
+      </div><!-- /form-col -->
+
+      <!-- Right column: results -->
+      <div class="sidebar">
+        <div class="results-card">
+          <div class="results-title">Summary</div>
+
+          <div class="result-row">
+            <span class="result-label">Materials</span>
+            <span class="result-value" id="r-materials">$0.00</span>
+          </div>
+          <div class="result-row">
+            <span class="result-label">Packaging</span>
+            <span class="result-value" id="r-packaging">$0.00</span>
+          </div>
+          <div class="result-row">
+            <span class="result-label">Reusables (deprec.)</span>
+            <span class="result-value" id="r-reusable">$0.00</span>
+          </div>
+          <div class="result-row">
+            <span class="result-label">Labor</span>
+            <span class="result-value" id="r-labor">$0.00</span>
+          </div>
+          <div class="result-row">
+            <span class="result-label">Overhead</span>
+            <span class="result-value" id="r-overhead">$0.00</span>
+          </div>
+          <div class="result-row">
+            <span class="result-label">Other</span>
+            <span class="result-value" id="r-other">$0.00</span>
+          </div>
+
+          <div class="result-divider"></div>
+
+          <div class="result-total">
+            <span class="label">COGS / person</span>
+            <span class="value" id="r-total">$0.00</span>
+          </div>
+
+          <div class="result-divider" style="margin-top:14px;"></div>
+
+          <div class="result-row" style="margin-top:4px;">
+            <span class="result-label">Selling price</span>
+            <span class="result-value" id="r-price">—</span>
+          </div>
+          <div class="result-row">
+            <span class="result-label">Gross profit / person</span>
+            <span class="result-value" id="r-profit">—</span>
+          </div>
+          <div class="result-row" style="border-bottom:none;">
+            <span class="result-label">Gross margin</span>
+            <span class="result-value" id="r-margin">—</span>
+          </div>
+
+          <div class="margin-bar-track">
+            <div class="margin-bar-fill" id="r-bar" style="width:0%; background: var(--olive);"></div>
+          </div>
+
+          <div style="text-align:center; margin-top:10px;">
+            <span class="margin-pill" id="r-pill" style="display:none;"></span>
+          </div>
+
+          <p class="script-note" id="r-note" style="display:none;"></p>
+        </div>
+      </div><!-- /sidebar -->
+
+    </div><!-- /layout -->
+
+    <!-- ── Saved Items ── -->
+    <div id="saved-section" style="display:none; margin-top:48px;">
+      <div style="display:flex; align-items:baseline; gap:16px; margin-bottom:20px;">
+        <h2 style="font-family:'Cormorant Garamond',Georgia,serif; font-size:28px; font-weight:300; letter-spacing:-0.02em; color:var(--brown);">Saved <em style="font-style:italic; color:var(--olive);">Items</em></h2>
+        <span id="saved-count" style="font-size:11px; font-weight:500; letter-spacing:0.13em; text-transform:uppercase; color:rgba(92,74,69,0.4);"></span>
+      </div>
+      <div id="saved-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:16px;"></div>
+    </div>
+
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    // ─── Line item factories ───────────────────────────────────
+
+    function makeMaterialRow(id) {
+      const row = document.createElement('div');
+      row.className = 'line-item';
+      row.id = 'mat-' + id;
+      row.innerHTML = `
+        <div>
+          <input type="text" placeholder="Supply name (e.g. watercolor paper)" oninput="recalc()">
+        </div>
+        <div class="input-prefix">
+          <span>$</span>
+          <input type="number" min="0" step="0.01" placeholder="0.00" oninput="recalc()">
+        </div>
+        <button class="remove-btn" onclick="removeRow('mat-${id}')" title="Remove">×</button>
+      `;
+      return row;
+    }
+
+    function makeReusableRow(id) {
+      const row = document.createElement('div');
+      row.className = 'reusable-item';
+      row.id = 'reus-' + id;
+      row.style.cssText = 'display:grid; grid-template-columns:1fr 100px 100px 36px; gap:10px; align-items:center;';
+      row.innerHTML = `
+        <div>
+          <input type="text" placeholder="e.g. Paintbrush, tray, palette" oninput="recalc()">
+        </div>
+        <div class="input-prefix">
+          <span>$</span>
+          <input type="number" min="0" step="0.01" placeholder="0.00" oninput="recalc()" title="Total purchase cost">
+        </div>
+        <div>
+          <input type="number" min="1" step="1" placeholder="100" oninput="recalc()" title="Expected number of uses (sessions)">
+        </div>
+        <button class="remove-btn" onclick="removeRow('reus-${id}')" title="Remove">×</button>
+      `;
+      return row;
+    }
+
+    function makePackagingRow(id) {
+      const row = document.createElement('div');
+      row.className = 'line-item';
+      row.id = 'pkg-' + id;
+      row.innerHTML = `
+        <div>
+          <input type="text" placeholder="Item name (e.g. kraft bag)" oninput="recalc()">
+        </div>
+        <div class="input-prefix">
+          <span>$</span>
+          <input type="number" min="0" step="0.01" placeholder="0.00" oninput="recalc()">
+        </div>
+        <button class="remove-btn" onclick="removeRow('pkg-${id}')" title="Remove">×</button>
+      `;
+      return row;
+    }
+
+    function makeLaborRow(id) {
+      const row = document.createElement('div');
+      row.className = 'labor-item';
+      row.id = 'lab-' + id;
+      row.innerHTML = `
+        <div>
+          <input type="text" placeholder="Role (e.g. Instructor — teaching)" oninput="recalc()">
+        </div>
+        <div class="input-prefix">
+          <span>h</span>
+          <input type="number" min="0" step="0.25" placeholder="1.0" style="padding-left:28px;" oninput="recalc()">
+        </div>
+        <div class="input-prefix">
+          <span>$</span>
+          <input type="number" min="0" step="0.50" placeholder="25.00" oninput="recalc()">
+        </div>
+        <button class="remove-btn" onclick="removeRow('lab-${id}')" title="Remove">×</button>
+      `;
+      return row;
+    }
+
+    function makeOverheadRow(id) {
+      const row = document.createElement('div');
+      row.className = 'line-item';
+      row.id = 'ovr-' + id;
+      row.innerHTML = `
+        <div>
+          <input type="text" placeholder="e.g. Studio rent, utilities" oninput="recalc()">
+        </div>
+        <div class="input-prefix">
+          <span>$</span>
+          <input type="number" min="0" step="0.01" placeholder="0.00" oninput="recalc()">
+        </div>
+        <button class="remove-btn" onclick="removeRow('ovr-${id}')" title="Remove">×</button>
+      `;
+      return row;
+    }
+
+    function makeOtherRow(id) {
+      const row = document.createElement('div');
+      row.className = 'line-item';
+      row.id = 'oth-' + id;
+      row.innerHTML = `
+        <div>
+          <input type="text" placeholder="e.g. Stripe fee (3%), platform fee" oninput="recalc()">
+        </div>
+        <div class="input-prefix">
+          <span>$</span>
+          <input type="number" min="0" step="0.01" placeholder="0.00" oninput="recalc()">
+        </div>
+        <button class="remove-btn" onclick="removeRow('oth-${id}')" title="Remove">×</button>
+      `;
+      return row;
+    }
+
+    // ─── Counters & add/remove ─────────────────────────────────
+
+    let ctr = 0;
+    const uid = () => ++ctr;
+
+    function addMaterial()  { document.getElementById('materials-list').appendChild(makeMaterialRow(uid())); }
+    function addReusable()  { document.getElementById('reusable-list').appendChild(makeReusableRow(uid())); }
+    function addPackaging() { document.getElementById('packaging-list').appendChild(makePackagingRow(uid())); }
+    function addLabor()     { document.getElementById('labor-list').appendChild(makeLaborRow(uid())); }
+    function addOverhead()  { document.getElementById('overhead-list').appendChild(makeOverheadRow(uid())); }
+    function addOther()     { document.getElementById('other-list').appendChild(makeOtherRow(uid())); }
+
+    function removeRow(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+      recalc();
+    }
+
+    // ─── Recalculate ───────────────────────────────────────────
+
+    function sumLineItems(listId) {
+      let total = 0;
+      const list = document.getElementById(listId);
+      list.querySelectorAll('.line-item').forEach(row => {
+        const inputs = row.querySelectorAll('input[type="number"]');
+        const val = parseFloat(inputs[0]?.value) || 0;
+        total += val;
+      });
+      return total;
+    }
+
+    function sumLabor(guests) {
+      let total = 0;
+      document.getElementById('labor-list').querySelectorAll('.labor-item').forEach(row => {
+        const inputs = row.querySelectorAll('input[type="number"]');
+        const hours = parseFloat(inputs[0]?.value) || 0;
+        const rate  = parseFloat(inputs[1]?.value) || 0;
+        if (guests > 0) total += (hours * rate) / guests;
+      });
+      return total;
+    }
+
+    function sumOverhead(guests) {
+      let total = 0;
+      document.getElementById('overhead-list').querySelectorAll('.line-item').forEach(row => {
+        const inputs = row.querySelectorAll('input[type="number"]');
+        const val = parseFloat(inputs[0]?.value) || 0;
+        if (guests > 0) total += val / guests;
+      });
+      return total;
+    }
+
+    function sumReusables(guests) {
+      let total = 0;
+      document.getElementById('reusable-list').querySelectorAll('.reusable-item').forEach(row => {
+        const inputs = row.querySelectorAll('input[type="number"]');
+        const cost = parseFloat(inputs[0]?.value) || 0;
+        const uses = parseFloat(inputs[1]?.value) || 1;
+        if (guests > 0 && uses > 0) total += cost / uses / guests;
+      });
+      return total;
+    }
+
+    function fmt(n) {
+      if (isNaN(n)) return '—';
+      return '$' + n.toFixed(2);
+    }
+
+    function recalc() {
+      const guests = Math.max(1, parseFloat(document.getElementById('guestCount').value) || 1);
+      const price  = parseFloat(document.getElementById('sellingPrice').value) || 0;
+
+      const mats  = sumLineItems('materials-list');
+      const reus  = sumReusables(guests);
+      const pkgs  = sumLineItems('packaging-list');
+      const labor = sumLabor(guests);
+      const ovhd  = sumOverhead(guests);
+      const other = sumLineItems('other-list');
+      const total = mats + reus + pkgs + labor + ovhd + other;
+
+      document.getElementById('r-materials').textContent = fmt(mats);
+      document.getElementById('r-reusable').textContent  = fmt(reus);
+      document.getElementById('r-packaging').textContent = fmt(pkgs);
+      document.getElementById('r-labor').textContent     = fmt(labor);
+      document.getElementById('r-overhead').textContent  = fmt(ovhd);
+      document.getElementById('r-other').textContent     = fmt(other);
+      document.getElementById('r-total').textContent     = fmt(total);
+
+      const pill = document.getElementById('r-pill');
+      const bar  = document.getElementById('r-bar');
+      const note = document.getElementById('r-note');
+
+      if (price > 0) {
+        const profit = price - total;
+        const margin = (profit / price) * 100;
+
+        document.getElementById('r-price').textContent  = fmt(price);
+        document.getElementById('r-profit').textContent = fmt(profit);
+        document.getElementById('r-margin').textContent = margin.toFixed(1) + '%';
+
+        const pct = Math.min(100, Math.max(0, margin));
+        bar.style.width = pct + '%';
+
+        pill.style.display = 'inline-block';
+        note.style.display = 'block';
+
+        if (margin >= 60) {
+          bar.style.background = '#5a9060';
+          pill.className = 'margin-pill margin-good';
+          pill.textContent = '✓ Healthy margin (' + margin.toFixed(1) + '%)';
+          note.textContent = 'Great position — room to absorb slow sessions.';
+        } else if (margin >= 40) {
+          bar.style.background = 'var(--blue)';
+          pill.className = 'margin-pill margin-ok';
+          pill.textContent = 'Solid margin (' + margin.toFixed(1) + '%)';
+          note.textContent = 'Decent, but watch session fill rates.';
+        } else if (margin >= 20) {
+          bar.style.background = 'var(--olive)';
+          pill.className = 'margin-pill margin-ok';
+          pill.textContent = 'Thin margin (' + margin.toFixed(1) + '%)';
+          note.textContent = 'Look for ways to reduce materials or raise price.';
+        } else if (margin > 0) {
+          bar.style.background = '#c0824a';
+          pill.className = 'margin-pill margin-low';
+          pill.textContent = '⚠ Very thin (' + margin.toFixed(1) + '%)';
+          note.textContent = 'Any drop in guests puts you in the red.';
+        } else {
+          bar.style.background = '#a84a42';
+          pill.className = 'margin-pill margin-low';
+          pill.textContent = '✗ Selling at a loss';
+          note.textContent = 'COGS exceeds selling price — price needs to go up.';
+        }
+      } else {
+        document.getElementById('r-price').textContent  = '—';
+        document.getElementById('r-profit').textContent = '—';
+        document.getElementById('r-margin').textContent = '—';
+        bar.style.width = '0%';
+        pill.style.display = 'none';
+        note.style.display = 'none';
+      }
+    }
+
+    // ─── Reset ─────────────────────────────────────────────────
+
+    function resetAll() {
+      if (!confirm('Clear all inputs and start over?')) return;
+      document.getElementById('itemName').value    = '';
+      document.getElementById('guestCount').value  = '8';
+      document.getElementById('sellingPrice').value = '';
+      ['materials-list','reusable-list','packaging-list','labor-list','overhead-list','other-list']
+        .forEach(id => document.getElementById(id).innerHTML = '');
+      recalc();
+    }
+
+    // ─── Capture / restore form state ──────────────────────────
+
+    function captureForm() {
+      const guests = Math.max(1, parseFloat(document.getElementById('guestCount').value) || 1);
+      const price  = parseFloat(document.getElementById('sellingPrice').value) || 0;
+
+      function readLineItems(listId) {
+        return [...document.getElementById(listId).querySelectorAll('.line-item')].map(row => {
+          const texts = row.querySelectorAll('input[type="text"]');
+          const nums  = row.querySelectorAll('input[type="number"]');
+          return { name: texts[0]?.value || '', cost: parseFloat(nums[0]?.value) || 0 };
+        });
+      }
+
+      function readLaborItems() {
+        return [...document.getElementById('labor-list').querySelectorAll('.labor-item')].map(row => {
+          const texts = row.querySelectorAll('input[type="text"]');
+          const nums  = row.querySelectorAll('input[type="number"]');
+          return { name: texts[0]?.value || '', hours: parseFloat(nums[0]?.value) || 0, rate: parseFloat(nums[1]?.value) || 0 };
+        });
+      }
+
+      function readReusableItems() {
+        return [...document.getElementById('reusable-list').querySelectorAll('.reusable-item')].map(row => {
+          const texts = row.querySelectorAll('input[type="text"]');
+          const nums  = row.querySelectorAll('input[type="number"]');
+          return { name: texts[0]?.value || '', cost: parseFloat(nums[0]?.value) || 0, uses: parseFloat(nums[1]?.value) || 1 };
+        });
+      }
+
+      const mats  = sumLineItems('materials-list');
+      const reus  = sumReusables(guests);
+      const pkgs  = sumLineItems('packaging-list');
+      const labor = sumLabor(guests);
+      const ovhd  = sumOverhead(guests);
+      const other = sumLineItems('other-list');
+      const cogs  = mats + reus + pkgs + labor + ovhd + other;
+      const margin = price > 0 ? ((price - cogs) / price) * 100 : null;
+
+      return {
+        id: Date.now(),
+        name: document.getElementById('itemName').value.trim() || 'Untitled item',
+        guests, price,
+        materials:  readLineItems('materials-list'),
+        reusables:  readReusableItems(),
+        packaging:  readLineItems('packaging-list'),
+        labor:      readLaborItems(),
+        overhead:   readLineItems('overhead-list'),
+        other:      readLineItems('other-list'),
+        cogs, margin,
+        savedAt: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+      };
+    }
+
+    function restoreForm(item) {
+      document.getElementById('itemName').value    = item.name;
+      document.getElementById('guestCount').value  = item.guests;
+      document.getElementById('sellingPrice').value = item.price || '';
+
+      function fillLineItems(listId, rows, adder) {
+        document.getElementById(listId).innerHTML = '';
+        rows.forEach(r => {
+          adder();
+          const list   = document.getElementById(listId);
+          const newRow = list.lastElementChild;
+          const texts  = newRow.querySelectorAll('input[type="text"]');
+          const nums   = newRow.querySelectorAll('input[type="number"]');
+          if (texts[0]) texts[0].value = r.name;
+          if (nums[0])  nums[0].value  = r.cost || '';
+        });
+      }
+
+      // Materials
+      fillLineItems('materials-list', item.materials, addMaterial);
+
+      // Reusables
+      document.getElementById('reusable-list').innerHTML = '';
+      (item.reusables || []).forEach(r => {
+        addReusable();
+        const list   = document.getElementById('reusable-list');
+        const newRow = list.lastElementChild;
+        const texts  = newRow.querySelectorAll('input[type="text"]');
+        const nums   = newRow.querySelectorAll('input[type="number"]');
+        if (texts[0]) texts[0].value = r.name;
+        if (nums[0])  nums[0].value  = r.cost || '';
+        if (nums[1])  nums[1].value  = r.uses || '';
+      });
+
+      // Labor
+      document.getElementById('labor-list').innerHTML = '';
+      (item.labor || []).forEach(r => {
+        addLabor();
+        const list   = document.getElementById('labor-list');
+        const newRow = list.lastElementChild;
+        const texts  = newRow.querySelectorAll('input[type="text"]');
+        const nums   = newRow.querySelectorAll('input[type="number"]');
+        if (texts[0]) texts[0].value = r.name;
+        if (nums[0])  nums[0].value  = r.hours || '';
+        if (nums[1])  nums[1].value  = r.rate  || '';
+      });
+
+      fillLineItems('packaging-list', item.packaging || [], addPackaging);
+      fillLineItems('overhead-list',  item.overhead  || [], addOverhead);
+      fillLineItems('other-list',     item.other     || [], addOther);
+
+      recalc();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ─── LocalStorage helpers ───────────────────────────────────
+
+    function getSaved() {
+      try { return JSON.parse(localStorage.getItem('ff_cogs_items') || '[]'); }
+      catch { return []; }
+    }
+
+    function setSaved(items) {
+      localStorage.setItem('ff_cogs_items', JSON.stringify(items));
+    }
+
+    // ─── Save ───────────────────────────────────────────────────
+
+    function saveItem() {
+      const data  = captureForm();
+      const saved = getSaved();
+
+      // If an item with the same name already exists, confirm overwrite
+      const existing = saved.findIndex(s => s.name.toLowerCase() === data.name.toLowerCase());
+      if (existing > -1) {
+        if (!confirm(`"${data.name}" is already saved. Replace it?`)) return;
+        data.id = saved[existing].id;
+        saved[existing] = data;
+      } else {
+        saved.push(data);
+      }
+
+      setSaved(saved);
+      renderSavedItems();
+      showToast('Saved "' + data.name + '"');
+    }
+
+    // ─── Delete ─────────────────────────────────────────────────
+
+    function deleteSaved(id) {
+      const saved = getSaved().filter(s => s.id !== id);
+      setSaved(saved);
+      renderSavedItems();
+    }
+
+    // ─── Render saved items ─────────────────────────────────────
+
+    function marginColor(m) {
+      if (m === null) return 'rgba(92,74,69,0.4)';
+      if (m >= 60) return '#3d6b3d';
+      if (m >= 40) return '#3d5a68';
+      if (m >= 20) return 'var(--olive)';
+      if (m > 0)   return '#c0824a';
+      return '#a84a42';
+    }
+
+    function renderSavedItems() {
+      const saved   = getSaved();
+      const section = document.getElementById('saved-section');
+      const grid    = document.getElementById('saved-grid');
+      const count   = document.getElementById('saved-count');
+
+      section.style.display = saved.length ? 'block' : 'none';
+      count.textContent = saved.length + ' item' + (saved.length !== 1 ? 's' : '');
+
+      grid.innerHTML = saved.map(item => {
+        const marginText = item.margin !== null ? item.margin.toFixed(1) + '%' : '—';
+        const mc = marginColor(item.margin);
+        return `
+          <div class="saved-card">
+            <div class="saved-card-name">${escHtml(item.name)}</div>
+            <div class="saved-card-meta">
+              <div class="saved-card-stat">
+                <span>COGS / person</span>
+                <strong>$${item.cogs.toFixed(2)}</strong>
+              </div>
+              ${item.price ? `<div class="saved-card-stat">
+                <span>Selling price</span>
+                <strong>$${item.price.toFixed(2)}</strong>
+              </div>` : ''}
+              <div class="saved-card-stat">
+                <span>Gross margin</span>
+                <strong style="color:${mc};">${marginText}</strong>
+              </div>
+              <div class="saved-card-stat" style="margin-top:2px;">
+                <span>${item.guests} guests &nbsp;·&nbsp; ${item.savedAt}</span>
+              </div>
+            </div>
+            <div class="saved-card-actions">
+              <button class="btn-load" onclick="loadSaved(${item.id})">Load</button>
+              <button class="btn-delete-saved" onclick="deleteSaved(${item.id})" title="Delete">×</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function loadSaved(id) {
+      const item = getSaved().find(s => s.id === id);
+      if (item) restoreForm(item);
+    }
+
+    function escHtml(s) {
+      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    // ─── Toast ──────────────────────────────────────────────────
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2600);
+    }
+
+    // ─── Init: seed one row in each section ────────────────────
+
+    addMaterial();
+    addPackaging();
+    addLabor();
+    addOverhead();
+    recalc();
+    renderSavedItems();
+
+    // recalc on guest/price changes too
+    document.getElementById('guestCount').addEventListener('input', recalc);
+    document.getElementById('sellingPrice').addEventListener('input', recalc);
+  </script>
+
+  </div><!-- /dashboard-view -->
+
+  <script>
+    const SUPABASE_URL = 'https://akviuwiqtqqfmlvusstm.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_171Z0fasXaye_oqF8N9NtQ_olxCJK_9';
+    let sb;
+    try {
+      sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    } catch (e) {
+      console.error('Supabase init failed:', e.message);
+    }
+
+    function showLoginView() {
+      document.getElementById('login-view').style.display  = 'flex';
+      document.getElementById('dashboard-view').style.display = 'none';
+    }
+
+    function showCalculator() {
+      document.getElementById('login-view').style.display  = 'none';
+      document.getElementById('dashboard-view').style.display = 'block';
+    }
+
+    async function handleLogin() {
+      const email    = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+      const errEl    = document.getElementById('login-error');
+      const btn      = document.getElementById('login-btn');
+      errEl.style.display = 'none';
+      btn.disabled = true; btn.textContent = 'signing in…';
+      const { error } = await sb.auth.signInWithPassword({ email, password });
+      btn.disabled = false; btn.textContent = 'sign in';
+      if (error) {
+        errEl.textContent = error.message;
+        errEl.style.display = 'block';
+      } else {
+        showCalculator();
+      }
+    }
+
+    async function handleLogout() {
+      await sb.auth.signOut();
+      showLoginView();
+    }
+
+    // Check for existing session on load
+    document.addEventListener('DOMContentLoaded', () => {
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Enter' && document.getElementById('login-view').style.display !== 'none') {
+          handleLogin();
+        }
+      });
+
+      if (sb) {
+        sb.auth.getSession().then(({ data }) => {
+          if (data.session) {
+            showCalculator();
+          } else {
+            showLoginView();
+          }
+        });
+      } else {
+        showLoginView();
+      }
+    });
+  </script>
+</body>
+</html>
