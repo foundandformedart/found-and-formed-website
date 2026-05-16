@@ -395,7 +395,7 @@
         <li><a href="#book" class="label text-brand-brown/55 hover:text-brand-olive transition-colors">connect</a></li>
       </ul>
 
-      <a href="#events" class="btn btn-olive hidden md:inline-flex">Reserve a Seat</a>
+      <a href="#events" class="btn btn-olive hidden md:inline-flex">reserve a seat</a>
 
       <!-- Mobile hamburger -->
       <button id="menu-toggle" class="md:hidden text-brand-brown/65 p-1 rounded" aria-label="Open menu"
@@ -420,7 +420,7 @@
         <li><a href="#popup" class="label text-brand-brown/65">host</a></li>
         <li><a href="#book" class="label text-brand-brown/65">connect</a></li>
       </ul>
-      <a href="#events" class="btn btn-olive w-full text-center">Reserve a Seat</a>
+      <a href="#events" class="btn btn-olive w-full text-center">reserve a seat</a>
     </div>
   </nav>
 
@@ -504,7 +504,7 @@
         </div>
 
         <div class="flex flex-col sm:flex-row items-start gap-3">
-          <a href="#events" class="btn btn-olive">Reserve a Seat</a>
+          <a href="#events" class="btn btn-olive">reserve a seat</a>
           <a href="#menu" class="btn btn-ghost">Explore the Menu</a>
         </div>
 
@@ -1142,45 +1142,36 @@
         send us a message
       </h3>
 
-      <div data-fs-success class="hidden text-center py-6">
+      <div id="cf-success" class="hidden text-center py-6">
         <p class="font-serif italic text-brand-olive text-[18px] mb-1">message sent ✦</p>
         <p class="font-sans text-[12px] text-brand-brown/45">we'll be in touch soon.</p>
       </div>
-      <div data-fs-error class="hidden mb-3 font-sans text-[12px] text-red-500/70 text-center">
+      <div id="cf-error" class="hidden mb-3 font-sans text-[12px] text-red-500/70 text-center">
         something went wrong — email us at
         <a href="mailto:info@foundandformedart.com" class="underline">info@foundandformedart.com</a>
       </div>
 
-      <form id="contact-form" class="space-y-4">
+      <form id="contact-form" class="space-y-4" onsubmit="submitContactForm(event)">
         <div>
           <label class="label text-brand-brown/50 block mb-1.5" for="cf-name">name</label>
-          <input id="cf-name" type="text" name="name" required placeholder="your name" data-fs-field
+          <input id="cf-name" type="text" name="name" required placeholder="your name"
             class="w-full bg-white/50 border border-brand-brown/15 rounded-[12px] px-4 py-3 font-sans text-[13px] text-brand-brown placeholder-brand-brown/25 focus:outline-none focus:border-brand-olive transition-colors">
-          <span data-fs-error="name" class="font-sans text-[11px] text-red-500/70 mt-1 block"></span>
         </div>
         <div>
           <label class="label text-brand-brown/50 block mb-1.5" for="cf-email">email</label>
-          <input id="cf-email" type="email" name="email" required placeholder="your@email.com" data-fs-field
+          <input id="cf-email" type="email" name="email" required placeholder="your@email.com"
             class="w-full bg-white/50 border border-brand-brown/15 rounded-[12px] px-4 py-3 font-sans text-[13px] text-brand-brown placeholder-brand-brown/25 focus:outline-none focus:border-brand-olive transition-colors">
-          <span data-fs-error="email" class="font-sans text-[11px] text-red-500/70 mt-1 block"></span>
         </div>
         <div>
           <label class="label text-brand-brown/50 block mb-1.5" for="cf-message">message</label>
-          <textarea id="cf-message" name="message" required rows="4" placeholder="what's on your mind?" data-fs-field
+          <textarea id="cf-message" name="message" required rows="4" placeholder="what's on your mind?"
             class="w-full bg-white/50 border border-brand-brown/15 rounded-[12px] px-4 py-3 font-sans text-[13px] text-brand-brown placeholder-brand-brown/25 focus:outline-none focus:border-brand-olive transition-colors resize-none"></textarea>
-          <span data-fs-error="message" class="font-sans text-[11px] text-red-500/70 mt-1 block"></span>
         </div>
-        <button type="submit" data-fs-submit-btn
+        <button id="cf-submit-btn" type="submit"
           class="btn btn-olive w-full justify-center mt-2 disabled:opacity-50 disabled:cursor-not-allowed">
           send message
         </button>
       </form>
-
-      <script>
-        window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
-        formspree('initForm', { formElement: '#contact-form', formId: 'mvzvjgvv' });
-      </script>
-      <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
     </div>
   </div>
 
@@ -1237,11 +1228,11 @@
             © 2026 Found &amp; Formed. All rights reserved.
           </p>
           <button onclick="document.getElementById('privacy-modal').classList.remove('hidden')"
-            class="font-sans text-[10.5px] text-brand-parchment/60 hover:text-brand-parchment transition-colors underline underline-offset-2 cursor-pointer">Privacy
-            Policy</button>
+            class="font-sans text-[10.5px] text-brand-parchment/60 hover:text-brand-parchment transition-colors underline underline-offset-2 cursor-pointer">privacy
+            policy</button>
           <button onclick="document.getElementById('terms-modal').classList.remove('hidden')"
-            class="font-sans text-[10.5px] text-brand-parchment/60 hover:text-brand-parchment transition-colors underline underline-offset-2 cursor-pointer">Terms
-            of Use</button>
+            class="font-sans text-[10.5px] text-brand-parchment/60 hover:text-brand-parchment transition-colors underline underline-offset-2 cursor-pointer">terms
+            of use</button>
         </div>
         <p class="font-serif italic text-brand-parchment/16 text-[12.5px]">
           made whole, not made perfect.
@@ -1325,27 +1316,6 @@
       </div>
 
       <!-- Experience interest (required) -->
-      <div style="margin-bottom:14px;">
-        <label
-          style="display:block; font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:lowercase; color:rgba(92,74,69,0.5); margin-bottom:6px;">which
-          experience are you most looking forward to?</label>
-        <select id="res-experience"
-          style="width:100%; background:rgba(255,255,255,0.55); border:1px solid rgba(92,74,69,0.18); border-radius:12px; padding:11px 14px; font-family:'DM Sans',sans-serif; font-size:13px; color:#5c4a45; outline:none; box-sizing:border-box; appearance:none; background-image:url(\"
-          data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'
-          fill='none' stroke='rgba(92,74,69,0.4)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'
-          %3E%3Cpolyline points='6 9 12 15 18 9' /%3E%3C/svg%3E\"); background-repeat:no-repeat;
-          background-position:right 14px center; cursor:pointer;">
-          <option value="" disabled selected>choose one...</option>
-          <option value="watercolor flight">watercolor flight</option>
-          <option value="oil pastel plate">oil pastel plate</option>
-          <option value="ink sampler">ink sampler</option>
-          <option value="clay soufflé">clay soufflé</option>
-          <option value="charm bar">charm bar</option>
-          <option value="rotating special">rotating special</option>
-          <option value="kid's menu">kid's menu</option>
-          <option value="not sure yet">not sure yet — i'll decide on-site!</option>
-        </select>
-      </div>
 
       <!-- Contact fields -->
       <div style="margin-bottom:14px;">
@@ -1370,8 +1340,8 @@
       </div>
       <div style="margin-bottom:26px;">
         <label
-          style="display:block; font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:rgba(92,74,69,0.5); margin-bottom:10px;">What
-          would you like to preorder? <span
+          style="display:block; font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:lowercase; color:rgba(92,74,69,0.5); margin-bottom:10px;">which
+          experience are you most looking forward to? <span
             style="font-weight:300; text-transform:none; letter-spacing:0; font-size:10px;">(optional)</span></label>
 
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px;">
@@ -1430,7 +1400,7 @@
       <button onclick="document.getElementById('privacy-modal').classList.add('hidden')"
         class="absolute top-6 right-6 text-brand-brown/35 hover:text-brand-brown/65 transition-colors p-1 text-2xl leading-none"
         aria-label="Close">×</button>
-      <h2 class="font-serif text-[32px] font-light text-brand-brown leading-tight mb-2">Privacy Policy</h2>
+      <h2 class="font-serif text-[32px] font-light text-brand-brown leading-tight mb-2">privacy policy</h2>
       <p class="font-sans text-[12px] italic text-brand-brown/50 mb-6">Last updated: May 2026</p>
       <div class="space-y-4 font-sans text-[13px] text-brand-brown/70 leading-[1.8]">
         <h3 class="font-serif text-[20px] font-medium text-brand-brown mt-4 mb-1">1. Information We Collect</h3>
@@ -1462,7 +1432,7 @@
       <button onclick="document.getElementById('terms-modal').classList.add('hidden')"
         class="absolute top-6 right-6 text-brand-brown/35 hover:text-brand-brown/65 transition-colors p-1 text-2xl leading-none"
         aria-label="Close">×</button>
-      <h2 class="font-serif text-[32px] font-light text-brand-brown leading-tight mb-2">Terms of Use</h2>
+      <h2 class="font-serif text-[32px] font-light text-brand-brown leading-tight mb-2">terms of use</h2>
       <p class="font-sans text-[12px] italic text-brand-brown/50 mb-6">Last updated: May 2026</p>
       <div class="space-y-4 font-sans text-[13px] text-brand-brown/70 leading-[1.8]">
         <h3 class="font-serif text-[20px] font-medium text-brand-brown mt-4 mb-1">1. Acceptance of Terms</h3>
@@ -1798,17 +1768,12 @@
       const name = document.getElementById('res-name').value.trim();
       const email = document.getElementById('res-email').value.trim();
       const phone = document.getElementById('res-phone').value.trim();
-      const experience = document.getElementById('res-experience') ? document.getElementById('res-experience').value.trim() : '';
       const rawNotes = document.getElementById('res-notes') ? document.getElementById('res-notes').value.trim() : '';
       const selectedItems = Array.from(document.querySelectorAll('.res-item-cb:checked')).map(cb => cb.value);
+      const experience = selectedItems.length > 0 ? selectedItems.join(', ') : 'Not sure yet';
 
-      let notes = '';
-      if (selectedItems.length > 0) {
-        notes += '[Preorder: ' + selectedItems.join(', ') + ']';
-      }
-      if (rawNotes) {
-        notes += (notes ? '\n' : '') + rawNotes;
-      }
+      let notes = rawNotes;
+      
       const errEl = document.getElementById('res-error');
       const okEl = document.getElementById('res-success');
       const btn = document.getElementById('res-submit-btn');
@@ -1818,10 +1783,6 @@
 
       if (!selectedSession) {
         errEl.textContent = 'please choose an arrival time.';
-        errEl.style.display = 'block'; return;
-      }
-      if (selectedItems.length === 0) {
-        errEl.textContent = 'please select at least one experience to preorder.';
         errEl.style.display = 'block'; return;
       }
       if (!name || !email) {
@@ -1995,6 +1956,55 @@
         errEl.textContent = 'something went wrong — please try again or email us at info@foundandformedart.com.';
         errEl.style.display = 'block';
         if (btn) { btn.disabled = false; btn.textContent = 'send inquiry →'; }
+      }
+    }
+
+    // ── Contact Form ─────────────────────────────────────────────────
+    async function submitContactForm(event) {
+      event.preventDefault();
+      const name = document.getElementById('cf-name').value.trim();
+      const email = document.getElementById('cf-email').value.trim();
+      const msg = document.getElementById('cf-message').value.trim();
+      const errEl = document.getElementById('cf-error');
+      const okEl = document.getElementById('cf-success');
+      const btn = document.getElementById('cf-submit-btn');
+      const form = document.getElementById('contact-form');
+
+      errEl.classList.add('hidden');
+      okEl.classList.add('hidden');
+
+      if (!name || !email || !msg) return;
+
+      btn.disabled = true;
+      btn.textContent = 'sending…';
+
+      try {
+        const res = await sb.functions.invoke('notify-admin', {
+          body: {
+            subject: '✦ New message from ' + name,
+            type: 'contact',
+            data: {
+              'Name': name,
+              'Email': email,
+              'Message': msg
+            }
+          }
+        });
+
+        if (!res.error) {
+          form.classList.add('hidden');
+          okEl.classList.remove('hidden');
+          document.getElementById('cf-name').value = '';
+          document.getElementById('cf-email').value = '';
+          document.getElementById('cf-message').value = '';
+        } else {
+          throw new Error('server error');
+        }
+      } catch (err) {
+        errEl.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'send message';
       }
     }
 
