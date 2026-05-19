@@ -1,15 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Found & Formed — a place to rest, create & reconnect</title>
-  <meta name="description" content="Found & Formed is a welcoming art studio and community hub. A place to rest, create freely, slow down, and rediscover the joy of making.">
+  <meta name="description"
+    content="Found & Formed is a welcoming art studio and community hub. A place to rest, create freely, slow down, and rediscover the joy of making.">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://foundandformedart.com/">
+  <meta property="og:title" content="Found & Formed — a place to rest, create & reconnect">
+  <meta property="og:description"
+    content="Found & Formed is a welcoming art studio and community hub. A place to rest, create freely, slow down, and rediscover the joy of making.">
+  <!-- Use an absolute URL to a nice brand asset for the social sharing image -->
+  <meta property="og:image"
+    content="https://foundandformedart.com/brand_assets/brand%20logos%20%26%20mascot/logo-blue.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://foundandformedart.com/">
+  <meta name="twitter:title" content="Found & Formed — a place to rest, create & reconnect">
+  <meta name="twitter:description"
+    content="Found & Formed is a welcoming art studio and community hub. A place to rest, create freely, slow down, and rediscover the joy of making.">
+  <meta name="twitter:image"
+    content="https://foundandformedart.com/brand_assets/brand%20logos%20%26%20mascot/logo-blue.png">
+
+  <!-- Structured Data (JSON-LD) for Googlebot -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ArtStudio",
+    "name": "Found & Formed",
+    "description": "Found & Formed is a welcoming art studio and community hub. A place to rest, create freely, slow down, and rediscover the joy of making.",
+    "url": "https://foundandformedart.com/",
+    "sameAs": [
+      "https://www.instagram.com/byfoundandformed/",
+      "https://www.facebook.com/profile.php?id=61576822306968"
+    ]
+  }
+  </script>
 
   <!-- Fonts: Cormorant Garamond (display serif) · Caveat (handwritten) · DM Sans (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Caveat:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Caveat:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
+    rel="stylesheet">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -19,16 +57,16 @@
         extend: {
           colors: {
             brand: {
-              blue:      '#a5bbc6',
-              brown:     '#5c4a45',
-              olive:     '#8e8151',
+              blue: '#a5bbc6',
+              brown: '#5c4a45',
+              olive: '#8e8151',
               parchment: '#dddad1',
             }
           },
           fontFamily: {
-            serif:  ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
             script: ['"Caveat"', 'cursive'],
-            sans:   ['"DM Sans"', 'system-ui', 'sans-serif'],
+            sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
           }
         }
       }
@@ -37,14 +75,22 @@
 
   <style>
     :root {
-      --blue:      #a5bbc6;
-      --brown:     #5c4a45;
-      --olive:     #8e8151;
+      --blue: #a5bbc6;
+      --brown: #5c4a45;
+      --olive: #8e8151;
       --parchment: #dddad1;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; }
-    html { scroll-behavior: smooth; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       background-color: var(--parchment);
@@ -69,22 +115,25 @@
     /* ── Navbar ── */
     #navbar {
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top: 0;
+      left: 0;
+      right: 0;
       z-index: 50;
       transition: background-color 0.45s ease, box-shadow 0.45s ease;
     }
+
     #navbar.scrolled {
-      background-color: rgba(221,218,209,0.96);
+      background-color: rgba(221, 218, 209, 0.96);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 1px 0 rgba(92,74,69,0.07), 0 4px 28px rgba(92,74,69,0.06);
+      box-shadow: 0 1px 0 rgba(92, 74, 69, 0.07), 0 4px 28px rgba(92, 74, 69, 0.06);
     }
 
     /* ── Hero background ── */
     .hero-bg {
       background:
-        radial-gradient(ellipse 68% 58% at 12% 12%, rgba(165,187,198,0.38) 0%, transparent 65%),
-        radial-gradient(ellipse 52% 46% at 88% 88%, rgba(142,129,81,0.20) 0%, transparent 62%),
+        radial-gradient(ellipse 68% 58% at 12% 12%, rgba(165, 187, 198, 0.38) 0%, transparent 65%),
+        radial-gradient(ellipse 52% 46% at 88% 88%, rgba(142, 129, 81, 0.20) 0%, transparent 62%),
         var(--parchment);
     }
 
@@ -106,12 +155,20 @@
         background-color 0.2s ease,
         color 0.2s ease,
         border-color 0.2s ease,
-        transform 0.22s cubic-bezier(0.34,1.56,0.64,1),
+        transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
         box-shadow 0.22s ease;
       cursor: pointer;
     }
-    .btn:focus-visible { outline: 2px solid var(--olive); outline-offset: 3px; }
-    .btn:active { transform: translateY(0) !important; box-shadow: none !important; }
+
+    .btn:focus-visible {
+      outline: 2px solid var(--olive);
+      outline-offset: 3px;
+    }
+
+    .btn:active {
+      transform: translateY(0) !important;
+      box-shadow: none !important;
+    }
 
     /* Olive filled */
     .btn-olive {
@@ -119,19 +176,21 @@
       color: var(--parchment);
       border: 1.5px solid var(--olive);
     }
+
     .btn-olive:hover {
       background-color: #7a6e44;
       border-color: #7a6e44;
       transform: translateY(-2px);
-      box-shadow: 0 10px 32px rgba(142,129,81,0.28), 0 4px 12px rgba(142,129,81,0.16);
+      box-shadow: 0 10px 32px rgba(142, 129, 81, 0.28), 0 4px 12px rgba(142, 129, 81, 0.16);
     }
 
     /* Olive ghost */
     .btn-ghost {
       background-color: transparent;
       color: var(--olive);
-      border: 1.5px solid rgba(142,129,81,0.5);
+      border: 1.5px solid rgba(142, 129, 81, 0.5);
     }
+
     .btn-ghost:hover {
       background-color: var(--olive);
       color: var(--parchment);
@@ -143,11 +202,12 @@
     .btn-ghost-light {
       background-color: transparent;
       color: var(--parchment);
-      border: 1.5px solid rgba(221,218,209,0.38);
+      border: 1.5px solid rgba(221, 218, 209, 0.38);
     }
+
     .btn-ghost-light:hover {
-      background-color: rgba(221,218,209,0.1);
-      border-color: rgba(221,218,209,0.6);
+      background-color: rgba(221, 218, 209, 0.1);
+      border-color: rgba(221, 218, 209, 0.6);
       transform: translateY(-2px);
     }
 
@@ -157,21 +217,23 @@
       color: var(--parchment);
       border: 1.5px solid var(--brown);
     }
+
     .btn-dark:hover {
       background-color: #4a3a35;
       border-color: #4a3a35;
       transform: translateY(-2px);
-      box-shadow: 0 10px 32px rgba(92,74,69,0.22);
+      box-shadow: 0 10px 32px rgba(92, 74, 69, 0.22);
     }
 
     /* Small ghost for cards */
     .btn-sm-ghost {
       background-color: transparent;
       color: var(--olive);
-      border: 1.5px solid rgba(142,129,81,0.45);
+      border: 1.5px solid rgba(142, 129, 81, 0.45);
       padding: 9px 20px;
       font-size: 9.5px;
     }
+
     .btn-sm-ghost:hover {
       background-color: var(--olive);
       color: var(--parchment);
@@ -194,7 +256,9 @@
       align-items: center;
       gap: 18px;
     }
-    .ornament::before, .ornament::after {
+
+    .ornament::before,
+    .ornament::after {
       content: '';
       flex: 1;
       height: 1px;
@@ -204,27 +268,39 @@
 
     /* ── Value pill hover ── */
     .val {
-      transition: color 0.2s, transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+      transition: color 0.2s, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
       cursor: default;
     }
-    .val:hover { color: var(--olive); transform: translateY(-2px); }
+
+    .val:hover {
+      color: var(--olive);
+      transform: translateY(-2px);
+    }
 
     /* ── Social icon button ── */
     .social-btn {
-      width: 34px; height: 34px;
-      display: flex; align-items: center; justify-content: center;
-      border: 1px solid rgba(221,218,209,0.2);
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(221, 218, 209, 0.2);
       border-radius: 50px;
-      color: rgba(221,218,209,0.4);
+      color: rgba(221, 218, 209, 0.4);
       transition: color 0.2s, border-color 0.2s, background-color 0.2s;
       text-decoration: none;
     }
+
     .social-btn:hover {
-      color: rgba(221,218,209,0.8);
-      border-color: rgba(221,218,209,0.45);
-      background-color: rgba(221,218,209,0.06);
+      color: rgba(221, 218, 209, 0.8);
+      border-color: rgba(221, 218, 209, 0.45);
+      background-color: rgba(221, 218, 209, 0.06);
     }
-    .social-btn:focus-visible { outline: 2px solid var(--olive); outline-offset: 3px; }
+
+    .social-btn:focus-visible {
+      outline: 2px solid var(--olive);
+      outline-offset: 3px;
+    }
 
     /* ── Mascot cloud backdrop ── */
     .mascot-cloud {
@@ -242,6 +318,7 @@
       height: 380px;
       cursor: pointer;
     }
+
     .flip-card-inner {
       position: relative;
       width: 100%;
@@ -249,10 +326,12 @@
       transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
       transform-style: preserve-3d;
     }
+
     .flip-card:hover .flip-card-inner,
     .flip-card.flipped .flip-card-inner {
       transform: rotateY(180deg);
     }
+
     .flip-card-front,
     .flip-card-back {
       position: absolute;
@@ -262,1299 +341,1475 @@
       border-radius: 20px;
       overflow: hidden;
     }
+
     .flip-card-back {
       transform: rotateY(180deg);
-      background: rgba(255,255,255,0.55);
-      border: 1px solid rgba(92,74,69,0.09);
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid rgba(92, 74, 69, 0.09);
       padding: 28px 26px 24px;
       display: flex;
       flex-direction: column;
     }
 
     /* ── Menu section — override uppercase labels ── */
-    #menu .label { text-transform: lowercase; }
+    #menu .label {
+      text-transform: lowercase;
+    }
 
     /* Non-flip card (rotating special, kids) */
     .static-card {
       border-radius: 20px;
       overflow: hidden;
-      border: 1px solid rgba(92,74,69,0.09);
-      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
+      border: 1px solid rgba(92, 74, 69, 0.09);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
     }
+
     .static-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 12px 40px rgba(92,74,69,0.10), 0 4px 16px rgba(92,74,69,0.07);
+      box-shadow: 0 12px 40px rgba(92, 74, 69, 0.10), 0 4px 16px rgba(92, 74, 69, 0.07);
     }
   </style>
 </head>
 
 <body>
 
-<!-- ════════════════════════════════════════════════════════
+  <!-- ════════════════════════════════════════════════════════
      NAVIGATION
 ════════════════════════════════════════════════════════ -->
-<nav id="navbar" class="py-5 px-6 md:px-10">
-  <div class="max-w-7xl mx-auto flex items-center justify-between gap-8">
+  <nav id="navbar" class="py-5 px-6 md:px-10">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-8">
 
-    <!-- Found & Formed logo -->
-    <a href="#" aria-label="Found & Formed — home">
-      <img src="brand_assets/brand%20logos%20%26%20mascot/logo-blue.png"
-           alt="found & formed" class="w-auto" style="height:72px; mix-blend-mode: multiply;">
-    </a>
+      <!-- Found & Formed logo -->
+      <a href="#" aria-label="Found & Formed — home">
+        <img src="brand_assets/brand%20logos%20%26%20mascot/logo-blue.png" alt="found & formed" class="w-auto"
+          style="height:72px; mix-blend-mode: multiply;">
+      </a>
 
-    <!-- Desktop links -->
-    <ul class="hidden md:flex items-center gap-10">
-      <li><a href="#menu"       class="label text-brand-brown/55 hover:text-brand-olive transition-colors">Menu</a></li>
-      <li><a href="#about"      class="label text-brand-brown/55 hover:text-brand-olive transition-colors">About</a></li>
-      <li><a href="#experience" class="label text-brand-brown/55 hover:text-brand-olive transition-colors">Experience</a></li>
-      <li><a href="#popup"      class="label text-brand-brown/55 hover:text-brand-olive transition-colors">host</a></li>
-      <li><a href="#book"       class="label text-brand-brown/55 hover:text-brand-olive transition-colors">connect</a></li>
-    </ul>
+      <!-- Desktop links -->
+      <ul class="hidden md:flex items-center gap-10">
+        <li><a href="#menu" class="label text-brand-brown/55 hover:text-brand-olive transition-colors">Menu</a></li>
+        <li><a href="#about" class="label text-brand-brown/55 hover:text-brand-olive transition-colors">About</a></li>
+        <li><a href="#experience"
+            class="label text-brand-brown/55 hover:text-brand-olive transition-colors">Experience</a></li>
+        <li><a href="#popup" class="label text-brand-brown/55 hover:text-brand-olive transition-colors">host</a></li>
+        <li><a href="#book" class="label text-brand-brown/55 hover:text-brand-olive transition-colors">connect</a></li>
+      </ul>
 
-    <a href="#events" class="btn btn-olive hidden md:inline-flex">Reserve a Seat</a>
+      <a href="#events" class="btn btn-olive hidden md:inline-flex">reserve a seat</a>
 
-    <!-- Mobile hamburger -->
-    <button id="menu-toggle" class="md:hidden text-brand-brown/65 p-1 rounded"
-            aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
-      <svg id="icon-open" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 6h16M3 12h16M3 18h16"/>
-      </svg>
-      <svg id="icon-close" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="hidden">
-        <path d="M6 6l12 12M18 6L6 18"/>
-      </svg>
-    </button>
-  </div>
+      <!-- Mobile hamburger -->
+      <button id="menu-toggle" class="md:hidden text-brand-brown/65 p-1 rounded" aria-label="Open menu"
+        aria-expanded="false" aria-controls="mobile-nav">
+        <svg id="icon-open" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 6h16M3 12h16M3 18h16" />
+        </svg>
+        <svg id="icon-close" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6"
+          stroke-linecap="round" stroke-linejoin="round" class="hidden">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+    </div>
 
-  <!-- Mobile nav -->
-  <div id="mobile-nav" class="hidden md:hidden max-w-7xl mx-auto mt-5 pt-5 pb-4 border-t border-brand-brown/10">
-    <ul class="flex flex-col gap-5 mb-6">
-      <li><a href="#menu"       class="label text-brand-brown/65">Menu</a></li>
-      <li><a href="#about"      class="label text-brand-brown/65">About</a></li>
-      <li><a href="#experience" class="label text-brand-brown/65">Experience</a></li>
-      <li><a href="#popup"      class="label text-brand-brown/65">host</a></li>
-      <li><a href="#book"       class="label text-brand-brown/65">connect</a></li>
-    </ul>
-    <a href="#events" class="btn btn-olive w-full text-center">Reserve a Seat</a>
-  </div>
-</nav>
+    <!-- Mobile nav -->
+    <div id="mobile-nav" class="hidden md:hidden max-w-7xl mx-auto mt-5 pt-5 pb-4 border-t border-brand-brown/10">
+      <ul class="flex flex-col gap-5 mb-6">
+        <li><a href="#menu" class="label text-brand-brown/65">Menu</a></li>
+        <li><a href="#about" class="label text-brand-brown/65">About</a></li>
+        <li><a href="#experience" class="label text-brand-brown/65">Experience</a></li>
+        <li><a href="#popup" class="label text-brand-brown/65">host</a></li>
+        <li><a href="#book" class="label text-brand-brown/65">connect</a></li>
+      </ul>
+      <a href="#events" class="btn btn-olive w-full text-center">reserve a seat</a>
+    </div>
+  </nav>
 
 
-<!-- ════════════════════════════════════════════════════════
+  <!-- ════════════════════════════════════════════════════════
      HERO  —  left-aligned · mascot right
 ════════════════════════════════════════════════════════ -->
-<section class="hero-bg grain relative min-h-screen overflow-hidden">
+  <section class="hero-bg grain relative min-h-screen overflow-hidden">
 
-  <!-- Left: text -->
-  <div class="relative z-10 min-h-screen flex items-center px-8 md:px-16 lg:px-24 pt-28 pb-20">
-    <div class="max-w-lg">
-      <p class="label text-brand-olive mb-5" style="text-transform:lowercase;">a place to rest, create &amp; reconnect</p>
+    <!-- Left: text -->
+    <div class="relative z-10 min-h-screen flex items-center px-8 md:px-16 lg:px-24 pt-28 pb-20">
+      <div class="max-w-lg">
+        <p class="label text-brand-olive mb-5" style="text-transform:lowercase;">a place to rest, create &amp; reconnect
+        </p>
 
-      <p class="font-serif text-[24px] md:text-[28px] font-light italic text-brand-brown/58 leading-snug mb-3">
-        where perfection isn't required<br>and joy is the goal.
-      </p>
-      <p class="font-sans text-[13px] text-brand-brown/38 leading-[1.85] mb-5 max-w-sm">
-        come as you are. leave with something you made.
-      </p>
+        <p class="font-serif text-[24px] md:text-[28px] font-light italic text-brand-brown/58 leading-snug mb-3">
+          where perfection isn't required<br>and joy is the goal.
+        </p>
+        <p class="font-sans text-[13px] text-brand-brown/38 leading-[1.85] mb-5 max-w-sm">
+          come as you are. leave with something you made.
+        </p>
 
-      <!-- ✦ Drawing pad -->
-      <div class="relative rounded-[18px] overflow-hidden mb-8 max-w-sm" style="border:1px solid rgba(92,74,69,0.10); background:rgba(255,255,255,0.22);">
+        <!-- ✦ Drawing pad -->
+        <div class="relative rounded-[18px] overflow-hidden mb-8 max-w-sm"
+          style="border:1px solid rgba(92,74,69,0.10); background:rgba(255,255,255,0.22);">
 
-        <!-- Toolbar -->
-        <div class="flex items-center gap-2.5 px-4 py-2.5" style="border-bottom:1px solid rgba(92,74,69,0.07);">
+          <!-- Toolbar -->
+          <div class="flex items-center gap-2.5 px-4 py-2.5" style="border-bottom:1px solid rgba(92,74,69,0.07);">
 
-          <!-- Color swatches -->
-          <div class="flex items-center gap-1.5" role="group" aria-label="Brush color">
-            <button class="draw-color w-[17px] h-[17px] rounded-full transition-all" data-color="#5c4a45" style="background:#5c4a45; outline:2px solid rgba(92,74,69,0.5); outline-offset:2px;" aria-label="Brown"></button>
-            <button class="draw-color w-[17px] h-[17px] rounded-full transition-all" data-color="#8e8151" style="background:#8e8151;" aria-label="Olive"></button>
-            <button class="draw-color w-[17px] h-[17px] rounded-full transition-all" data-color="#a5bbc6" style="background:#a5bbc6;" aria-label="Blue"></button>
-            <button class="draw-color w-[17px] h-[17px] rounded-full transition-all" data-color="#dddad1" style="background:#dddad1; border:1px solid rgba(92,74,69,0.25);" aria-label="Parchment"></button>
+            <!-- Color swatches -->
+            <div class="flex items-center gap-1.5" role="group" aria-label="Brush color">
+              <button class="draw-color w-[17px] h-[17px] rounded-full transition-all" data-color="#5c4a45"
+                style="background:#5c4a45; outline:2px solid rgba(92,74,69,0.5); outline-offset:2px;"
+                aria-label="Brown"></button>
+              <button class="draw-color w-[17px] h-[17px] rounded-full transition-all" data-color="#8e8151"
+                style="background:#8e8151;" aria-label="Olive"></button>
+              <button class="draw-color w-[17px] h-[17px] rounded-full transition-all" data-color="#a5bbc6"
+                style="background:#a5bbc6;" aria-label="Blue"></button>
+              <button class="draw-color w-[17px] h-[17px] rounded-full transition-all" data-color="#dddad1"
+                style="background:#dddad1; border:1px solid rgba(92,74,69,0.25);" aria-label="Parchment"></button>
+            </div>
+
+            <div class="w-px h-[13px] flex-shrink-0" style="background:rgba(92,74,69,0.10);"></div>
+
+            <!-- Brush size -->
+            <div class="flex items-center gap-0.5" role="group" aria-label="Brush size">
+              <button class="draw-size flex items-center justify-center w-7 h-7 rounded-lg transition-all" data-size="2"
+                style="background:rgba(92,74,69,0.10);" aria-label="Thin">
+                <span class="block rounded-full" style="width:3px;height:3px;background:rgba(92,74,69,0.5);"></span>
+              </button>
+              <button class="draw-size flex items-center justify-center w-7 h-7 rounded-lg transition-all" data-size="5"
+                style="background:transparent;" aria-label="Medium">
+                <span class="block rounded-full" style="width:6px;height:6px;background:rgba(92,74,69,0.5);"></span>
+              </button>
+              <button class="draw-size flex items-center justify-center w-7 h-7 rounded-lg transition-all"
+                data-size="11" style="background:transparent;" aria-label="Thick">
+                <span class="block rounded-full" style="width:10px;height:10px;background:rgba(92,74,69,0.5);"></span>
+              </button>
+            </div>
+
+            <div class="w-px h-[13px] flex-shrink-0" style="background:rgba(92,74,69,0.10);"></div>
+
+            <!-- Eraser -->
+            <button id="draw-eraser" class="font-sans font-medium rounded-lg px-2.5 py-1 transition-all"
+              aria-label="Eraser" aria-pressed="false"
+              style="font-size:9.5px; letter-spacing:0.08em; color:rgba(92,74,69,0.5); background:rgba(92,74,69,0.06);">eraser</button>
+
+            <!-- Clear — right-aligned -->
+            <button id="draw-clear" class="font-sans transition-all ml-auto" aria-label="Clear canvas"
+              style="font-size:9.5px; letter-spacing:0.08em; color:rgba(92,74,69,0.3);">clear</button>
           </div>
 
-          <div class="w-px h-[13px] flex-shrink-0" style="background:rgba(92,74,69,0.10);"></div>
-
-          <!-- Brush size -->
-          <div class="flex items-center gap-0.5" role="group" aria-label="Brush size">
-            <button class="draw-size flex items-center justify-center w-7 h-7 rounded-lg transition-all" data-size="2" style="background:rgba(92,74,69,0.10);" aria-label="Thin">
-              <span class="block rounded-full" style="width:3px;height:3px;background:rgba(92,74,69,0.5);"></span>
-            </button>
-            <button class="draw-size flex items-center justify-center w-7 h-7 rounded-lg transition-all" data-size="5" style="background:transparent;" aria-label="Medium">
-              <span class="block rounded-full" style="width:6px;height:6px;background:rgba(92,74,69,0.5);"></span>
-            </button>
-            <button class="draw-size flex items-center justify-center w-7 h-7 rounded-lg transition-all" data-size="11" style="background:transparent;" aria-label="Thick">
-              <span class="block rounded-full" style="width:10px;height:10px;background:rgba(92,74,69,0.5);"></span>
-            </button>
+          <!-- Canvas area -->
+          <div class="relative">
+            <canvas id="draw-canvas" class="block w-full select-none"
+              style="height:190px; cursor:crosshair; touch-action:none;"></canvas>
+            <p id="draw-hint"
+              class="absolute inset-0 flex items-center justify-center font-serif italic pointer-events-none select-none transition-opacity duration-700"
+              style="color:rgba(92,74,69,0.18); font-size:13px;">try drawing something...</p>
           </div>
-
-          <div class="w-px h-[13px] flex-shrink-0" style="background:rgba(92,74,69,0.10);"></div>
-
-          <!-- Eraser -->
-          <button id="draw-eraser" class="font-sans font-medium rounded-lg px-2.5 py-1 transition-all" aria-label="Eraser" aria-pressed="false"
-                  style="font-size:9.5px; letter-spacing:0.08em; color:rgba(92,74,69,0.5); background:rgba(92,74,69,0.06);">eraser</button>
-
-          <!-- Clear — right-aligned -->
-          <button id="draw-clear" class="font-sans transition-all ml-auto" aria-label="Clear canvas"
-                  style="font-size:9.5px; letter-spacing:0.08em; color:rgba(92,74,69,0.3);">clear</button>
         </div>
 
-        <!-- Canvas area -->
-        <div class="relative">
-          <canvas id="draw-canvas" class="block w-full select-none"
-                  style="height:190px; cursor:crosshair; touch-action:none;"></canvas>
-          <p id="draw-hint" class="absolute inset-0 flex items-center justify-center font-serif italic pointer-events-none select-none transition-opacity duration-700"
-             style="color:rgba(92,74,69,0.18); font-size:13px;">try drawing something...</p>
+        <div class="flex flex-col sm:flex-row items-start gap-3">
+          <a href="#events" class="btn btn-olive">reserve a seat</a>
+          <a href="#menu" class="btn btn-ghost">Explore the Menu</a>
         </div>
-      </div>
 
-      <div class="flex flex-col sm:flex-row items-start gap-3">
-        <a href="#events" class="btn btn-olive">Reserve a Seat</a>
-        <a href="#menu" class="btn btn-ghost">Explore the Menu</a>
+        <p class="font-serif italic text-brand-brown/25 text-[12px] tracking-[0.12em] mt-14 select-none">
+          rest &nbsp;—&nbsp; enjoy &nbsp;—&nbsp; create &nbsp;—&nbsp; community
+        </p>
       </div>
-
-      <p class="font-serif italic text-brand-brown/25 text-[12px] tracking-[0.12em] mt-14 select-none">
-        rest &nbsp;—&nbsp; enjoy &nbsp;—&nbsp; create &nbsp;—&nbsp; community
-      </p>
     </div>
-  </div>
 
-  <!-- Right: mascot + cloud -->
-  <div class="absolute top-0 right-0 bottom-0 w-1/2 hidden md:flex items-center justify-center pointer-events-none"
-       aria-hidden="true">
-    <!-- Olive cloud backdrop -->
-    <img src="cloud%20svg/cloud%20SVG.svg"
-         alt=""
-         class="mascot-cloud select-none"
-         style="filter: brightness(0) invert(1) sepia(0.4) hue-rotate(182deg) saturate(1.3) brightness(0.80);">
-    <!-- Mascot — in flex flow so it centers naturally over the cloud -->
-    <img src="brand_assets/brand%20logos%20%26%20mascot/mascot.png"
-         alt=""
-         class="relative z-10 w-[78%] max-w-[500px] h-auto object-contain select-none">
-  </div>
+    <!-- Right: mascot + cloud -->
+    <div class="absolute top-0 right-0 bottom-0 w-1/2 hidden md:flex items-center justify-center pointer-events-none"
+      aria-hidden="true">
+      <!-- Olive cloud backdrop -->
+      <img src="cloud%20svg/cloud%20SVG.svg" alt="" class="mascot-cloud select-none"
+        style="filter: brightness(0) invert(1) sepia(0.4) hue-rotate(182deg) saturate(1.3) brightness(0.80);">
+      <!-- Mascot — in flex flow so it centers naturally over the cloud -->
+      <img src="brand_assets/brand%20logos%20%26%20mascot/mascot.png" alt=""
+        class="relative z-10 w-[78%] max-w-[500px] h-auto object-contain select-none">
+    </div>
 
-</section>
+  </section>
 
 
 
 
-<!-- ════════════════════════════════════════════════════════
+  <!-- ════════════════════════════════════════════════════════
      WHAT IS AN ART CAFÉ
 ════════════════════════════════════════════════════════ -->
-<section class="py-24 px-6 bg-brand-parchment overflow-hidden">
-  <div class="max-w-5xl mx-auto">
-    <div class="flex flex-col md:flex-row items-center gap-12 md:gap-16">
+  <section class="py-24 px-6 bg-brand-parchment overflow-hidden">
+    <div class="max-w-5xl mx-auto">
+      <div class="flex flex-col md:flex-row items-center gap-12 md:gap-16">
 
-      <!-- Image -->
-      <div class="flex-shrink-0 flex items-center justify-center w-full md:w-auto">
-        <img src="brand_assets/brand%20logos%20%26%20mascot/found%20and%20formed%20%2B%20little%20founder%20boy.png"
-             alt="found & formed art cafe"
-             class="w-72 md:w-80 lg:w-96 h-auto select-none"
-             style="mix-blend-mode: multiply;">
-      </div>
-
-      <!-- Text -->
-      <div class="flex-1 text-center md:text-left">
-        <p class="font-script text-brand-olive text-[19px] mb-3">so glad you found us</p>
-        <h2 class="font-serif text-[36px] md:text-[46px] font-light text-brand-brown leading-tight mb-6">
-          what is an art café?
-        </h2>
-        <p class="font-sans text-[14px] text-brand-brown/60 leading-[1.92] mb-5">
-          think of your favorite cozy café — but instead of just ordering a drink, you get to <em>create</em> while you're there.
-        </p>
-        <p class="font-sans text-[14px] text-brand-brown/60 leading-[1.92] mb-5">
-          part café, part creative studio. found & formed is a place to slow down, make something with your hands, and leave feeling a little more like yourself.
-        </p>
-        <p class="font-sans text-[14px] text-brand-brown/60 leading-[1.92]">
-          no experience needed. no pressure to be good. just you, a table full of supplies, and the permission to play.
-        </p>
-
-        <div class="mt-8 flex flex-wrap gap-3 justify-center md:justify-start">
-          <a href="#events" class="btn btn-olive">reserve a seat</a>
-          <a href="#menu"   class="btn btn-ghost">explore the menu</a>
+        <!-- Image -->
+        <div class="flex-shrink-0 flex items-center justify-center w-full md:w-auto">
+          <img src="brand_assets/brand%20logos%20%26%20mascot/found%20and%20formed%20%2B%20little%20founder%20boy.png"
+            alt="found & formed art cafe" class="w-72 md:w-80 lg:w-96 h-auto select-none"
+            style="mix-blend-mode: multiply;">
         </div>
+
+        <!-- Text -->
+        <div class="flex-1 text-center md:text-left">
+          <p class="font-script text-brand-olive text-[19px] mb-3">so glad you found us</p>
+          <h2 class="font-serif text-[36px] md:text-[46px] font-light text-brand-brown leading-tight mb-6">
+            what is an art café?
+          </h2>
+          <p class="font-sans text-[14px] text-brand-brown/60 leading-[1.92] mb-5">
+            think of your favorite cozy café — but instead of just ordering a drink, you get to <em>create</em> while
+            you're there.
+          </p>
+          <p class="font-sans text-[14px] text-brand-brown/60 leading-[1.92] mb-5">
+            part café, part creative studio. found & formed is a place to slow down, make something with your hands, and
+            leave feeling a little more like yourself.
+          </p>
+          <p class="font-sans text-[14px] text-brand-brown/60 leading-[1.92]">
+            no experience needed. no pressure to be good. just you, a table full of supplies, and the permission to
+            play.
+          </p>
+
+          <div class="mt-8 flex flex-wrap gap-3 justify-center md:justify-start">
+            <a href="#events" class="btn btn-olive">reserve a seat</a>
+            <a href="#menu" class="btn btn-ghost">explore the menu</a>
+          </div>
+        </div>
+
       </div>
-
     </div>
-  </div>
-</section>
+  </section>
 
 
-<!-- ════════════════════════════════════════════════════════
+  <!-- ════════════════════════════════════════════════════════
      MENU  —  flip cards with photos
 ════════════════════════════════════════════════════════ -->
-<section id="menu" class="py-24 px-6 bg-brand-parchment">
-  <div class="max-w-6xl mx-auto">
+  <section id="menu" class="py-24 px-6 bg-brand-parchment">
+    <div class="max-w-6xl mx-auto">
 
-    <div class="text-center mb-16">
-      <p class="label text-brand-olive mb-3">what we offer</p>
-      <h2 class="font-serif text-[48px] md:text-[60px] font-light text-brand-brown leading-tight">
-        the menu
-      </h2>
-      <p class="font-serif italic text-brand-brown/42 mt-3 text-[17px] font-light">
-        hover a card to explore. choose your medium, create at your own pace.
-      </p>
-    </div>
-
-    <!-- 6 flip cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-5">
-
-      <!-- Watercolor Flight -->
-      <div class="flip-card" role="button" aria-label="Watercolor flight — tap for details" tabindex="0">
-        <div class="flip-card-inner">
-          <!-- Front -->
-          <div class="flip-card-front">
-            <img src="brand_assets/menu%20items/watercolor%20flight.jpg"
-                 alt="Watercolor flight"
-                 class="w-full h-full object-cover">
-            <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(92,74,69,0.72) 0%, transparent 55%);"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-6">
-              <p class="label text-brand-parchment/60 mb-1">painting</p>
-              <h3 class="font-script text-[30px] text-white leading-tight">watercolor flight</h3>
-            </div>
-          </div>
-          <!-- Back -->
-          <div class="flip-card-back">
-            <p class="label text-brand-olive mb-1">painting</p>
-            <h3 class="font-script text-[28px] text-brand-brown leading-tight mb-3">watercolor flight</h3>
-            <p class="font-sans text-[12px] text-brand-brown/55 leading-[1.75] mb-auto">
-              cotton paper, your choice of sketched design or blank canvas, 6 hand-selected watercolors.
-            </p>
-            <div class="border-t border-brand-brown/10 pt-4 mt-4">
-              <p class="font-sans text-[11px] text-brand-brown/48">available in 5×7 · 6×8 · 8×10</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Oil Pastel Plate -->
-      <div class="flip-card" role="button" aria-label="Oil pastel plate — tap for details" tabindex="0">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <img src="brand_assets/menu%20items/oil%20pastel%20plate.jpg"
-                 alt="Oil pastel plate"
-                 class="w-full h-full object-cover">
-            <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(92,74,69,0.72) 0%, transparent 55%);"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-6">
-              <p class="label text-brand-parchment/60 mb-1">painting</p>
-              <h3 class="font-script text-[30px] text-white leading-tight">oil pastel plate</h3>
-            </div>
-          </div>
-          <div class="flip-card-back">
-            <p class="label text-brand-olive mb-1">painting</p>
-            <h3 class="font-script text-[28px] text-brand-brown leading-tight mb-3">oil pastel plate</h3>
-            <p class="font-sans text-[12px] text-brand-brown/55 leading-[1.75] mb-auto">
-              cotton paper, your choice of sketched design or blank canvas, 14 hand-selected oil pastels.
-            </p>
-            <div class="border-t border-brand-brown/10 pt-4 mt-4">
-              <p class="font-sans text-[11px] text-brand-brown/48">available in 5×7 · 6×8 · 8×10</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Ink Sampler -->
-      <div class="flip-card" role="button" aria-label="Ink sampler — tap for details" tabindex="0">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <img src="brand_assets/menu%20items/ink%20sampler.jpg"
-                 alt="Ink sampler"
-                 class="w-full h-full object-cover">
-            <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(92,74,69,0.72) 0%, transparent 55%);"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-6">
-              <p class="label text-brand-parchment/60 mb-1">drawing</p>
-              <h3 class="font-script text-[30px] text-white leading-tight">ink sampler</h3>
-            </div>
-          </div>
-          <div class="flip-card-back">
-            <p class="label text-brand-olive mb-1">drawing</p>
-            <h3 class="font-script text-[28px] text-brand-brown leading-tight mb-3">ink sampler</h3>
-            <p class="font-sans text-[12px] text-brand-brown/55 leading-[1.75] mb-auto">
-              a trio of inks (black, blue &amp; brown), paintbrush for flowing strokes, calligraphy pen for delicate detail work.
-            </p>
-            <div class="border-t border-brand-brown/10 pt-4 mt-4">
-              <p class="font-sans text-[11px] text-brand-brown/48">available in 5×7 · 6×8 · 8×10</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Clay Soufflé -->
-      <div class="flip-card" role="button" aria-label="Clay soufflé — tap for details" tabindex="0">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <img src="brand_assets/menu%20items/clay%20souffle.jpg"
-                 alt="Clay soufflé"
-                 class="w-full h-full object-cover">
-            <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(92,74,69,0.72) 0%, transparent 55%);"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-6">
-              <p class="label text-brand-parchment/60 mb-1">sculpting</p>
-              <h3 class="font-script text-[30px] text-white leading-tight">clay soufflé</h3>
-            </div>
-          </div>
-          <div class="flip-card-back">
-            <p class="label text-brand-olive mb-1">sculpting</p>
-            <h3 class="font-script text-[28px] text-brand-brown leading-tight mb-3">clay soufflé</h3>
-            <p class="font-sans text-[12px] text-brand-brown/55 leading-[1.75] mb-auto">
-              air-dry clay, pottery tools, wedge board, sponge for smoothing &amp; finishing touches. instruction card included.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Collage Board — coming soon -->
-      <div class="flip-card" role="button" aria-label="Collage board — coming soon" tabindex="0">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <img src="brand_assets/menu%20items/collage%20board.jpg"
-                 alt="Collage board"
-                 class="w-full h-full object-cover"
-                 style="filter: grayscale(1) brightness(0.72);">
-            <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(92,74,69,0.72) 0%, transparent 55%);"></div>
-            <div class="absolute top-4 right-4">
-              <span style="background:rgba(221,218,209,0.18); border:1px solid rgba(221,218,209,0.35); color:rgba(221,218,209,0.85); font-family:'DM Sans',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.2em; text-transform:lowercase; border-radius:50px; padding:5px 12px;">coming soon</span>
-            </div>
-            <div class="absolute bottom-0 left-0 right-0 p-6">
-              <p class="label text-brand-parchment/40 mb-1">mixed media</p>
-              <h3 class="font-script text-[30px] leading-tight" style="color:rgba(255,255,255,0.45);">collage board</h3>
-            </div>
-          </div>
-          <div class="flip-card-back">
-            <p class="label text-brand-olive mb-1">mixed media</p>
-            <h3 class="font-script text-[28px] text-brand-brown leading-tight mb-3">collage board</h3>
-            <p class="font-sans text-[12px] text-brand-brown/55 leading-[1.75] mb-auto">
-              paper, curated magazines &amp; paper cutouts, scissors, stickers &amp; glue. space for your creativity to lead.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Charm Bar -->
-      <div class="flip-card" role="button" aria-label="Charm bar — tap for details" tabindex="0">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <img src="brand_assets/menu%20items/charm%20bar.jpg"
-                 alt="Charm bar"
-                 class="w-full h-full object-cover">
-            <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(92,74,69,0.72) 0%, transparent 55%);"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-6">
-              <p class="label text-brand-parchment/60 mb-1">jewelry</p>
-              <h3 class="font-script text-[30px] text-white leading-tight">charm bar</h3>
-            </div>
-          </div>
-          <div class="flip-card-back">
-            <p class="label text-brand-olive mb-1">jewelry</p>
-            <h3 class="font-script text-[28px] text-brand-brown leading-tight mb-3">charm bar</h3>
-            <p class="font-sans text-[12px] text-brand-brown/55 leading-[1.75] mb-auto">
-              string, a curated selection of beads &amp; charms, scissors + tools. ready to make, gift, or keep close.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bottom row: Rotating Special + Kids (non-flip, no photos) -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-
-      <!-- Rotating Special -->
-      <div class="static-card bg-brand-blue relative overflow-hidden p-8">
-        <div class="absolute -top-12 -right-12 w-52 h-52 rounded-full pointer-events-none"
-             style="background: radial-gradient(circle, rgba(92,74,69,0.12) 0%, transparent 70%);"></div>
-        <p class="label text-brand-brown/50 mb-2">limited time offering</p>
-        <h3 class="font-script text-[32px] text-brand-brown leading-tight mb-3">rotating special</h3>
-        <p class="font-sans text-[12.5px] text-brand-brown/55 leading-[1.78] mb-6">
-          playful, fresh &amp; ever-changing — a limited time offering inspired by the moment.
+      <div class="text-center mb-16">
+        <p class="label text-brand-olive mb-3">what we offer</p>
+        <h2 class="font-serif text-[48px] md:text-[60px] font-light text-brand-brown leading-tight">
+          the menu
+        </h2>
+        <p class="font-serif italic text-brand-brown/42 mt-3 text-[17px] font-light">
+          hover a card to explore. choose your medium, create at your own pace.
         </p>
       </div>
 
-      <!-- Kid's Menu -->
-      <div class="static-card p-8" style="background: rgba(165,187,198,0.16); border-color: rgba(165,187,198,0.32);">
-        <p class="label text-brand-brown/40 mb-2">for little ones</p>
-        <h3 class="font-script text-[32px] text-brand-brown leading-tight mb-3">kid's menu</h3>
-        <p class="font-sans text-[12.5px] text-brand-brown/55 leading-[1.78] mb-6">
-          washable and joyful — for little hands &amp; big imaginations.
-        </p>
-        <div class="border-t border-brand-brown/10 pt-4">
-          <p class="font-sans text-[11.5px] text-brand-brown/50">paint sticks · homemade playdoh · crayons</p>
+      <!-- 6 flip cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-5">
+
+        <!-- Watercolor Flight -->
+        <div class="flip-card" role="button" aria-label="Watercolor flight — tap for details" tabindex="0">
+          <div class="flip-card-inner">
+            <!-- Front -->
+            <div class="flip-card-front">
+              <img src="brand_assets/menu%20items/watercolor%20flight.jpg" alt="Watercolor flight"
+                class="w-full h-full object-cover">
+              <div class="absolute inset-0"
+                style="background: linear-gradient(to top, rgba(92,74,69,0.72) 0%, transparent 55%);"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-6">
+                <p class="label text-brand-parchment/60 mb-1">painting</p>
+                <h3 class="font-script text-[30px] text-white leading-tight">watercolor flight</h3>
+              </div>
+            </div>
+            <!-- Back -->
+            <div class="flip-card-back">
+              <p class="label text-brand-olive mb-1">painting</p>
+              <h3 class="font-script text-[28px] text-brand-brown leading-tight mb-3">watercolor flight</h3>
+              <p class="font-sans text-[12px] text-brand-brown/55 leading-[1.75] mb-auto">
+                cotton paper, your choice of sketched design or blank canvas, 6 hand-selected watercolors.
+              </p>
+              <div class="border-t border-brand-brown/10 pt-4 mt-4">
+                <p class="font-sans text-[11px] text-brand-brown/48">available in 5×7 · 6×8 · 8×10</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Oil Pastel Plate -->
+        <div class="flip-card" role="button" aria-label="Oil pastel plate — tap for details" tabindex="0">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="brand_assets/menu%20items/oil%20pastel%20plate.jpg" alt="Oil pastel plate"
+                class="w-full h-full object-cover">
+              <div class="absolute inset-0"
+                style="background: linear-gradient(to top, rgba(92,74,69,0.72) 0%, transparent 55%);"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-6">
+                <p class="label text-brand-parchment/60 mb-1">painting</p>
+                <h3 class="font-script text-[30px] text-white leading-tight">oil pastel plate</h3>
+              </div>
+            </div>
+            <div class="flip-card-back">
+              <p class="label text-brand-olive mb-1">painting</p>
+              <h3 class="font-script text-[28px] text-brand-brown leading-tight mb-3">oil pastel plate</h3>
+              <p class="font-sans text-[12px] text-brand-brown/55 leading-[1.75] mb-auto">
+                cotton paper, your choice of sketched design or blank canvas, 14 hand-selected oil pastels.
+              </p>
+              <div class="border-t border-brand-brown/10 pt-4 mt-4">
+                <p class="font-sans text-[11px] text-brand-brown/48">available in 5×7 · 6×8 · 8×10</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ink Sampler -->
+        <div class="flip-card" role="button" aria-label="Ink sampler — tap for details" tabindex="0">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="brand_assets/menu%20items/ink%20sampler.jpg" alt="Ink sampler"
+                class="w-full h-full object-cover">
+              <div class="absolute inset-0"
+                style="background: linear-gradient(to top, rgba(92,74,69,0.72) 0%, transparent 55%);"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-6">
+                <p class="label text-brand-parchment/60 mb-1">drawing</p>
+                <h3 class="font-script text-[30px] text-white leading-tight">ink sampler</h3>
+              </div>
+            </div>
+            <div class="flip-card-back">
+              <p class="label text-brand-olive mb-1">drawing</p>
+              <h3 class="font-script text-[28px] text-brand-brown leading-tight mb-3">ink sampler</h3>
+              <p class="font-sans text-[12px] text-brand-brown/55 leading-[1.75] mb-auto">
+                a trio of inks (black, blue &amp; brown), paintbrush for flowing strokes, calligraphy pen for delicate
+                detail work.
+              </p>
+              <div class="border-t border-brand-brown/10 pt-4 mt-4">
+                <p class="font-sans text-[11px] text-brand-brown/48">available in 5×7 · 6×8 · 8×10</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clay Soufflé -->
+        <div class="flip-card" role="button" aria-label="Clay soufflé — tap for details" tabindex="0">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="brand_assets/menu%20items/clay%20souffle.jpg" alt="Clay soufflé"
+                class="w-full h-full object-cover">
+              <div class="absolute inset-0"
+                style="background: linear-gradient(to top, rgba(92,74,69,0.72) 0%, transparent 55%);"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-6">
+                <p class="label text-brand-parchment/60 mb-1">sculpting</p>
+                <h3 class="font-script text-[30px] text-white leading-tight">clay soufflé</h3>
+              </div>
+            </div>
+            <div class="flip-card-back">
+              <p class="label text-brand-olive mb-1">sculpting</p>
+              <h3 class="font-script text-[28px] text-brand-brown leading-tight mb-3">clay soufflé</h3>
+              <p class="font-sans text-[12px] text-brand-brown/55 leading-[1.75] mb-auto">
+                air-dry clay, pottery tools, wedge board, sponge for smoothing &amp; finishing touches. instruction card
+                included.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collage Board — coming soon -->
+        <div class="flip-card" role="button" aria-label="Collage board — coming soon" tabindex="0">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="brand_assets/menu%20items/collage%20board.jpg" alt="Collage board"
+                class="w-full h-full object-cover" style="filter: grayscale(1) brightness(0.72);">
+              <div class="absolute inset-0"
+                style="background: linear-gradient(to top, rgba(92,74,69,0.72) 0%, transparent 55%);"></div>
+              <div class="absolute top-4 right-4">
+                <span
+                  style="background:rgba(221,218,209,0.18); border:1px solid rgba(221,218,209,0.35); color:rgba(221,218,209,0.85); font-family:'DM Sans',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.2em; text-transform:lowercase; border-radius:50px; padding:5px 12px;">coming
+                  soon</span>
+              </div>
+              <div class="absolute bottom-0 left-0 right-0 p-6">
+                <p class="label text-brand-parchment/40 mb-1">mixed media</p>
+                <h3 class="font-script text-[30px] leading-tight" style="color:rgba(255,255,255,0.45);">collage board
+                </h3>
+              </div>
+            </div>
+            <div class="flip-card-back">
+              <p class="label text-brand-olive mb-1">mixed media</p>
+              <h3 class="font-script text-[28px] text-brand-brown leading-tight mb-3">collage board</h3>
+              <p class="font-sans text-[12px] text-brand-brown/55 leading-[1.75] mb-auto">
+                paper, curated magazines &amp; paper cutouts, scissors, stickers &amp; glue. space for your creativity
+                to lead.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charm Bar -->
+        <div class="flip-card" role="button" aria-label="Charm bar — tap for details" tabindex="0">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="brand_assets/menu%20items/charm%20bar.jpg" alt="Charm bar" class="w-full h-full object-cover">
+              <div class="absolute inset-0"
+                style="background: linear-gradient(to top, rgba(92,74,69,0.72) 0%, transparent 55%);"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-6">
+                <p class="label text-brand-parchment/60 mb-1">jewelry</p>
+                <h3 class="font-script text-[30px] text-white leading-tight">charm bar</h3>
+              </div>
+            </div>
+            <div class="flip-card-back">
+              <p class="label text-brand-olive mb-1">jewelry</p>
+              <h3 class="font-script text-[28px] text-brand-brown leading-tight mb-3">charm bar</h3>
+              <p class="font-sans text-[12px] text-brand-brown/55 leading-[1.75] mb-auto">
+                string, a curated selection of beads &amp; charms, scissors + tools. ready to make, gift, or keep close.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
+
+      <!-- Bottom row: Rotating Special + Kids (non-flip, no photos) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+        <!-- Rotating Special -->
+        <div class="static-card bg-brand-blue relative overflow-hidden p-8">
+          <div class="absolute -top-12 -right-12 w-52 h-52 rounded-full pointer-events-none"
+            style="background: radial-gradient(circle, rgba(92,74,69,0.12) 0%, transparent 70%);"></div>
+          <p class="label text-brand-brown/50 mb-2">limited time offering</p>
+          <h3 class="font-script text-[32px] text-brand-brown leading-tight mb-3">rotating special</h3>
+          <p class="font-sans text-[12.5px] text-brand-brown/55 leading-[1.78] mb-6">
+            playful, fresh &amp; ever-changing — a limited time offering inspired by the moment.
+          </p>
+        </div>
+
+        <!-- Kid's Menu -->
+        <div class="static-card p-8" style="background: rgba(165,187,198,0.16); border-color: rgba(165,187,198,0.32);">
+          <p class="label text-brand-brown/40 mb-2">for little ones</p>
+          <h3 class="font-script text-[32px] text-brand-brown leading-tight mb-3">kid's menu</h3>
+          <p class="font-sans text-[12.5px] text-brand-brown/55 leading-[1.78] mb-6">
+            washable and joyful — for little hands &amp; big imaginations.
+          </p>
+          <div class="border-t border-brand-brown/10 pt-4">
+            <p class="font-sans text-[11.5px] text-brand-brown/50">paint sticks · homemade playdoh · crayons</p>
+          </div>
+        </div>
+      </div>
+
     </div>
-
-  </div>
-</section>
+  </section>
 
 
-<!-- ════════════════════════════════════════════════════════
+  <!-- ════════════════════════════════════════════════════════
      ABOUT
 ════════════════════════════════════════════════════════ -->
-<section id="about" class="py-24 px-6 relative overflow-hidden"
-         style="background: linear-gradient(140deg, var(--parchment) 55%, rgba(165,187,198,0.17) 100%);">
-  <div class="max-w-6xl mx-auto">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-start">
+  <section id="about" class="py-24 px-6 relative overflow-hidden"
+    style="background: linear-gradient(140deg, var(--parchment) 55%, rgba(165,187,198,0.17) 100%);">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-start">
 
-      <div>
-        <p class="label text-brand-olive mb-4">our story</p>
-        <h2 class="font-serif text-[50px] md:text-[58px] font-light text-brand-brown leading-[1.04] mb-8">
-          courtney<br>&amp; michael
-        </h2>
-        <div class="space-y-4 font-sans text-[13.5px] text-brand-brown/60 leading-[1.88]">
-          <p>
-            found &amp; formed was born out of a shared leap of faith. courtney has always been an artist at heart — while building a career as a commercial interior designer, she quietly carried the desire to make a living from what she truly loved: art. over time, burnout made it clear — something needed to change.
-          </p>
-          <p>
-            at the same time, michael was living out his dream as a professional soccer player, faithfully supporting courtney as she pursued the calling God placed on her life — to create freely and build something that invites others to do the same.
-          </p>
-          <p>
-            found &amp; formed is the result of that step of faith. more than a brand — it's a space. a place to rest, create, and reconnect, where perfection isn't required and joy is the goal.
-          </p>
+        <div>
+          <p class="label text-brand-olive mb-4">our story</p>
+          <h2 class="font-serif text-[50px] md:text-[58px] font-light text-brand-brown leading-[1.04] mb-8">
+            courtney<br>&amp; michael
+          </h2>
+          <div class="space-y-4 font-sans text-[13.5px] text-brand-brown/60 leading-[1.88]">
+            <p>
+              found &amp; formed was born out of a shared leap of faith. courtney has always been an artist at heart —
+              while building a career as a commercial interior designer, she quietly carried the desire to make a living
+              from what she truly loved: art. over time, burnout made it clear — something needed to change.
+            </p>
+            <p>
+              at the same time, michael was living out his dream as a professional soccer player, faithfully supporting
+              courtney as she pursued the calling God placed on her life — to create freely and build something that
+              invites others to do the same.
+            </p>
+            <p>
+              found &amp; formed is the result of that step of faith. more than a brand — it's a space. a place to rest,
+              create, and reconnect, where perfection isn't required and joy is the goal.
+            </p>
+          </div>
+          <blockquote class="mt-8 pl-5 border-l-2 border-brand-olive/40">
+            <p class="font-serif italic text-[18px] md:text-[20px] font-light text-brand-brown/52 leading-[1.62]">
+              "when you give yourself permission to create — not for performance, but for joy — you begin to remember
+              who you are."
+            </p>
+          </blockquote>
         </div>
-        <blockquote class="mt-8 pl-5 border-l-2 border-brand-olive/40">
-          <p class="font-serif italic text-[18px] md:text-[20px] font-light text-brand-brown/52 leading-[1.62]">
-            "when you give yourself permission to create — not for performance, but for joy — you begin to remember who you are."
-          </p>
-        </blockquote>
-      </div>
 
-      <!-- Photos -->
-      <div class="flex flex-col gap-4">
-        <div class="flex items-stretch gap-4">
-          <div class="flex flex-col items-center gap-3 flex-1">
-            <div class="w-full"
-                 style="aspect-ratio: 4/5; box-shadow: 0 4px 16px rgba(92,74,69,0.10), 0 16px 48px rgba(92,74,69,0.09); border-radius: 16px;">
-              <img src="brand_assets/Alison photos/445A4528-Copy1.jpg"
-                   alt="Courtney, co-founder of Found & Formed"
-                   class="w-full h-full object-cover object-top"
-                   style="border-radius: 16px; display: block;">
+        <!-- Photos -->
+        <div class="flex flex-col gap-4">
+          <div class="flex items-stretch gap-4">
+            <div class="flex flex-col items-center gap-3 flex-1">
+              <div class="w-full"
+                style="aspect-ratio: 4/5; box-shadow: 0 4px 16px rgba(92,74,69,0.10), 0 16px 48px rgba(92,74,69,0.09); border-radius: 16px;">
+                <img src="brand_assets/Alison photos/445A4528-Copy1.jpg" alt="Courtney, co-founder of Found & Formed"
+                  class="w-full h-full object-cover object-top" style="border-radius: 16px; display: block;">
+              </div>
+              <p class="font-serif italic text-[15px] text-brand-brown/55">courtney</p>
             </div>
-            <p class="font-serif italic text-[15px] text-brand-brown/55">courtney</p>
-          </div>
-          <div class="flex flex-col items-center gap-3 flex-1">
-            <div class="w-full"
-                 style="aspect-ratio: 4/5; box-shadow: 0 4px 16px rgba(92,74,69,0.10), 0 16px 48px rgba(92,74,69,0.09); border-radius: 16px;">
-              <img src="brand_assets/Alison photos/445A4035.jpg"
-                   alt="Michael, co-founder of Found & Formed"
-                   class="w-full h-full object-cover object-top"
-                   style="border-radius: 16px; display: block;">
+            <div class="flex flex-col items-center gap-3 flex-1">
+              <div class="w-full"
+                style="aspect-ratio: 4/5; box-shadow: 0 4px 16px rgba(92,74,69,0.10), 0 16px 48px rgba(92,74,69,0.09); border-radius: 16px;">
+                <img src="brand_assets/Alison photos/445A4035.jpg" alt="Michael, co-founder of Found & Formed"
+                  class="w-full h-full object-cover object-top" style="border-radius: 16px; display: block;">
+              </div>
+              <p class="font-serif italic text-[15px] text-brand-brown/55">michael</p>
             </div>
-            <p class="font-serif italic text-[15px] text-brand-brown/55">michael</p>
           </div>
-        </div>
-        <img src="brand_assets/Alison%20photos/445A4741.jpg"
-             alt="Courtney and Michael, co-founders of Found &amp; Formed"
-             style="width: 100%; height: auto; display: block; border-radius: 16px;
+          <img src="brand_assets/Alison%20photos/445A4741.jpg"
+            alt="Courtney and Michael, co-founders of Found &amp; Formed" style="width: 100%; height: auto; display: block; border-radius: 16px;
                     box-shadow: 0 4px 16px rgba(92,74,69,0.10), 0 16px 48px rgba(92,74,69,0.09);">
+        </div>
+
       </div>
-
     </div>
-  </div>
-</section>
+  </section>
 
 
-<!-- ════════════════════════════════════════════════════════
+  <!-- ════════════════════════════════════════════════════════
      PHILOSOPHY  —  light background, no brown
 ════════════════════════════════════════════════════════ -->
-<section id="experience" class="py-24 px-6 relative overflow-hidden"
-         style="background: linear-gradient(160deg, rgba(165,187,198,0.12) 0%, var(--parchment) 40%, rgba(142,129,81,0.08) 100%);">
+  <section id="experience" class="py-24 px-6 relative overflow-hidden"
+    style="background: linear-gradient(160deg, rgba(165,187,198,0.12) 0%, var(--parchment) 40%, rgba(142,129,81,0.08) 100%);">
 
-  <div class="max-w-5xl mx-auto relative z-10">
-    <div class="text-center mb-16">
-      <p class="label text-brand-olive mb-4">the found &amp; formed way</p>
-      <h2 class="font-serif text-[38px] md:text-[48px] font-light text-brand-brown leading-[1.12]">
-        we believe creativity is part<br class="hidden md:block"> of how we were designed.
-      </h2>
+    <div class="max-w-5xl mx-auto relative z-10">
+      <div class="text-center mb-16">
+        <p class="label text-brand-olive mb-4">the found &amp; formed way</p>
+        <h2 class="font-serif text-[38px] md:text-[48px] font-light text-brand-brown leading-[1.12]">
+          we believe creativity is part<br class="hidden md:block"> of how we were designed.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
+        <div class="text-center">
+          <p class="font-serif italic text-[40px] text-brand-olive font-light mb-4 leading-none">create freely.</p>
+          <p class="font-sans text-[12.5px] text-brand-brown/55 leading-[1.85]">
+            no pressure to be perfect. no experience required. just you, the materials, and the freedom to explore
+            without judgment.
+          </p>
+        </div>
+        <div class="text-center">
+          <p class="font-serif italic text-[40px] text-brand-olive font-light mb-4 leading-none">stay awhile.</p>
+          <p class="font-sans text-[12.5px] text-brand-brown/55 leading-[1.85]">
+            our space is designed to welcome you in and help you slow down. come sit. it doesn't have to be perfect —
+            that's the whole point.
+          </p>
+        </div>
+        <div class="text-center">
+          <p class="font-serif italic text-[40px] text-brand-olive font-light mb-4 leading-none">made whole.</p>
+          <p class="font-sans text-[12.5px] text-brand-brown/55 leading-[1.85]">
+            made whole, not made perfect — an invitation to reflect the beauty, intention, and joy of a Creator who
+            delights in His work.
+          </p>
+        </div>
+      </div>
     </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
-      <div class="text-center">
-        <p class="font-serif italic text-[40px] text-brand-olive font-light mb-4 leading-none">create freely.</p>
-        <p class="font-sans text-[12.5px] text-brand-brown/55 leading-[1.85]">
-          no pressure to be perfect. no experience required. just you, the materials, and the freedom to explore without judgment.
-        </p>
-      </div>
-      <div class="text-center">
-        <p class="font-serif italic text-[40px] text-brand-olive font-light mb-4 leading-none">stay awhile.</p>
-        <p class="font-sans text-[12.5px] text-brand-brown/55 leading-[1.85]">
-          our space is designed to welcome you in and help you slow down. come sit. it doesn't have to be perfect — that's the whole point.
-        </p>
-      </div>
-      <div class="text-center">
-        <p class="font-serif italic text-[40px] text-brand-olive font-light mb-4 leading-none">made whole.</p>
-        <p class="font-sans text-[12.5px] text-brand-brown/55 leading-[1.85]">
-          made whole, not made perfect — an invitation to reflect the beauty, intention, and joy of a Creator who delights in His work.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
 
-<!-- ════════════════════════════════════════════════════════
+  <!-- ════════════════════════════════════════════════════════
      UPCOMING EVENTS
 ════════════════════════════════════════════════════════ -->
-<section id="events" class="py-24 px-6" style="background: linear-gradient(160deg, rgba(165,187,198,0.12) 0%, var(--parchment) 50%, rgba(142,129,81,0.08) 100%);">
-  <div class="max-w-4xl mx-auto">
+  <section id="events" class="py-24 px-6"
+    style="background: linear-gradient(160deg, rgba(165,187,198,0.12) 0%, var(--parchment) 50%, rgba(142,129,81,0.08) 100%);">
+    <div class="max-w-4xl mx-auto">
 
-    <div class="text-center mb-14">
-      <p class="font-script text-brand-olive text-[19px] mb-2">come create with us</p>
-      <h2 class="font-serif text-[38px] md:text-[48px] font-light text-brand-brown leading-tight mb-4">
-        upcoming events
-      </h2>
-      <p class="font-sans text-[13.5px] text-brand-brown/55 leading-[1.88] max-w-md mx-auto">
-        reserve your spot before seats fill up. each event is limited so everyone has space to settle in and make something beautiful.
-      </p>
-    </div>
-
-    <!-- Events are managed via admin.html and loaded automatically from the database -->
-    <div id="events-container">
-      <div class="text-center py-12">
-        <p class="font-serif italic text-[20px] text-brand-brown/30">loading…</p>
+      <div class="text-center mb-14">
+        <p class="font-script text-brand-olive text-[19px] mb-2">come create with us</p>
+        <h2 class="font-serif text-[38px] md:text-[48px] font-light text-brand-brown leading-tight mb-4">
+          upcoming events
+        </h2>
+        <p class="font-sans text-[13.5px] text-brand-brown/55 leading-[1.88] max-w-md mx-auto">
+          reserve your spot before seats fill up. each event is limited so everyone has space to settle in and make
+          something beautiful.
+        </p>
       </div>
+
+      <!-- Events are managed via admin.html and loaded automatically from the database -->
+      <div id="events-container">
+        <div class="text-center py-12">
+          <p class="font-serif italic text-[20px] text-brand-brown/30">loading…</p>
+        </div>
+      </div>
+
     </div>
-
-  </div>
-</section>
+  </section>
 
 
-<!-- ════════════════════════════════════════════════════════
+  <!-- ════════════════════════════════════════════════════════
      HOST A POP-UP
 ════════════════════════════════════════════════════════ -->
-<section id="popup" class="py-24 px-6 relative overflow-hidden"
-         style="background: linear-gradient(160deg, rgba(142,129,81,0.07) 0%, var(--parchment) 45%, rgba(165,187,198,0.13) 100%);">
-  <div class="max-w-6xl mx-auto">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+  <section id="popup" class="py-24 px-6 relative overflow-hidden"
+    style="background: linear-gradient(160deg, rgba(142,129,81,0.07) 0%, var(--parchment) 45%, rgba(165,187,198,0.13) 100%);">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
-      <!-- Left: copy -->
-      <div>
-        <p class="label text-brand-olive mb-4" style="text-transform:lowercase;">bring the studio to you</p>
-        <h2 class="font-serif text-[44px] md:text-[54px] font-light text-brand-brown leading-[1.06] mb-6">
-          host
-        </h2>
-        <p class="font-sans text-[13.5px] text-brand-brown/60 leading-[1.92] mb-5">
-          bring found &amp; formed to your business, market, or event. we set up, bring the supplies, and create the experience — you just invite the people.
-        </p>
-        <p class="font-sans text-[13.5px] text-brand-brown/60 leading-[1.92] mb-10">
-          perfect for boutiques, cafés, salons, birthday parties, bridal showers, corporate gatherings, or any occasion that could use a little more creativity and connection.
-        </p>
+        <!-- Left: copy -->
+        <div>
+          <p class="label text-brand-olive mb-4" style="text-transform:lowercase;">bring the studio to you</p>
+          <h2 class="font-serif text-[44px] md:text-[54px] font-light text-brand-brown leading-[1.06] mb-6">
+            host
+          </h2>
+          <p class="font-sans text-[13.5px] text-brand-brown/60 leading-[1.92] mb-5">
+            bring found &amp; formed to your business, market, or event. we set up, bring the supplies, and create the
+            experience — you just invite the people.
+          </p>
+          <p class="font-sans text-[13.5px] text-brand-brown/60 leading-[1.92] mb-10">
+            perfect for boutiques, cafés, salons, birthday parties, bridal showers, corporate gatherings, or any
+            occasion that could use a little more creativity and connection.
+          </p>
 
-        <!-- What's included -->
-        <p class="label text-brand-brown/35 mb-5">what to expect</p>
-        <div class="space-y-4">
-          <div class="flex items-start gap-3">
-            <span class="text-brand-olive font-serif text-[16px] leading-none mt-1 flex-shrink-0">✦</span>
-            <p class="font-sans text-[13px] text-brand-brown/58 leading-[1.75]">
-              <span class="font-medium text-brand-brown/70">full setup &amp; teardown</span> — we handle all the logistics so you don't have to think about a thing.
-            </p>
-          </div>
-          <div class="flex items-start gap-3">
-            <span class="text-brand-olive font-serif text-[16px] leading-none mt-1 flex-shrink-0">✦</span>
-            <p class="font-sans text-[13px] text-brand-brown/58 leading-[1.75]">
-              <span class="font-medium text-brand-brown/70">all supplies included</span> — watercolor, oil pastels, clay, collage, charm bar, and more. we bring it all.
-            </p>
-          </div>
-          <div class="flex items-start gap-3">
-            <span class="text-brand-olive font-serif text-[16px] leading-none mt-1 flex-shrink-0">✦</span>
-            <p class="font-sans text-[13px] text-brand-brown/58 leading-[1.75]">
-              <span class="font-medium text-brand-brown/70">customizable to your crowd</span> — whether it's 10 guests or 100, an intimate shower or a brand activation, we'll make it feel right.
-            </p>
-          </div>
-          <div class="flex items-start gap-3">
-            <span class="text-brand-olive font-serif text-[16px] leading-none mt-1 flex-shrink-0">✦</span>
-            <p class="font-sans text-[13px] text-brand-brown/58 leading-[1.75]">
-              <span class="font-medium text-brand-brown/70">no experience needed</span> — for guests or hosts. we create a space that's welcoming, unhurried, and genuinely fun.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right: inquiry form -->
-      <div class="rounded-[24px] border border-brand-brown/10 bg-white/40 p-8 md:p-10">
-        <p class="font-script text-brand-olive text-[19px] mb-1">let's make it happen</p>
-        <h3 class="font-serif text-[28px] font-light text-brand-brown leading-tight mb-6">send an inquiry</h3>
-
-        <div id="pi-success" style="display:none; background:rgba(80,120,80,0.09); border:1px solid rgba(80,120,80,0.25); color:#3d6b3d; border-radius:12px; padding:14px 16px; font-family:'DM Sans',sans-serif; font-size:12.5px; margin-bottom:18px; text-align:center;">
-          inquiry received — we'll be in touch soon. ✦
-        </div>
-        <div id="pi-error" style="display:none; background:rgba(168,74,66,0.09); border:1px solid rgba(168,74,66,0.25); color:#a84a42; border-radius:12px; padding:14px 16px; font-family:'DM Sans',sans-serif; font-size:12.5px; margin-bottom:18px;"></div>
-
-        <div class="space-y-4">
-          <div>
-            <label class="label text-brand-brown/50 block mb-1.5" for="pi-name">name</label>
-            <input id="pi-name" type="text" placeholder="your name"
-                   class="w-full bg-white/55 border border-brand-brown/15 rounded-[12px] px-4 py-3 font-sans text-[13px] text-brand-brown placeholder-brand-brown/28 focus:outline-none focus:border-brand-olive transition-colors">
-          </div>
-          <div>
-            <label class="label text-brand-brown/50 block mb-1.5" for="pi-email">email</label>
-            <input id="pi-email" type="email" placeholder="your@email.com"
-                   class="w-full bg-white/55 border border-brand-brown/15 rounded-[12px] px-4 py-3 font-sans text-[13px] text-brand-brown placeholder-brand-brown/28 focus:outline-none focus:border-brand-olive transition-colors">
-          </div>
-          <div>
-            <label class="label text-brand-brown/50 block mb-1.5" for="pi-phone">
-              phone <span class="font-normal normal-case tracking-normal text-[10px]">(optional)</span>
-            </label>
-            <input id="pi-phone" type="tel" placeholder="(555) 000-0000"
-                   class="w-full bg-white/55 border border-brand-brown/15 rounded-[12px] px-4 py-3 font-sans text-[13px] text-brand-brown placeholder-brand-brown/28 focus:outline-none focus:border-brand-olive transition-colors">
-          </div>
-          <div>
-            <label class="label text-brand-brown/50 block mb-1.5" for="pi-type">type of event</label>
-            <select id="pi-type"
-                    class="w-full bg-white/55 border border-brand-brown/15 rounded-[12px] px-4 py-3 font-sans text-[13px] text-brand-brown focus:outline-none focus:border-brand-olive transition-colors appearance-none"
-                    style="background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235c4a45' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E\"); background-repeat: no-repeat; background-position: right 14px center;">
-              <option value="" disabled selected style="color:rgba(92,74,69,0.3);">select one…</option>
-              <option value="Business host">business pop-up (boutique, café, salon, market…)</option>
-              <option value="Private Party or Shower">private party or shower</option>
-              <option value="Corporate or Team Event">corporate or team event</option>
-              <option value="Birthday Party">birthday party</option>
-              <option value="Other">other</option>
-            </select>
-          </div>
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <label class="label text-brand-brown/50 block mb-1.5" for="pi-guests">
-                est. guests <span class="font-normal normal-case tracking-normal text-[10px]">(optional)</span>
-              </label>
-              <input id="pi-guests" type="text" placeholder="e.g. 20–30"
-                     class="w-full bg-white/55 border border-brand-brown/15 rounded-[12px] px-4 py-3 font-sans text-[13px] text-brand-brown placeholder-brand-brown/28 focus:outline-none focus:border-brand-olive transition-colors">
+          <!-- What's included -->
+          <p class="label text-brand-brown/35 mb-5">what to expect</p>
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <span class="text-brand-olive font-serif text-[16px] leading-none mt-1 flex-shrink-0">✦</span>
+              <p class="font-sans text-[13px] text-brand-brown/58 leading-[1.75]">
+                <span class="font-medium text-brand-brown/70">full setup &amp; teardown</span> — we handle all the
+                logistics so you don't have to think about a thing.
+              </p>
             </div>
-            <div>
-              <label class="label text-brand-brown/50 block mb-1.5" for="pi-date">
-                preferred date <span class="font-normal normal-case tracking-normal text-[10px]">(optional)</span>
-              </label>
-              <input id="pi-date" type="text" placeholder="e.g. June, weekends"
-                     class="w-full bg-white/55 border border-brand-brown/15 rounded-[12px] px-4 py-3 font-sans text-[13px] text-brand-brown placeholder-brand-brown/28 focus:outline-none focus:border-brand-olive transition-colors">
+            <div class="flex items-start gap-3">
+              <span class="text-brand-olive font-serif text-[16px] leading-none mt-1 flex-shrink-0">✦</span>
+              <p class="font-sans text-[13px] text-brand-brown/58 leading-[1.75]">
+                <span class="font-medium text-brand-brown/70">all supplies included</span> — watercolor, oil pastels,
+                clay, collage, charm bar, and more. we bring it all.
+              </p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-brand-olive font-serif text-[16px] leading-none mt-1 flex-shrink-0">✦</span>
+              <p class="font-sans text-[13px] text-brand-brown/58 leading-[1.75]">
+                <span class="font-medium text-brand-brown/70">customizable to your crowd</span> — whether it's 10 guests
+                or 100, an intimate shower or a brand activation, we'll make it feel right.
+              </p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-brand-olive font-serif text-[16px] leading-none mt-1 flex-shrink-0">✦</span>
+              <p class="font-sans text-[13px] text-brand-brown/58 leading-[1.75]">
+                <span class="font-medium text-brand-brown/70">no experience needed</span> — for guests or hosts. we
+                create a space that's welcoming, unhurried, and genuinely fun.
+              </p>
             </div>
           </div>
-          <div>
-            <label class="label text-brand-brown/50 block mb-1.5" for="pi-message">
-              tell us about your event <span class="font-normal normal-case tracking-normal text-[10px]">(optional)</span>
-            </label>
-            <textarea id="pi-message" rows="3" placeholder="any details you'd like to share — venue, vibe, vision…"
-                      class="w-full bg-white/55 border border-brand-brown/15 rounded-[12px] px-4 py-3 font-sans text-[13px] text-brand-brown placeholder-brand-brown/28 focus:outline-none focus:border-brand-olive transition-colors resize-none"></textarea>
-          </div>
-          <button id="pi-submit-btn" type="button"
-                  class="btn btn-olive w-full justify-center mt-1 disabled:opacity-50 disabled:cursor-not-allowed"
-                  onclick="submitPopupInquiry()">
-            send inquiry →
-          </button>
         </div>
-      </div>
 
+        <!-- Right: inquiry form -->
+        <div class="rounded-[24px] border border-brand-brown/10 bg-white/40 p-8 md:p-10">
+          <p class="font-script text-brand-olive text-[19px] mb-1">let's make it happen</p>
+          <h3 class="font-serif text-[28px] font-light text-brand-brown leading-tight mb-6">send an inquiry</h3>
+
+          <div id="pi-success"
+            style="display:none; background:rgba(80,120,80,0.09); border:1px solid rgba(80,120,80,0.25); color:#3d6b3d; border-radius:12px; padding:14px 16px; font-family:'DM Sans',sans-serif; font-size:12.5px; margin-bottom:18px; text-align:center;">
+            inquiry received — we'll be in touch soon. ✦
+          </div>
+          <div id="pi-error"
+            style="display:none; background:rgba(168,74,66,0.09); border:1px solid rgba(168,74,66,0.25); color:#a84a42; border-radius:12px; padding:14px 16px; font-family:'DM Sans',sans-serif; font-size:12.5px; margin-bottom:18px;">
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label class="label text-brand-brown/50 block mb-1.5" for="pi-name">name</label>
+              <input id="pi-name" type="text" placeholder="your name"
+                class="w-full bg-white/55 border border-brand-brown/15 rounded-[12px] px-4 py-3 font-sans text-[13px] text-brand-brown placeholder-brand-brown/28 focus:outline-none focus:border-brand-olive transition-colors">
+            </div>
+            <div>
+              <label class="label text-brand-brown/50 block mb-1.5" for="pi-email">email</label>
+              <input id="pi-email" type="email" placeholder="your@email.com"
+                class="w-full bg-white/55 border border-brand-brown/15 rounded-[12px] px-4 py-3 font-sans text-[13px] text-brand-brown placeholder-brand-brown/28 focus:outline-none focus:border-brand-olive transition-colors">
+            </div>
+            <div>
+              <label class="label text-brand-brown/50 block mb-1.5" for="pi-phone">
+                phone <span class="font-normal normal-case tracking-normal text-[10px]">(optional)</span>
+              </label>
+              <input id="pi-phone" type="tel" placeholder="(555) 000-0000"
+                class="w-full bg-white/55 border border-brand-brown/15 rounded-[12px] px-4 py-3 font-sans text-[13px] text-brand-brown placeholder-brand-brown/28 focus:outline-none focus:border-brand-olive transition-colors">
+            </div>
+            <div>
+              <label class="label text-brand-brown/50 block mb-1.5" for="pi-type">type of event</label>
+              <select id="pi-type"
+                class="w-full bg-white/55 border border-brand-brown/15 rounded-[12px] px-4 py-3 font-sans text-[13px] text-brand-brown focus:outline-none focus:border-brand-olive transition-colors appearance-none"
+                style="background-image: url(\" data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12'
+                height='12' viewBox='0 0 24 24' fill='none' stroke='%235c4a45' stroke-width='1.8' stroke-linecap='round'
+                stroke-linejoin='round' %3E%3Cpolyline points='6 9 12 15 18 9' /%3E%3C/svg%3E\"); background-repeat:
+                no-repeat; background-position: right 14px center;">
+                <option value="" disabled selected style="color:rgba(92,74,69,0.3);">select one…</option>
+                <option value="Business host">business pop-up (boutique, café, salon, market…)</option>
+                <option value="Private Party or Shower">private party or shower</option>
+                <option value="Corporate or Team Event">corporate or team event</option>
+                <option value="Birthday Party">birthday party</option>
+                <option value="Other">other</option>
+              </select>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="label text-brand-brown/50 block mb-1.5" for="pi-guests">
+                  est. guests <span class="font-normal normal-case tracking-normal text-[10px]">(optional)</span>
+                </label>
+                <input id="pi-guests" type="text" placeholder="e.g. 20–30"
+                  class="w-full bg-white/55 border border-brand-brown/15 rounded-[12px] px-4 py-3 font-sans text-[13px] text-brand-brown placeholder-brand-brown/28 focus:outline-none focus:border-brand-olive transition-colors">
+              </div>
+              <div>
+                <label class="label text-brand-brown/50 block mb-1.5" for="pi-date">
+                  preferred date <span class="font-normal normal-case tracking-normal text-[10px]">(optional)</span>
+                </label>
+                <input id="pi-date" type="text" placeholder="e.g. June, weekends"
+                  class="w-full bg-white/55 border border-brand-brown/15 rounded-[12px] px-4 py-3 font-sans text-[13px] text-brand-brown placeholder-brand-brown/28 focus:outline-none focus:border-brand-olive transition-colors">
+              </div>
+            </div>
+            <div>
+              <label class="label text-brand-brown/50 block mb-1.5" for="pi-message">
+                tell us about your event <span
+                  class="font-normal normal-case tracking-normal text-[10px]">(optional)</span>
+              </label>
+              <textarea id="pi-message" rows="3" placeholder="any details you'd like to share — venue, vibe, vision…"
+                class="w-full bg-white/55 border border-brand-brown/15 rounded-[12px] px-4 py-3 font-sans text-[13px] text-brand-brown placeholder-brand-brown/28 focus:outline-none focus:border-brand-olive transition-colors resize-none"></textarea>
+            </div>
+            <button id="pi-submit-btn" type="button"
+              class="btn btn-olive w-full justify-center mt-1 disabled:opacity-50 disabled:cursor-not-allowed"
+              onclick="submitPopupInquiry()">
+              send inquiry →
+            </button>
+          </div>
+        </div>
+
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
 
-<!-- ════════════════════════════════════════════════════════
+  <!-- ════════════════════════════════════════════════════════
      BOOK / CTA
 ════════════════════════════════════════════════════════ -->
-<section id="book" class="hero-bg grain relative py-28 px-6 overflow-hidden">
-  <div class="max-w-lg mx-auto text-center relative z-10">
+  <section id="book" class="hero-bg grain relative py-28 px-6 overflow-hidden">
+    <div class="max-w-lg mx-auto text-center relative z-10">
 
-    <img src="brand_assets/brand%20logos%20%26%20mascot/logo-blue.png"
-         alt="found & formed"
-         class="w-40 mx-auto mb-8 opacity-70 select-none">
+      <img src="brand_assets/brand%20logos%20%26%20mascot/logo-blue.png" alt="found & formed"
+        class="w-40 mx-auto mb-8 opacity-70 select-none">
 
-    <h2 class="font-serif text-[40px] md:text-[50px] font-light text-brand-brown leading-tight mb-5">
-      ready to create?
-    </h2>
-    <p class="font-sans text-[13.5px] text-brand-brown/55 leading-[1.88] mb-10">
-      come alone, bring a friend, make it a date — or rent the space for a private gathering.<br>
-      no experience needed. just show up.
-    </p>
+      <h2 class="font-serif text-[40px] md:text-[50px] font-light text-brand-brown leading-tight mb-5">
+        ready to create?
+      </h2>
+      <p class="font-sans text-[13.5px] text-brand-brown/55 leading-[1.88] mb-10">
+        come alone, bring a friend, make it a date — or rent the space for a private gathering.<br>
+        no experience needed. just show up.
+      </p>
 
-    <!-- Two action cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12 text-left">
-      <div class="rounded-[20px] border border-brand-brown/12 bg-white/30 p-6">
-        <div class="flex items-center gap-2 mb-2">
-          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" class="text-brand-olive flex-shrink-0">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-            <polyline points="22,6 12,13 2,6"/>
-          </svg>
-          <p class="label text-brand-olive">stay in the loop</p>
+      <!-- Two action cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12 text-left">
+        <div class="rounded-[20px] border border-brand-brown/12 bg-white/30 p-6">
+          <div class="flex items-center gap-2 mb-2">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+              class="text-brand-olive flex-shrink-0">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+            <p class="label text-brand-olive">stay in the loop</p>
+          </div>
+          <p class="font-sans text-[12px] text-brand-brown/50 leading-[1.75] mb-4">
+            be the first to hear about new offerings, events, and rotating specials.
+          </p>
+          <a href="https://stats.sender.net/forms/e9rvP4/view" target="_blank" rel="noopener noreferrer"
+            class="btn btn-sm-ghost">join the email list</a>
         </div>
-        <p class="font-sans text-[12px] text-brand-brown/50 leading-[1.75] mb-4">
-          be the first to hear about new offerings, events, and rotating specials.
-        </p>
-        <a href="https://stats.sender.net/forms/e9rvP4/view"
-           target="_blank" rel="noopener noreferrer"
-           class="btn btn-sm-ghost">join the email list</a>
+
+        <div class="rounded-[20px] border border-brand-brown/12 bg-white/30 p-6">
+          <div class="flex items-center gap-2 mb-2">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+              class="text-brand-olive flex-shrink-0">
+              <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+            </svg>
+            <p class="label text-brand-olive">have questions?</p>
+          </div>
+          <p class="font-sans text-[12px] text-brand-brown/50 leading-[1.75] mb-4">
+            we'd love to hear from you — send us a note and we'll get back to you soon.
+          </p>
+          <button onclick="document.getElementById('contact-modal').classList.remove('hidden')"
+            class="btn btn-sm-ghost">send a message</button>
+        </div>
       </div>
 
-      <div class="rounded-[20px] border border-brand-brown/12 bg-white/30 p-6">
-        <div class="flex items-center gap-2 mb-2">
-          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" class="text-brand-olive flex-shrink-0">
-            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
-          </svg>
-          <p class="label text-brand-olive">have questions?</p>
-        </div>
-        <p class="font-sans text-[12px] text-brand-brown/50 leading-[1.75] mb-4">
-          we'd love to hear from you — send us a note and we'll get back to you soon.
-        </p>
-        <button onclick="document.getElementById('contact-modal').classList.remove('hidden')"
-                class="btn btn-sm-ghost">send a message</button>
+      <div class="ornament text-brand-brown/25">
+        <span class="font-serif italic text-[13px] tracking-wide whitespace-nowrap text-brand-brown/28">
+          rest — enjoy — create — community
+        </span>
       </div>
     </div>
-
-    <div class="ornament text-brand-brown/25">
-      <span class="font-serif italic text-[13px] tracking-wide whitespace-nowrap text-brand-brown/28">
-        rest — enjoy — create — community
-      </span>
-    </div>
-  </div>
-</section>
+  </section>
 
 
-<!-- ════════════════════════════════════════════════════════
+  <!-- ════════════════════════════════════════════════════════
      CONTACT MODAL
 ════════════════════════════════════════════════════════ -->
-<div id="contact-modal"
-     class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4"
-     role="dialog" aria-modal="true" aria-labelledby="modal-title">
-  <div class="absolute inset-0 bg-brand-brown/60 backdrop-blur-sm"
-       onclick="document.getElementById('contact-modal').classList.add('hidden')"></div>
+  <div id="contact-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4" role="dialog"
+    aria-modal="true" aria-labelledby="modal-title">
+    <div class="absolute inset-0 bg-brand-brown/60 backdrop-blur-sm"
+      onclick="document.getElementById('contact-modal').classList.add('hidden')"></div>
 
-  <div class="relative bg-brand-parchment w-full max-w-md rounded-[20px] p-8 shadow-2xl">
-    <button onclick="document.getElementById('contact-modal').classList.add('hidden')"
-            class="absolute top-4 right-4 text-brand-brown/35 hover:text-brand-brown/65 transition-colors p-1"
-            aria-label="Close">
-      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-        <path d="M6 6l12 12M18 6L6 18"/>
-      </svg>
-    </button>
-
-    <p class="label text-brand-olive mb-2">get in touch</p>
-    <h3 id="modal-title" class="font-serif text-[30px] font-light text-brand-brown leading-tight mb-6">
-      send us a message
-    </h3>
-
-    <div data-fs-success class="hidden text-center py-6">
-      <p class="font-serif italic text-brand-olive text-[18px] mb-1">message sent ✦</p>
-      <p class="font-sans text-[12px] text-brand-brown/45">we'll be in touch soon.</p>
-    </div>
-    <div data-fs-error class="hidden mb-3 font-sans text-[12px] text-red-500/70 text-center">
-      something went wrong — email us at
-      <a href="mailto:info@foundandformedart.com" class="underline">info@foundandformedart.com</a>
-    </div>
-
-    <form id="contact-form" class="space-y-4">
-      <div>
-        <label class="label text-brand-brown/50 block mb-1.5" for="cf-name">name</label>
-        <input id="cf-name" type="text" name="name" required placeholder="your name" data-fs-field
-               class="w-full bg-white/50 border border-brand-brown/15 rounded-[12px] px-4 py-3 font-sans text-[13px] text-brand-brown placeholder-brand-brown/25 focus:outline-none focus:border-brand-olive transition-colors">
-        <span data-fs-error="name" class="font-sans text-[11px] text-red-500/70 mt-1 block"></span>
-      </div>
-      <div>
-        <label class="label text-brand-brown/50 block mb-1.5" for="cf-email">email</label>
-        <input id="cf-email" type="email" name="email" required placeholder="your@email.com" data-fs-field
-               class="w-full bg-white/50 border border-brand-brown/15 rounded-[12px] px-4 py-3 font-sans text-[13px] text-brand-brown placeholder-brand-brown/25 focus:outline-none focus:border-brand-olive transition-colors">
-        <span data-fs-error="email" class="font-sans text-[11px] text-red-500/70 mt-1 block"></span>
-      </div>
-      <div>
-        <label class="label text-brand-brown/50 block mb-1.5" for="cf-message">message</label>
-        <textarea id="cf-message" name="message" required rows="4" placeholder="what's on your mind?" data-fs-field
-                  class="w-full bg-white/50 border border-brand-brown/15 rounded-[12px] px-4 py-3 font-sans text-[13px] text-brand-brown placeholder-brand-brown/25 focus:outline-none focus:border-brand-olive transition-colors resize-none"></textarea>
-        <span data-fs-error="message" class="font-sans text-[11px] text-red-500/70 mt-1 block"></span>
-      </div>
-      <button type="submit" data-fs-submit-btn
-              class="btn btn-olive w-full justify-center mt-2 disabled:opacity-50 disabled:cursor-not-allowed">
-        send message
+    <div class="relative bg-brand-parchment w-full max-w-md rounded-[20px] p-8 shadow-2xl">
+      <button onclick="document.getElementById('contact-modal').classList.add('hidden')"
+        class="absolute top-4 right-4 text-brand-brown/35 hover:text-brand-brown/65 transition-colors p-1"
+        aria-label="Close">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
       </button>
-    </form>
 
-    <script>
-      window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
-      formspree('initForm', { formElement: '#contact-form', formId: 'mvzvjgvv' });
-    </script>
-    <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+      <p class="label text-brand-olive mb-2">get in touch</p>
+      <h3 id="modal-title" class="font-serif text-[30px] font-light text-brand-brown leading-tight mb-6">
+        send us a message
+      </h3>
+
+      <div id="cf-success" class="hidden text-center py-6">
+        <p class="font-serif italic text-brand-olive text-[18px] mb-1">message sent ✦</p>
+        <p class="font-sans text-[12px] text-brand-brown/45">we'll be in touch soon.</p>
+      </div>
+      <div id="cf-error" class="hidden mb-3 font-sans text-[12px] text-red-500/70 text-center">
+        something went wrong — email us at
+        <a href="mailto:info@foundandformedart.com" class="underline">info@foundandformedart.com</a>
+      </div>
+
+      <form id="contact-form" class="space-y-4" onsubmit="submitContactForm(event)">
+        <div>
+          <label class="label text-brand-brown/50 block mb-1.5" for="cf-name">name</label>
+          <input id="cf-name" type="text" name="name" required placeholder="your name"
+            class="w-full bg-white/50 border border-brand-brown/15 rounded-[12px] px-4 py-3 font-sans text-[13px] text-brand-brown placeholder-brand-brown/25 focus:outline-none focus:border-brand-olive transition-colors">
+        </div>
+        <div>
+          <label class="label text-brand-brown/50 block mb-1.5" for="cf-email">email</label>
+          <input id="cf-email" type="email" name="email" required placeholder="your@email.com"
+            class="w-full bg-white/50 border border-brand-brown/15 rounded-[12px] px-4 py-3 font-sans text-[13px] text-brand-brown placeholder-brand-brown/25 focus:outline-none focus:border-brand-olive transition-colors">
+        </div>
+        <div>
+          <label class="label text-brand-brown/50 block mb-1.5" for="cf-message">message</label>
+          <textarea id="cf-message" name="message" required rows="4" placeholder="what's on your mind?"
+            class="w-full bg-white/50 border border-brand-brown/15 rounded-[12px] px-4 py-3 font-sans text-[13px] text-brand-brown placeholder-brand-brown/25 focus:outline-none focus:border-brand-olive transition-colors resize-none"></textarea>
+        </div>
+        <button id="cf-submit-btn" type="submit"
+          class="btn btn-olive w-full justify-center mt-2 disabled:opacity-50 disabled:cursor-not-allowed">
+          send message
+        </button>
+      </form>
+    </div>
   </div>
-</div>
 
 
-<!-- ════════════════════════════════════════════════════════
+  <!-- ════════════════════════════════════════════════════════
      FOOTER
 ════════════════════════════════════════════════════════ -->
-<footer class="bg-brand-brown pt-14 pb-10 px-6">
-  <div class="max-w-6xl mx-auto">
-    <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-10">
-      <a href="#" aria-label="Found & Formed — home" class="flex-shrink-0">
-        <img src="brand_assets/brand%20logos%20%26%20mascot/monogram-parchment.png"
-             alt="f&f" class="h-14 w-auto opacity-75">
-      </a>
-      <nav class="flex flex-wrap justify-center gap-5 md:gap-8" aria-label="Footer navigation">
-        <a href="#menu"       class="label text-brand-parchment/38 hover:text-brand-parchment/65 transition-colors">Menu</a>
-        <a href="#about"      class="label text-brand-parchment/38 hover:text-brand-parchment/65 transition-colors">About</a>
-        <a href="#experience" class="label text-brand-parchment/38 hover:text-brand-parchment/65 transition-colors">Experience</a>
-        <a href="#book"       class="label text-brand-parchment/38 hover:text-brand-parchment/65 transition-colors">connect</a>
-        <a href="https://foundandformedart.com" class="label text-brand-parchment/38 hover:text-brand-parchment/65 transition-colors">foundandformedart.com</a>
-      </nav>
-      <div class="flex items-center gap-2">
-        <a href="https://www.instagram.com/byfoundandformed/" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
-          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-            <rect x="2" y="2" width="20" height="20" rx="5"/>
-            <circle cx="12" cy="12" r="4"/>
-            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-          </svg>
+  <footer class="bg-brand-brown pt-14 pb-10 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-10">
+        <a href="#" aria-label="Found & Formed — home" class="flex-shrink-0">
+          <img src="brand_assets/brand%20logos%20%26%20mascot/monogram-parchment.png" alt="f&f"
+            class="h-14 w-auto opacity-75">
         </a>
-        <a href="https://www.facebook.com/profile.php?id=61576822306968" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Facebook">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
-          </svg>
-        </a>
-        <a href="https://linktr.ee/byfoundandformed" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Linktree">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M13.736 5.853a1.929 1.929 0 00-3.472 0L7.622 10.74H4.5a1.929 1.929 0 00-1.362 3.291l2.545 2.545-.972 3.63a1.929 1.929 0 002.965 2.096L12 19.77l4.324 2.532a1.929 1.929 0 002.965-2.096l-.972-3.63 2.545-2.545A1.929 1.929 0 0019.5 10.74h-3.122l-2.642-4.887z"/>
-          </svg>
-        </a>
+        <nav class="flex flex-wrap justify-center gap-5 md:gap-8" aria-label="Footer navigation">
+          <a href="#menu" class="label text-brand-parchment/38 hover:text-brand-parchment/65 transition-colors">Menu</a>
+          <a href="#about"
+            class="label text-brand-parchment/38 hover:text-brand-parchment/65 transition-colors">About</a>
+          <a href="#experience"
+            class="label text-brand-parchment/38 hover:text-brand-parchment/65 transition-colors">Experience</a>
+          <a href="#book"
+            class="label text-brand-parchment/38 hover:text-brand-parchment/65 transition-colors">connect</a>
+          <a href="https://foundandformedart.com"
+            class="label text-brand-parchment/38 hover:text-brand-parchment/65 transition-colors">foundandformedart.com</a>
+        </nav>
+        <div class="flex items-center gap-2">
+          <a href="https://www.instagram.com/byfoundandformed/" target="_blank" rel="noopener noreferrer"
+            class="social-btn" aria-label="Instagram">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <rect x="2" y="2" width="20" height="20" rx="5" />
+              <circle cx="12" cy="12" r="4" />
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+            </svg>
+          </a>
+          <a href="https://www.facebook.com/profile.php?id=61576822306968" target="_blank" rel="noopener noreferrer"
+            class="social-btn" aria-label="Facebook">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
+            </svg>
+          </a>
+          <a href="https://linktr.ee/byfoundandformed" target="_blank" rel="noopener noreferrer" class="social-btn"
+            aria-label="Linktree">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M13.736 5.853a1.929 1.929 0 00-3.472 0L7.622 10.74H4.5a1.929 1.929 0 00-1.362 3.291l2.545 2.545-.972 3.63a1.929 1.929 0 002.965 2.096L12 19.77l4.324 2.532a1.929 1.929 0 002.965-2.096l-.972-3.63 2.545-2.545A1.929 1.929 0 0019.5 10.74h-3.122l-2.642-4.887z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div
+        class="border-t border-brand-parchment/[0.08] pt-7 flex flex-col md:flex-row items-center justify-between gap-3">
+        <div class="flex flex-wrap items-center gap-4">
+          <p class="font-sans text-[10px] text-brand-parchment/22 tracking-wide">
+            © 2026 Found &amp; Formed. All rights reserved.
+          </p>
+          <button onclick="document.getElementById('privacy-modal').classList.remove('hidden')"
+            class="font-sans text-[10.5px] text-brand-parchment/60 hover:text-brand-parchment transition-colors underline underline-offset-2 cursor-pointer">privacy
+            policy</button>
+          <button onclick="document.getElementById('terms-modal').classList.remove('hidden')"
+            class="font-sans text-[10.5px] text-brand-parchment/60 hover:text-brand-parchment transition-colors underline underline-offset-2 cursor-pointer">terms
+            of use</button>
+        </div>
+        <p class="font-serif italic text-brand-parchment/16 text-[12.5px]">
+          made whole, not made perfect.
+        </p>
+        <div style="display:flex; gap:14px; align-items:center;">
+          <a href="cogs.html"
+            style="font-family:'DM Sans',sans-serif; font-size:9.5px; color:rgba(221,218,209,0.18); text-decoration:none; letter-spacing:0.08em;"
+            title="cogs calculator">◈</a>
+          <a href="admin.html"
+            style="font-family:'DM Sans',sans-serif; font-size:9.5px; color:rgba(221,218,209,0.18); text-decoration:none; letter-spacing:0.08em;"
+            title="admin">⬡</a>
+        </div>
       </div>
     </div>
-    <div class="border-t border-brand-parchment/[0.08] pt-7 flex flex-col md:flex-row items-center justify-between gap-3">
-      <p class="font-sans text-[10px] text-brand-parchment/22 tracking-wide">
-        © 2025 Found &amp; Formed. All rights reserved.
+  </footer>
+
+
+  <!-- ── Reservation Modal ──────────────────────────────────────────── -->
+  <div id="reserve-modal"
+    style="display:none; position:fixed; inset:0; z-index:100; align-items:center; justify-content:center; padding:24px; background:rgba(92,74,69,0.5); backdrop-filter:blur(8px);">
+    <div
+      style="width:100%; max-width:520px; background:#dddad1; border-radius:28px; padding:36px 40px; box-shadow:0 32px 80px rgba(92,74,69,0.28); max-height:90vh; overflow-y:auto;">
+
+      <!-- Header -->
+      <div style="display:flex; align-items:start; justify-content:space-between; margin-bottom:24px; gap:12px;">
+        <div>
+          <p id="modal-label"
+            style="font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.15em; text-transform:lowercase; color:#8e8151; margin-bottom:5px;">
+          </p>
+          <h2 id="res-modal-title"
+            style="font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:300; color:#5c4a45; line-height:1.2;">
+          </h2>
+        </div>
+        <button onclick="closeReserve()"
+          style="background:none; border:none; cursor:pointer; font-size:26px; color:rgba(92,74,69,0.28); line-height:1; padding:0; margin-top:2px; flex-shrink:0;"
+          aria-label="close">×</button>
+      </div>
+
+      <!-- Alerts -->
+      <div id="res-error"
+        style="display:none; background:rgba(168,74,66,0.09); border:1px solid rgba(168,74,66,0.25); color:#a84a42; border-radius:12px; padding:11px 14px; font-family:'DM Sans',sans-serif; font-size:12.5px; margin-bottom:14px;">
+      </div>
+      <div id="res-success"
+        style="display:none; background:rgba(80,120,80,0.09); border:1px solid rgba(80,120,80,0.25); color:#3d6b3d; border-radius:12px; padding:11px 14px; font-family:'DM Sans',sans-serif; font-size:12.5px; margin-bottom:14px;">
+      </div>
+
+      <!-- Step 1: Arrival time -->
+      <div style="margin-bottom:22px;">
+        <p
+          style="font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:lowercase; color:rgba(92,74,69,0.5); margin-bottom:12px;">
+          choose your arrival time</p>
+
+        <p
+          style="font-family:'DM Sans',sans-serif; font-size:9.5px; font-weight:500; letter-spacing:0.12em; text-transform:lowercase; color:rgba(142,129,81,0.7); margin-bottom:8px;">
+          morning · 10:30 am – 12:30 pm</p>
+        <div id="slots-morning" style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:16px;">
+        </div>
+
+        <p
+          style="font-family:'DM Sans',sans-serif; font-size:9.5px; font-weight:500; letter-spacing:0.12em; text-transform:lowercase; color:rgba(142,129,81,0.7); margin-bottom:8px;">
+          afternoon · 1:00 pm – 3:00 pm</p>
+        <div id="slots-afternoon" style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px;"></div>
+      </div>
+
+      <!-- Step 2: Party size (revealed after time pick) -->
+      <div id="party-section"
+        style="display:none; margin-bottom:22px; padding:18px 20px; background:rgba(255,255,255,0.3); border-radius:16px;">
+        <p
+          style="font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:lowercase; color:rgba(92,74,69,0.5); margin-bottom:12px;">
+          how many guests?</p>
+        <div style="display:flex; align-items:center; gap:18px;">
+          <button id="party-minus" onclick="adjustParty(-1)"
+            style="width:32px; height:32px; border-radius:50%; border:1px solid rgba(92,74,69,0.2); background:rgba(255,255,255,0.65); color:#5c4a45; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:opacity 0.15s;">−</button>
+          <span id="party-count"
+            style="font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:300; color:#5c4a45; min-width:24px; text-align:center;">1</span>
+          <button id="party-plus" onclick="adjustParty(1)"
+            style="width:32px; height:32px; border-radius:50%; border:1px solid rgba(92,74,69,0.2); background:rgba(255,255,255,0.65); color:#5c4a45; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:opacity 0.15s;">+</button>
+          <span id="party-avail"
+            style="font-family:'DM Sans',sans-serif; font-size:11px; color:rgba(92,74,69,0.42); letter-spacing:0.04em;"></span>
+        </div>
+      </div>
+
+      <!-- Experience interest (required) -->
+
+      <!-- Contact fields -->
+      <div style="margin-bottom:14px;">
+        <label
+          style="display:block; font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:lowercase; color:rgba(92,74,69,0.5); margin-bottom:6px;">name</label>
+        <input type="text" id="res-name" placeholder="your name"
+          style="width:100%; background:rgba(255,255,255,0.55); border:1px solid rgba(92,74,69,0.18); border-radius:12px; padding:11px 14px; font-family:'DM Sans',sans-serif; font-size:13px; color:#5c4a45; outline:none; box-sizing:border-box;">
+      </div>
+      <div style="margin-bottom:14px;">
+        <label
+          style="display:block; font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:lowercase; color:rgba(92,74,69,0.5); margin-bottom:6px;">email</label>
+        <input type="email" id="res-email" placeholder="you@email.com"
+          style="width:100%; background:rgba(255,255,255,0.55); border:1px solid rgba(92,74,69,0.18); border-radius:12px; padding:11px 14px; font-family:'DM Sans',sans-serif; font-size:13px; color:#5c4a45; outline:none; box-sizing:border-box;">
+      </div>
+      <div style="margin-bottom:26px;">
+        <label
+          style="display:block; font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:lowercase; color:rgba(92,74,69,0.5); margin-bottom:6px;">phone
+          <span
+            style="font-weight:300; text-transform:none; letter-spacing:0; font-size:10px;">(optional)</span></label>
+        <input type="tel" id="res-phone" placeholder="(555) 000-0000"
+          style="width:100%; background:rgba(255,255,255,0.55); border:1px solid rgba(92,74,69,0.18); border-radius:12px; padding:11px 14px; font-family:'DM Sans',sans-serif; font-size:13px; color:#5c4a45; outline:none; box-sizing:border-box;">
+      </div>
+      <div style="margin-bottom:26px;">
+        <label
+          style="display:block; font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:lowercase; color:rgba(92,74,69,0.5); margin-bottom:10px;">which
+          experience are you most looking forward to? <span
+            style="font-weight:300; text-transform:none; letter-spacing:0; font-size:10px;">(optional)</span></label>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px;">
+          <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+            <input type="checkbox" value="Watercolor Flight" class="res-item-cb"
+              style="width:auto; margin:0; cursor:pointer;">
+            <span style="font-family:'DM Sans',sans-serif; font-size:13px; color:#5c4a45;">Watercolor Flight</span>
+          </label>
+          <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+            <input type="checkbox" value="Oil Pastel Plate" class="res-item-cb"
+              style="width:auto; margin:0; cursor:pointer;">
+            <span style="font-family:'DM Sans',sans-serif; font-size:13px; color:#5c4a45;">Oil Pastel Plate</span>
+          </label>
+          <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+            <input type="checkbox" value="Ink Sampler" class="res-item-cb"
+              style="width:auto; margin:0; cursor:pointer;">
+            <span style="font-family:'DM Sans',sans-serif; font-size:13px; color:#5c4a45;">Ink Sampler</span>
+          </label>
+          <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+            <input type="checkbox" value="Clay Soufflé" class="res-item-cb"
+              style="width:auto; margin:0; cursor:pointer;">
+            <span style="font-family:'DM Sans',sans-serif; font-size:13px; color:#5c4a45;">Clay Soufflé</span>
+          </label>
+          <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+            <input type="checkbox" value="Collage Board" class="res-item-cb"
+              style="width:auto; margin:0; cursor:pointer;">
+            <span style="font-family:'DM Sans',sans-serif; font-size:13px; color:#5c4a45;">Collage Board</span>
+          </label>
+          <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+            <input type="checkbox" value="Charm Bar" class="res-item-cb" style="width:auto; margin:0; cursor:pointer;">
+            <span style="font-family:'DM Sans',sans-serif; font-size:13px; color:#5c4a45;">Charm Bar</span>
+          </label>
+        </div>
+
+        <textarea id="res-notes" rows="2" placeholder="any other notes or questions? (optional)"
+          style="width:100%; background:rgba(255,255,255,0.55); border:1px solid rgba(92,74,69,0.18); border-radius:12px; padding:11px 14px; font-family:'DM Sans',sans-serif; font-size:13px; color:#5c4a45; outline:none; resize:vertical; box-sizing:border-box;"></textarea>
+      </div>
+
+      <button id="res-submit-btn" type="button"
+        style="width:100%; background:#8e8151; color:#dddad1; border:none; border-radius:50px; padding:14px 28px; font-family:'DM Sans',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.15em; text-transform:lowercase; cursor:pointer; transition:background 0.2s;">
+        reserve & pay →
+      </button>
+      <p
+        style="font-family:'DM Sans',sans-serif; font-size:10.5px; color:rgba(92,74,69,0.35); text-align:center; margin-top:12px; line-height:1.6;">
+        you'll be redirected to square to complete your payment
       </p>
-      <p class="font-serif italic text-brand-parchment/16 text-[12.5px]">
-        made whole, not made perfect.
-      </p>
-      <div style="display:flex; gap:14px; align-items:center;">
-        <a href="cogs.html" style="font-family:'DM Sans',sans-serif; font-size:9.5px; color:rgba(221,218,209,0.18); text-decoration:none; letter-spacing:0.08em;" title="cogs calculator">◈</a>
-        <a href="admin.html" style="font-family:'DM Sans',sans-serif; font-size:9.5px; color:rgba(221,218,209,0.18); text-decoration:none; letter-spacing:0.08em;" title="admin">⬡</a>
+    </div>
+  </div>
+
+  <!-- ── Privacy Policy Modal ──────────────────────────────────────────── -->
+  <div id="privacy-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-brand-brown/60 backdrop-blur-sm"
+      onclick="document.getElementById('privacy-modal').classList.add('hidden')"></div>
+    <div
+      class="relative bg-brand-parchment w-full max-w-2xl rounded-[28px] p-8 md:p-10 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <button onclick="document.getElementById('privacy-modal').classList.add('hidden')"
+        class="absolute top-6 right-6 text-brand-brown/35 hover:text-brand-brown/65 transition-colors p-1 text-2xl leading-none"
+        aria-label="Close">×</button>
+      <h2 class="font-serif text-[32px] font-light text-brand-brown leading-tight mb-2">privacy policy</h2>
+      <p class="font-sans text-[12px] italic text-brand-brown/50 mb-6">Last updated: May 2026</p>
+      <div class="space-y-4 font-sans text-[13px] text-brand-brown/70 leading-[1.8]">
+        <h3 class="font-serif text-[20px] font-medium text-brand-brown mt-4 mb-1">1. Information We Collect</h3>
+        <p>When you make a reservation or submit an inquiry through our website, we collect personal information such as
+          your name, email address, and phone number. We also collect any additional information you choose to provide
+          in your preorder notes.</p>
+        <h3 class="font-serif text-[20px] font-medium text-brand-brown mt-4 mb-1">2. How We Use Your Information</h3>
+        <p>We use the information we collect to manage your reservations, communicate with you regarding events or
+          inquiries, and improve our services. If you opt-in to our mailing list, we may also send you updates and
+          promotional offers.</p>
+        <h3 class="font-serif text-[20px] font-medium text-brand-brown mt-4 mb-1">3. Data Security and Sharing</h3>
+        <p>Your data is stored securely using third-party services (such as Supabase and Formspree). We do not sell or
+          rent your personal information to third parties. We only share information when required by law or to protect
+          our rights.</p>
+        <h3 class="font-serif text-[20px] font-medium text-brand-brown mt-4 mb-1">4. Contact Us</h3>
+        <p>If you have any questions about this Privacy Policy, please contact us at <a
+            href="mailto:info@foundandformedart.com"
+            class="text-brand-olive underline hover:text-brand-brown">info@foundandformedart.com</a>.</p>
       </div>
     </div>
   </div>
-</footer>
 
-
-<!-- ── Reservation Modal ──────────────────────────────────────────── -->
-<div id="reserve-modal" style="display:none; position:fixed; inset:0; z-index:100; align-items:center; justify-content:center; padding:24px; background:rgba(92,74,69,0.5); backdrop-filter:blur(8px);">
-  <div style="width:100%; max-width:520px; background:#dddad1; border-radius:28px; padding:36px 40px; box-shadow:0 32px 80px rgba(92,74,69,0.28); max-height:90vh; overflow-y:auto;">
-
-    <!-- Header -->
-    <div style="display:flex; align-items:start; justify-content:space-between; margin-bottom:24px; gap:12px;">
-      <div>
-        <p id="modal-label" style="font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.15em; text-transform:lowercase; color:#8e8151; margin-bottom:5px;"></p>
-        <h2 id="res-modal-title" style="font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:300; color:#5c4a45; line-height:1.2;"></h2>
-      </div>
-      <button onclick="closeReserve()" style="background:none; border:none; cursor:pointer; font-size:26px; color:rgba(92,74,69,0.28); line-height:1; padding:0; margin-top:2px; flex-shrink:0;" aria-label="close">×</button>
-    </div>
-
-    <!-- Alerts -->
-    <div id="res-error"   style="display:none; background:rgba(168,74,66,0.09); border:1px solid rgba(168,74,66,0.25); color:#a84a42; border-radius:12px; padding:11px 14px; font-family:'DM Sans',sans-serif; font-size:12.5px; margin-bottom:14px;"></div>
-    <div id="res-success" style="display:none; background:rgba(80,120,80,0.09); border:1px solid rgba(80,120,80,0.25); color:#3d6b3d; border-radius:12px; padding:11px 14px; font-family:'DM Sans',sans-serif; font-size:12.5px; margin-bottom:14px;"></div>
-
-    <!-- Step 1: Arrival time -->
-    <div style="margin-bottom:22px;">
-      <p style="font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:lowercase; color:rgba(92,74,69,0.5); margin-bottom:12px;">choose your arrival time</p>
-
-      <p style="font-family:'DM Sans',sans-serif; font-size:9.5px; font-weight:500; letter-spacing:0.12em; text-transform:lowercase; color:rgba(142,129,81,0.7); margin-bottom:8px;">morning · 10:30 am – 12:30 pm</p>
-      <div id="slots-morning" style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:16px;"></div>
-
-      <p style="font-family:'DM Sans',sans-serif; font-size:9.5px; font-weight:500; letter-spacing:0.12em; text-transform:lowercase; color:rgba(142,129,81,0.7); margin-bottom:8px;">afternoon · 1:00 pm – 3:00 pm</p>
-      <div id="slots-afternoon" style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px;"></div>
-    </div>
-
-    <!-- Step 2: Party size (revealed after time pick) -->
-    <div id="party-section" style="display:none; margin-bottom:22px; padding:18px 20px; background:rgba(255,255,255,0.3); border-radius:16px;">
-      <p style="font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:lowercase; color:rgba(92,74,69,0.5); margin-bottom:12px;">how many guests?</p>
-      <div style="display:flex; align-items:center; gap:18px;">
-        <button id="party-minus" onclick="adjustParty(-1)"
-          style="width:32px; height:32px; border-radius:50%; border:1px solid rgba(92,74,69,0.2); background:rgba(255,255,255,0.65); color:#5c4a45; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:opacity 0.15s;">−</button>
-        <span id="party-count" style="font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:300; color:#5c4a45; min-width:24px; text-align:center;">1</span>
-        <button id="party-plus" onclick="adjustParty(1)"
-          style="width:32px; height:32px; border-radius:50%; border:1px solid rgba(92,74,69,0.2); background:rgba(255,255,255,0.65); color:#5c4a45; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:opacity 0.15s;">+</button>
-        <span id="party-avail" style="font-family:'DM Sans',sans-serif; font-size:11px; color:rgba(92,74,69,0.42); letter-spacing:0.04em;"></span>
+  <!-- ── Terms of Use Modal ──────────────────────────────────────────── -->
+  <div id="terms-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-brand-brown/60 backdrop-blur-sm"
+      onclick="document.getElementById('terms-modal').classList.add('hidden')"></div>
+    <div
+      class="relative bg-brand-parchment w-full max-w-2xl rounded-[28px] p-8 md:p-10 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <button onclick="document.getElementById('terms-modal').classList.add('hidden')"
+        class="absolute top-6 right-6 text-brand-brown/35 hover:text-brand-brown/65 transition-colors p-1 text-2xl leading-none"
+        aria-label="Close">×</button>
+      <h2 class="font-serif text-[32px] font-light text-brand-brown leading-tight mb-2">terms of use</h2>
+      <p class="font-sans text-[12px] italic text-brand-brown/50 mb-6">Last updated: May 2026</p>
+      <div class="space-y-4 font-sans text-[13px] text-brand-brown/70 leading-[1.8]">
+        <h3 class="font-serif text-[20px] font-medium text-brand-brown mt-4 mb-1">1. Acceptance of Terms</h3>
+        <p>By accessing and using the Found & Formed website and services, you accept and agree to be bound by the terms
+          and provision of this agreement.</p>
+        <h3 class="font-serif text-[20px] font-medium text-brand-brown mt-4 mb-1">2. Reservations and Cancellations</h3>
+        <p>Reservations made through our site are subject to availability. If you are unable to attend your reserved
+          slot, please contact us as soon as possible to allow space for other guests. Found & Formed reserves the right
+          to cancel or modify reservations as needed.</p>
+        <h3 class="font-serif text-[20px] font-medium text-brand-brown mt-4 mb-1">3. Studio Environment and Conduct</h3>
+        <p>Found & Formed is designed as a peaceful, creative environment. We expect all guests to respect the space,
+          the materials provided, and the experience of other guests. We reserve the right to refuse service to anyone
+          violating these principles.</p>
+        <h3 class="font-serif text-[20px] font-medium text-brand-brown mt-4 mb-1">4. Liability</h3>
+        <p>Guests participate in art activities at their own risk. Found & Formed is not responsible for any damage to
+          personal clothing or property resulting from the use of art materials (e.g., paint, clay, ink) during your
+          visit.</p>
+        <h3 class="font-serif text-[20px] font-medium text-brand-brown mt-4 mb-1">5. Modifications</h3>
+        <p>We reserve the right to modify these terms at any time. Changes will become effective immediately upon
+          posting to the website.</p>
       </div>
     </div>
-
-    <!-- Experience interest (required) -->
-    <div style="margin-bottom:14px;">
-      <label style="display:block; font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:lowercase; color:rgba(92,74,69,0.5); margin-bottom:6px;">which experience are you most looking forward to?</label>
-      <select id="res-experience"
-              style="width:100%; background:rgba(255,255,255,0.55); border:1px solid rgba(92,74,69,0.18); border-radius:12px; padding:11px 14px; font-family:'DM Sans',sans-serif; font-size:13px; color:#5c4a45; outline:none; box-sizing:border-box; appearance:none; background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(92,74,69,0.4)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E\"); background-repeat:no-repeat; background-position:right 14px center; cursor:pointer;">
-        <option value="" disabled selected>choose one...</option>
-        <option value="watercolor flight">watercolor flight</option>
-        <option value="oil pastel plate">oil pastel plate</option>
-        <option value="ink sampler">ink sampler</option>
-        <option value="clay soufflé">clay soufflé</option>
-        <option value="charm bar">charm bar</option>
-        <option value="rotating special">rotating special</option>
-        <option value="kid's menu">kid's menu</option>
-        <option value="not sure yet">not sure yet — i'll decide on-site!</option>
-      </select>
-    </div>
-
-    <!-- Contact fields -->
-    <div style="margin-bottom:14px;">
-      <label style="display:block; font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:lowercase; color:rgba(92,74,69,0.5); margin-bottom:6px;">name</label>
-      <input type="text" id="res-name" placeholder="your name"
-             style="width:100%; background:rgba(255,255,255,0.55); border:1px solid rgba(92,74,69,0.18); border-radius:12px; padding:11px 14px; font-family:'DM Sans',sans-serif; font-size:13px; color:#5c4a45; outline:none; box-sizing:border-box;">
-    </div>
-    <div style="margin-bottom:14px;">
-      <label style="display:block; font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:lowercase; color:rgba(92,74,69,0.5); margin-bottom:6px;">email</label>
-      <input type="email" id="res-email" placeholder="you@email.com"
-             style="width:100%; background:rgba(255,255,255,0.55); border:1px solid rgba(92,74,69,0.18); border-radius:12px; padding:11px 14px; font-family:'DM Sans',sans-serif; font-size:13px; color:#5c4a45; outline:none; box-sizing:border-box;">
-    </div>
-    <div style="margin-bottom:26px;">
-      <label style="display:block; font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; text-transform:lowercase; color:rgba(92,74,69,0.5); margin-bottom:6px;">phone <span style="font-weight:300; text-transform:none; letter-spacing:0; font-size:10px;">(optional)</span></label>
-      <input type="tel" id="res-phone" placeholder="(555) 000-0000"
-             style="width:100%; background:rgba(255,255,255,0.55); border:1px solid rgba(92,74,69,0.18); border-radius:12px; padding:11px 14px; font-family:'DM Sans',sans-serif; font-size:13px; color:#5c4a45; outline:none; box-sizing:border-box;">
-    </div>
-
-    <button id="res-submit-btn" type="button"
-            style="width:100%; background:#8e8151; color:#dddad1; border:none; border-radius:50px; padding:14px 28px; font-family:'DM Sans',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.15em; text-transform:lowercase; cursor:pointer; transition:background 0.2s;">
-      reserve & pay →
-    </button>
-    <p style="font-family:'DM Sans',sans-serif; font-size:10.5px; color:rgba(92,74,69,0.35); text-align:center; margin-top:12px; line-height:1.6;">
-      you'll be redirected to square to complete your payment
-    </p>
   </div>
-</div>
 
-<!-- ════════════════════════════════════════════════════════
+  <!-- ════════════════════════════════════════════════════════
      SCRIPTS
 ════════════════════════════════════════════════════════ -->
-<script>
-  // Navbar scroll
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 55);
-  }, { passive: true });
+  <script>
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 55);
+    }, { passive: true });
 
-  // Mobile nav toggle
-  const toggle    = document.getElementById('menu-toggle');
-  const mobileNav = document.getElementById('mobile-nav');
-  const iconOpen  = document.getElementById('icon-open');
-  const iconClose = document.getElementById('icon-close');
-  toggle.addEventListener('click', () => {
-    const isOpen = !mobileNav.classList.contains('hidden');
-    mobileNav.classList.toggle('hidden', isOpen);
-    iconOpen.classList.toggle('hidden', !isOpen);
-    iconClose.classList.toggle('hidden', isOpen);
-    toggle.setAttribute('aria-expanded', String(!isOpen));
-    // Keep navbar opaque while menu is open so the dropdown isn't transparent over the hero
-    if (!isOpen) {
-      navbar.classList.add('scrolled');
-    } else if (window.scrollY <= 55) {
-      navbar.classList.remove('scrolled');
-    }
-  });
-  mobileNav.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileNav.classList.add('hidden');
-      iconOpen.classList.remove('hidden');
-      iconClose.classList.add('hidden');
-      toggle.setAttribute('aria-expanded', 'false');
-      // Restore transparent navbar if back at top of page
-      if (window.scrollY <= 55) navbar.classList.remove('scrolled');
-    });
-  });
-
-  // ── Drawing pad ──────────────────────────────────────────────────
-  (function() {
-    const canvas  = document.getElementById('draw-canvas');
-    const hint    = document.getElementById('draw-hint');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let drawing = false, hintGone = false;
-    let color = '#5c4a45', size = 2, erasing = false;
-    let lastX = 0, lastY = 0;
-    const dpr = window.devicePixelRatio || 1;
-
-    function initCanvas() {
-      const r = canvas.getBoundingClientRect();
-      canvas.width  = r.width  * dpr;
-      canvas.height = r.height * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-    }
-    initCanvas();
-    window.addEventListener('resize', initCanvas, { passive: true });
-
-    function pos(e) {
-      const r = canvas.getBoundingClientRect();
-      const src = e.touches ? e.touches[0] : e;
-      return { x: src.clientX - r.left, y: src.clientY - r.top };
-    }
-
-    function startDraw(e) {
-      e.preventDefault();
-      drawing = true;
-      const p = pos(e);
-      lastX = p.x; lastY = p.y;
-      ctx.globalCompositeOperation = erasing ? 'destination-out' : 'source-over';
-      ctx.beginPath();
-      ctx.arc(lastX, lastY, (erasing ? size * 2.5 : size) / 2, 0, Math.PI * 2);
-      ctx.fillStyle = erasing ? 'rgba(0,0,0,1)' : color;
-      ctx.fill();
-      if (!hintGone) { hint.style.opacity = '0'; hintGone = true; }
-    }
-
-    function moveDraw(e) {
-      e.preventDefault();
-      if (!drawing) return;
-      const p = pos(e);
-      ctx.globalCompositeOperation = erasing ? 'destination-out' : 'source-over';
-      ctx.beginPath();
-      ctx.moveTo(lastX, lastY);
-      ctx.lineTo(p.x, p.y);
-      ctx.strokeStyle = erasing ? 'rgba(0,0,0,1)' : color;
-      ctx.lineWidth   = erasing ? size * 2.5 : size;
-      ctx.stroke();
-      lastX = p.x; lastY = p.y;
-    }
-
-    function stopDraw() { drawing = false; }
-
-    canvas.addEventListener('mousedown',  startDraw);
-    canvas.addEventListener('mousemove',  moveDraw);
-    canvas.addEventListener('mouseup',    stopDraw);
-    canvas.addEventListener('mouseleave', stopDraw);
-    canvas.addEventListener('touchstart', startDraw, { passive: false });
-    canvas.addEventListener('touchmove',  moveDraw,  { passive: false });
-    canvas.addEventListener('touchend',   stopDraw);
-
-    // Color buttons
-    document.querySelectorAll('.draw-color').forEach(btn => {
-      btn.addEventListener('click', () => {
-        color   = btn.dataset.color;
-        erasing = false;
-        document.querySelectorAll('.draw-color').forEach(b => { b.style.outline = 'none'; b.style.outlineOffset = '0'; });
-        btn.style.outline       = '2px solid rgba(92,74,69,0.5)';
-        btn.style.outlineOffset = '2px';
-        document.getElementById('draw-eraser').style.background = 'rgba(92,74,69,0.06)';
-        document.getElementById('draw-eraser').style.color      = 'rgba(92,74,69,0.5)';
-        document.getElementById('draw-eraser').setAttribute('aria-pressed', 'false');
-      });
-    });
-
-    // Size buttons
-    document.querySelectorAll('.draw-size').forEach(btn => {
-      btn.addEventListener('click', () => {
-        size = parseFloat(btn.dataset.size);
-        document.querySelectorAll('.draw-size').forEach(b => b.style.background = 'transparent');
-        btn.style.background = 'rgba(92,74,69,0.10)';
-      });
-    });
-
-    // Eraser
-    document.getElementById('draw-eraser').addEventListener('click', () => {
-      erasing = !erasing;
-      const el = document.getElementById('draw-eraser');
-      el.style.background = erasing ? 'rgba(92,74,69,0.18)' : 'rgba(92,74,69,0.06)';
-      el.style.color      = erasing ? 'rgba(92,74,69,0.85)' : 'rgba(92,74,69,0.5)';
-      el.setAttribute('aria-pressed', String(erasing));
-      if (erasing) {
-        document.querySelectorAll('.draw-color').forEach(b => { b.style.outline = 'none'; b.style.outlineOffset = '0'; });
+    // Mobile nav toggle
+    const toggle = document.getElementById('menu-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+    const iconOpen = document.getElementById('icon-open');
+    const iconClose = document.getElementById('icon-close');
+    toggle.addEventListener('click', () => {
+      const isOpen = !mobileNav.classList.contains('hidden');
+      mobileNav.classList.toggle('hidden', isOpen);
+      iconOpen.classList.toggle('hidden', !isOpen);
+      iconClose.classList.toggle('hidden', isOpen);
+      toggle.setAttribute('aria-expanded', String(!isOpen));
+      // Keep navbar opaque while menu is open so the dropdown isn't transparent over the hero
+      if (!isOpen) {
+        navbar.classList.add('scrolled');
+      } else if (window.scrollY <= 55) {
+        navbar.classList.remove('scrolled');
       }
     });
-
-    // Clear
-    document.getElementById('draw-clear').addEventListener('click', () => {
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      hint.style.opacity = '1';
-      hintGone = false;
-      erasing = false;
-      document.getElementById('draw-eraser').style.background = 'rgba(92,74,69,0.06)';
-      document.getElementById('draw-eraser').style.color      = 'rgba(92,74,69,0.5)';
+    mobileNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileNav.classList.add('hidden');
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+        toggle.setAttribute('aria-expanded', 'false');
+        // Restore transparent navbar if back at top of page
+        if (window.scrollY <= 55) navbar.classList.remove('scrolled');
+      });
     });
-  })();
 
-  // Close contact modal on Escape
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') document.getElementById('contact-modal').classList.add('hidden');
-  });
+    // ── Drawing pad ──────────────────────────────────────────────────
+    (function () {
+      const canvas = document.getElementById('draw-canvas');
+      const hint = document.getElementById('draw-hint');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let drawing = false, hintGone = false;
+      let color = '#5c4a45', size = 2, erasing = false;
+      let lastX = 0, lastY = 0;
+      const dpr = window.devicePixelRatio || 1;
 
-  // Flip cards — tap/click to toggle on mobile
-  document.querySelectorAll('.flip-card').forEach(card => {
-    card.addEventListener('click', () => card.classList.toggle('flipped'));
-    card.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') {
+      function initCanvas() {
+        const r = canvas.getBoundingClientRect();
+        canvas.width = r.width * dpr;
+        canvas.height = r.height * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+      }
+      initCanvas();
+      window.addEventListener('resize', initCanvas, { passive: true });
+
+      function pos(e) {
+        const r = canvas.getBoundingClientRect();
+        const src = e.touches ? e.touches[0] : e;
+        return { x: src.clientX - r.left, y: src.clientY - r.top };
+      }
+
+      function startDraw(e) {
         e.preventDefault();
-        card.classList.toggle('flipped');
+        drawing = true;
+        const p = pos(e);
+        lastX = p.x; lastY = p.y;
+        ctx.globalCompositeOperation = erasing ? 'destination-out' : 'source-over';
+        ctx.beginPath();
+        ctx.arc(lastX, lastY, (erasing ? size * 2.5 : size) / 2, 0, Math.PI * 2);
+        ctx.fillStyle = erasing ? 'rgba(0,0,0,1)' : color;
+        ctx.fill();
+        if (!hintGone) { hint.style.opacity = '0'; hintGone = true; }
       }
+
+      function moveDraw(e) {
+        e.preventDefault();
+        if (!drawing) return;
+        const p = pos(e);
+        ctx.globalCompositeOperation = erasing ? 'destination-out' : 'source-over';
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(p.x, p.y);
+        ctx.strokeStyle = erasing ? 'rgba(0,0,0,1)' : color;
+        ctx.lineWidth = erasing ? size * 2.5 : size;
+        ctx.stroke();
+        lastX = p.x; lastY = p.y;
+      }
+
+      function stopDraw() { drawing = false; }
+
+      canvas.addEventListener('mousedown', startDraw);
+      canvas.addEventListener('mousemove', moveDraw);
+      canvas.addEventListener('mouseup', stopDraw);
+      canvas.addEventListener('mouseleave', stopDraw);
+      canvas.addEventListener('touchstart', startDraw, { passive: false });
+      canvas.addEventListener('touchmove', moveDraw, { passive: false });
+      canvas.addEventListener('touchend', stopDraw);
+
+      // Color buttons
+      document.querySelectorAll('.draw-color').forEach(btn => {
+        btn.addEventListener('click', () => {
+          color = btn.dataset.color;
+          erasing = false;
+          document.querySelectorAll('.draw-color').forEach(b => { b.style.outline = 'none'; b.style.outlineOffset = '0'; });
+          btn.style.outline = '2px solid rgba(92,74,69,0.5)';
+          btn.style.outlineOffset = '2px';
+          document.getElementById('draw-eraser').style.background = 'rgba(92,74,69,0.06)';
+          document.getElementById('draw-eraser').style.color = 'rgba(92,74,69,0.5)';
+          document.getElementById('draw-eraser').setAttribute('aria-pressed', 'false');
+        });
+      });
+
+      // Size buttons
+      document.querySelectorAll('.draw-size').forEach(btn => {
+        btn.addEventListener('click', () => {
+          size = parseFloat(btn.dataset.size);
+          document.querySelectorAll('.draw-size').forEach(b => b.style.background = 'transparent');
+          btn.style.background = 'rgba(92,74,69,0.10)';
+        });
+      });
+
+      // Eraser
+      document.getElementById('draw-eraser').addEventListener('click', () => {
+        erasing = !erasing;
+        const el = document.getElementById('draw-eraser');
+        el.style.background = erasing ? 'rgba(92,74,69,0.18)' : 'rgba(92,74,69,0.06)';
+        el.style.color = erasing ? 'rgba(92,74,69,0.85)' : 'rgba(92,74,69,0.5)';
+        el.setAttribute('aria-pressed', String(erasing));
+        if (erasing) {
+          document.querySelectorAll('.draw-color').forEach(b => { b.style.outline = 'none'; b.style.outlineOffset = '0'; });
+        }
+      });
+
+      // Clear
+      document.getElementById('draw-clear').addEventListener('click', () => {
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        hint.style.opacity = '1';
+        hintGone = false;
+        erasing = false;
+        document.getElementById('draw-eraser').style.background = 'rgba(92,74,69,0.06)';
+        document.getElementById('draw-eraser').style.color = 'rgba(92,74,69,0.5)';
+      });
+    })();
+
+    // Close contact modal on Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') document.getElementById('contact-modal').classList.add('hidden');
     });
-  });
 
-  // ── Supabase client ──────────────────────────────────────────────
-  const SUPABASE_URL = 'https://akviuwiqtqqfmlvusstm.supabase.co';
-  const SUPABASE_KEY = 'sb_publishable_171Z0fasXaye_oqF8N9NtQ_olxCJK_9';
-  let sb;
-  try {
-    if (!window.supabase) throw new Error('Supabase CDN not loaded');
-    sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-  } catch (e) {
-    console.error('Supabase init failed:', e.message);
-  }
+    // Flip cards — tap/click to toggle on mobile
+    document.querySelectorAll('.flip-card').forEach(card => {
+      card.addEventListener('click', () => card.classList.toggle('flipped'));
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.classList.toggle('flipped');
+        }
+      });
+    });
 
-  // ── Reservation modal ────────────────────────────────────────────
-  const MAX_CAPACITY = 8;
+    // ── Supabase client ──────────────────────────────────────────────
+    const SUPABASE_URL = 'https://akviuwiqtqqfmlvusstm.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_171Z0fasXaye_oqF8N9NtQ_olxCJK_9';
+    let sb;
+    try {
+      if (!window.supabase) throw new Error('Supabase CDN not loaded');
+      sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    } catch (e) {
+      console.error('Supabase init failed:', e.message);
+    }
 
-  const TIME_SLOTS = [
-    { key: '10:30am', label: '10:30 am', window: 'morning'   },
-    { key: '10:45am', label: '10:45 am', window: 'morning'   },
-    { key: '11:00am', label: '11:00 am', window: 'morning'   },
-    { key: '11:15am', label: '11:15 am', window: 'morning'   },
-    { key: '11:30am', label: '11:30 am', window: 'morning'   },
-    { key: '11:45am', label: '11:45 am', window: 'morning'   },
-    { key: '12:00pm', label: '12:00 pm', window: 'morning'   },
-    { key: '12:15pm', label: '12:15 pm', window: 'morning'   },
-    { key: '1:00pm',  label: '1:00 pm',  window: 'afternoon' },
-    { key: '1:15pm',  label: '1:15 pm',  window: 'afternoon' },
-    { key: '1:30pm',  label: '1:30 pm',  window: 'afternoon' },
-    { key: '1:45pm',  label: '1:45 pm',  window: 'afternoon' },
-    { key: '2:00pm',  label: '2:00 pm',  window: 'afternoon' },
-    { key: '2:15pm',  label: '2:15 pm',  window: 'afternoon' },
-  ];
+    // ── Reservation modal ────────────────────────────────────────────
+    const MAX_CAPACITY = 8;
 
-  let currentEventId    = null;
-  let currentEventTitle = null;
-  let currentSquareLink = '';
-  let selectedSession   = null;
-  let partySize         = 1;
-  let allReservations   = [];
+    const TIME_SLOTS = [
+      { key: '10:30am', label: '10:30 am', window: 'morning' },
+      { key: '10:45am', label: '10:45 am', window: 'morning' },
+      { key: '11:00am', label: '11:00 am', window: 'morning' },
+      { key: '11:15am', label: '11:15 am', window: 'morning' },
+      { key: '11:30am', label: '11:30 am', window: 'morning' },
+      { key: '11:45am', label: '11:45 am', window: 'morning' },
+      { key: '12:00pm', label: '12:00 pm', window: 'morning' },
+      { key: '12:15pm', label: '12:15 pm', window: 'morning' },
+      { key: '1:00pm', label: '1:00 pm', window: 'afternoon' },
+      { key: '1:15pm', label: '1:15 pm', window: 'afternoon' },
+      { key: '1:30pm', label: '1:30 pm', window: 'afternoon' },
+      { key: '1:45pm', label: '1:45 pm', window: 'afternoon' },
+      { key: '2:00pm', label: '2:00 pm', window: 'afternoon' },
+      { key: '2:15pm', label: '2:15 pm', window: 'afternoon' },
+    ];
 
-  function computeAvailable(slotKey) {
-    const booked = allReservations
-      .filter(r => r.session === slotKey)
-      .reduce((sum, r) => sum + (r.party_size || 1), 0);
-    return Math.max(0, MAX_CAPACITY - booked);
-  }
+    let currentEventId = null;
+    let currentEventTitle = null;
+    let currentSquareLink = '';
+    let selectedSession = null;
+    let partySize = 1;
+    let allReservations = [];
 
-  function renderTimeSlots() {
-    function slotBtn(slot) {
-      const avail  = computeAvailable(slot.key);
-      const full   = avail <= 0;
-      const active = slot.key === selectedSession;
-      const bg     = active ? '#8e8151'                : full ? 'rgba(92,74,69,0.05)' : 'rgba(255,255,255,0.45)';
-      const border = active ? '#8e8151'                : full ? 'rgba(92,74,69,0.1)'  : 'rgba(92,74,69,0.15)';
-      const tColor = active ? '#dddad1'                : full ? 'rgba(92,74,69,0.28)' : '#5c4a45';
-      const aColor = active ? 'rgba(221,218,209,0.65)' : full ? 'rgba(92,74,69,0.22)' : 'rgba(92,74,69,0.38)';
-      const aText  = full ? 'full' : avail + ' left';
-      return `<button onclick="${full ? '' : `pickSession('${slot.key}')`}"
+    function computeAvailable(slotKey) {
+      const booked = allReservations
+        .filter(r => r.session === slotKey)
+        .reduce((sum, r) => sum + parseInt(r.party_size || 1, 10), 0);
+      return Math.max(0, MAX_CAPACITY - booked);
+    }
+
+    function renderTimeSlots() {
+      function slotBtn(slot) {
+        const avail = computeAvailable(slot.key);
+        const full = avail <= 0;
+        const active = slot.key === selectedSession;
+        const bg = active ? '#8e8151' : full ? 'rgba(92,74,69,0.05)' : 'rgba(255,255,255,0.45)';
+        const border = active ? '#8e8151' : full ? 'rgba(92,74,69,0.1)' : 'rgba(92,74,69,0.15)';
+        const tColor = active ? '#dddad1' : full ? 'rgba(92,74,69,0.28)' : '#5c4a45';
+        const aColor = active ? 'rgba(221,218,209,0.65)' : full ? 'rgba(92,74,69,0.22)' : 'rgba(92,74,69,0.38)';
+        const aText = full ? 'full' : avail + ' left';
+        return `<button onclick="${full ? '' : `pickSession('${slot.key}')`}"
         style="background:${bg}; border:1.5px solid ${border}; border-radius:12px; padding:10px 6px; cursor:${full && !active ? 'default' : 'pointer'}; text-align:center; transition:background 0.2s, border-color 0.2s; opacity:${full && !active ? '0.5' : '1'};"
         ${full && !active ? 'disabled' : ''}>
         <p style="font-family:'DM Sans',sans-serif; font-size:11.5px; font-weight:500; color:${tColor}; margin:0 0 4px; letter-spacing:0.01em;">${slot.label}</p>
         <p style="font-family:'DM Sans',sans-serif; font-size:9px; color:${aColor}; margin:0; letter-spacing:0.05em;">${aText}</p>
       </button>`;
+      }
+      document.getElementById('slots-morning').innerHTML = TIME_SLOTS.filter(s => s.window === 'morning').map(slotBtn).join('');
+      document.getElementById('slots-afternoon').innerHTML = TIME_SLOTS.filter(s => s.window === 'afternoon').map(slotBtn).join('');
     }
-    document.getElementById('slots-morning').innerHTML   = TIME_SLOTS.filter(s => s.window === 'morning').map(slotBtn).join('');
-    document.getElementById('slots-afternoon').innerHTML = TIME_SLOTS.filter(s => s.window === 'afternoon').map(slotBtn).join('');
-  }
 
-  async function openReserve(eventId, title, dateLine, squareLink) {
-    currentEventId    = eventId;
-    currentEventTitle = title;
-    currentSquareLink = squareLink || '';
-    selectedSession   = null;
-    partySize         = 1;
-    allReservations   = [];
-
-    document.getElementById('res-modal-title').textContent  = title;
-    document.getElementById('modal-label').textContent      = dateLine;
-    document.getElementById('res-error').style.display      = 'none';
-    document.getElementById('res-success').style.display    = 'none';
-    document.getElementById('party-section').style.display  = 'none';
-    document.getElementById('party-count').textContent      = '1';
-
-    ['res-name','res-email','res-phone','res-experience'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.value = '';
-    });
-
-    const submitBtn = document.getElementById('res-submit-btn');
-    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'reserve & pay →'; }
-
-    // Load all existing reservations once for rolling capacity checks
-    try {
-      const { data, error } = await sb
-        .from('reservations')
-        .select('session, party_size')
-        .eq('event_id', eventId);
-      if (error) console.warn('Reservations fetch error (likely RLS):', error.message);
-      allReservations = data || [];
-    } catch (e) {
-      console.warn('Reservations fetch exception:', e.message);
+    async function openReserve(eventId, title, dateLine, squareLink) {
+      currentEventId = eventId;
+      currentEventTitle = title;
+      currentSquareLink = squareLink || '';
+      selectedSession = null;
+      partySize = 1;
       allReservations = [];
-    }
 
-    renderTimeSlots();
-    document.getElementById('reserve-modal').style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-  }
+      document.getElementById('res-modal-title').textContent = title;
+      document.getElementById('modal-label').textContent = dateLine;
+      document.getElementById('res-error').style.display = 'none';
+      document.getElementById('res-success').style.display = 'none';
+      document.getElementById('party-section').style.display = 'none';
+      document.getElementById('party-count').textContent = '1';
 
-  function closeReserve() {
-    document.getElementById('reserve-modal').style.display = 'none';
-    document.body.style.overflow = '';
-  }
-
-  function pickSession(session) {
-    selectedSession = session;
-    partySize       = 1;
-    renderTimeSlots();
-
-    const avail = computeAvailable(session);
-    document.getElementById('party-count').textContent = '1';
-    document.getElementById('party-avail').textContent = avail + ' spots available';
-    updatePartyButtons(avail);
-    document.getElementById('party-section').style.display = 'block';
-  }
-
-  function updatePartyButtons(avail) {
-    const minus = document.getElementById('party-minus');
-    const plus  = document.getElementById('party-plus');
-    if (minus) { minus.disabled = partySize <= 1;    minus.style.opacity = partySize <= 1    ? '0.28' : '1'; minus.style.cursor = partySize <= 1    ? 'default' : 'pointer'; }
-    if (plus)  { plus.disabled  = partySize >= avail; plus.style.opacity  = partySize >= avail ? '0.28' : '1'; plus.style.cursor  = partySize >= avail ? 'default' : 'pointer'; }
-  }
-
-  function adjustParty(delta) {
-    if (!selectedSession) return;
-    const avail = computeAvailable(selectedSession);
-    partySize   = Math.max(1, Math.min(partySize + delta, avail));
-    document.getElementById('party-count').textContent = partySize;
-    updatePartyButtons(avail);
-  }
-
-  async function submitReservation() {
-    const name       = document.getElementById('res-name').value.trim();
-    const email      = document.getElementById('res-email').value.trim();
-    const phone      = document.getElementById('res-phone').value.trim();
-    const experience = document.getElementById('res-experience').value.trim();
-    const errEl = document.getElementById('res-error');
-    const okEl  = document.getElementById('res-success');
-    const btn   = document.getElementById('res-submit-btn');
-
-    errEl.style.display = 'none';
-    okEl.style.display  = 'none';
-
-    if (!selectedSession) {
-      errEl.textContent = 'please choose an arrival time.';
-      errEl.style.display = 'block'; return;
-    }
-    if (!experience) {
-      errEl.textContent = 'please tell us which experience you\'re most looking forward to.';
-      errEl.style.display = 'block'; return;
-    }
-    if (!name || !email) {
-      errEl.textContent = 'please enter your name and email.';
-      errEl.style.display = 'block'; return;
-    }
-
-    // Final rolling capacity check before submit
-    const avail = computeAvailable(selectedSession);
-    if (partySize > avail) {
-      errEl.textContent = `only ${avail} spot${avail === 1 ? '' : 's'} remaining for that time — please adjust your party size.`;
-      errEl.style.display = 'block'; return;
-    }
-
-    if (btn) { btn.disabled = true; btn.textContent = 'saving…'; }
-
-    try {
-      const { error: dbErr } = await sb.from('reservations').insert({
-        event_id:   currentEventId,
-        name,
-        email,
-        phone:      phone || null,
-        session:    selectedSession,
-        craft:      experience,
-        party_size: partySize,
+      ['res-name', 'res-email', 'res-phone', 'res-experience'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
       });
+      document.querySelectorAll('.res-item-cb').forEach(cb => cb.checked = false);
+      const submitBtn = document.getElementById('res-submit-btn');
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'reserve & pay →'; }
+
+      // Load all existing reservations once for rolling capacity checks
+      try {
+        const { data, error } = await sb
+          .from('reservations')
+          .select('session, party_size')
+          .eq('event_id', eventId);
+        if (error) console.warn('Reservations fetch error (likely RLS):', error.message);
+        allReservations = data || [];
+      } catch (e) {
+        console.warn('Reservations fetch exception:', e.message);
+        allReservations = [];
+      }
+
+      renderTimeSlots();
+      document.getElementById('reserve-modal').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeReserve() {
+      document.getElementById('reserve-modal').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    function pickSession(session) {
+      selectedSession = session;
+      partySize = 1;
+      renderTimeSlots();
+
+      const avail = computeAvailable(session);
+      document.getElementById('party-count').textContent = '1';
+      document.getElementById('party-avail').textContent = avail + ' spots available';
+      updatePartyButtons(avail);
+      document.getElementById('party-section').style.display = 'block';
+    }
+
+    function updatePartyButtons(avail) {
+      const minus = document.getElementById('party-minus');
+      const plus = document.getElementById('party-plus');
+      if (minus) { minus.disabled = partySize <= 1; minus.style.opacity = partySize <= 1 ? '0.28' : '1'; minus.style.cursor = partySize <= 1 ? 'default' : 'pointer'; }
+      if (plus) { plus.disabled = partySize >= avail; plus.style.opacity = partySize >= avail ? '0.28' : '1'; plus.style.cursor = partySize >= avail ? 'default' : 'pointer'; }
+    }
+
+    function adjustParty(delta) {
+      if (!selectedSession) return;
+      const avail = computeAvailable(selectedSession);
+      partySize = Math.max(1, Math.min(partySize + delta, avail));
+      document.getElementById('party-count').textContent = partySize;
+      updatePartyButtons(avail);
+    }
+
+    async function submitReservation() {
+      const name = document.getElementById('res-name').value.trim();
+      const email = document.getElementById('res-email').value.trim();
+      const phone = document.getElementById('res-phone').value.trim();
+      const rawNotes = document.getElementById('res-notes') ? document.getElementById('res-notes').value.trim() : '';
+      const selectedItems = Array.from(document.querySelectorAll('.res-item-cb:checked')).map(cb => cb.value);
+      const experience = selectedItems.length > 0 ? selectedItems.join(', ') : 'Not sure yet';
+
+      let notes = rawNotes;
+      
+      const errEl = document.getElementById('res-error');
+      const okEl = document.getElementById('res-success');
+      const btn = document.getElementById('res-submit-btn');
+
+      errEl.style.display = 'none';
+      okEl.style.display = 'none';
+
+      if (!selectedSession) {
+        errEl.textContent = 'please choose an arrival time.';
+        errEl.style.display = 'block'; return;
+      }
+      if (!name || !email) {
+        errEl.textContent = 'please enter your name and email.';
+        errEl.style.display = 'block'; return;
+      }
+
+      // Final rolling capacity check before submit
+      const avail = computeAvailable(selectedSession);
+      if (partySize > avail) {
+        errEl.textContent = `only ${avail} spot${avail === 1 ? '' : 's'} remaining for that time — please adjust your party size.`;
+        errEl.style.display = 'block'; return;
+      }
+
+      if (btn) { btn.disabled = true; btn.textContent = 'saving…'; }
+
+      try {
+        const { error: dbErr } = await sb.from('reservations').insert({
+          event_id: currentEventId,
+          name,
+          email,
+          phone: phone || null,
+          session: selectedSession,
+          craft: experience,
+          party_size: partySize,
+          preorder_notes: notes || null,
+        });
 
       if (dbErr) {
         errEl.textContent = 'something went wrong — please try again.';
@@ -1563,25 +1818,34 @@
         return;
       }
 
-      await fetch('https://formspree.io/f/mvzvjgvv', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          _subject:              '✦ New reservation: ' + currentEventTitle,
-          Event:                 currentEventTitle,
-          Name:                  name,
-          Email:                 email,
-          Phone:                 phone || '—',
-          'Arrival time':        selectedSession,
-          'Party size':          partySize,
-          'Looking forward to':  experience,
-        }),
-      }).catch(() => {});
+      await sb.functions.invoke('notify-admin', {
+        body: {
+          subject: '✦ New reservation: ' + currentEventTitle,
+          type: 'reservation',
+          data: {
+            'Event': currentEventTitle,
+            'Name': name,
+            'Email': email,
+            'Phone': phone || '—',
+            'Arrival time': selectedSession,
+            'Party size': partySize,
+            'Looking forward to': experience,
+            'Preorder notes': notes || '—'
+          }
+        }
+      }).catch(() => { });
+
+      // Clear forms
+      ['res-name', 'res-email', 'res-phone', 'res-notes', 'res-experience'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+      });
+      document.querySelectorAll('.res-item-cb').forEach(cb => cb.checked = false);
 
       if (currentSquareLink) {
         window.location.href = currentSquareLink;
       } else {
-        okEl.textContent   = "you're on the list! we'll see you soon. ✦";
+        okEl.textContent = "you're on the list! we'll see you soon. ✦";
         okEl.style.display = 'block';
         if (btn) { btn.disabled = false; btn.textContent = 'reserve & pay →'; }
         setTimeout(closeReserve, 3000);
@@ -1594,118 +1858,168 @@
     }
   }
 
-  // Wire up submit button, backdrop click, and Escape key
-  document.addEventListener('DOMContentLoaded', () => {
-    const submitBtn = document.getElementById('res-submit-btn');
-    if (submitBtn) submitBtn.addEventListener('click', submitReservation);
+    // Wire up submit button, backdrop click, and Escape key
+    document.addEventListener('DOMContentLoaded', () => {
+      const submitBtn = document.getElementById('res-submit-btn');
+      if (submitBtn) submitBtn.addEventListener('click', submitReservation);
 
-    document.getElementById('reserve-modal').addEventListener('click', function(e) {
-      if (e.target === this) closeReserve();
-    });
-  });
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && document.getElementById('reserve-modal').style.display === 'flex') {
-      closeReserve();
-    }
-  });
-
-  // ── Share button ─────────────────────────────────────────────────
-  async function shareEvent(btn, title) {
-    const url  = window.location.origin + window.location.pathname + '#events';
-    const orig = btn.innerHTML;
-
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: 'found & formed — ' + (title || 'reserve a seat'),
-          text:  'join us for a creative pop-up! reserve your spot here:',
-          url,
-        });
-      } catch (e) { /* user cancelled */ }
-    } else {
-      await navigator.clipboard.writeText(url).catch(() => {});
-      btn.textContent = 'copied!';
-      setTimeout(() => { btn.innerHTML = orig; }, 2200);
-    }
-  }
-
-  // ── Pop-up inquiry form ──────────────────────────────────────────
-  async function submitPopupInquiry() {
-    const name   = document.getElementById('pi-name').value.trim();
-    const email  = document.getElementById('pi-email').value.trim();
-    const phone  = document.getElementById('pi-phone').value.trim();
-    const type   = document.getElementById('pi-type').value;
-    const guests = document.getElementById('pi-guests').value.trim();
-    const date   = document.getElementById('pi-date').value.trim();
-    const msg    = document.getElementById('pi-message').value.trim();
-    const errEl  = document.getElementById('pi-error');
-    const okEl   = document.getElementById('pi-success');
-    const btn    = document.getElementById('pi-submit-btn');
-
-    errEl.style.display = 'none';
-    okEl.style.display  = 'none';
-
-    if (!name || !email) {
-      errEl.textContent   = 'please enter your name and email so we can get back to you.';
-      errEl.style.display = 'block';
-      return;
-    }
-    if (!type) {
-      errEl.textContent   = 'please select a type of event.';
-      errEl.style.display = 'block';
-      return;
-    }
-
-    if (btn) { btn.disabled = true; btn.textContent = 'sending…'; }
-
-    try {
-      const res = await fetch('https://formspree.io/f/mvzvjgvv', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          _subject:          '✦ Pop-up inquiry from ' + name,
-          'Inquiry type':    'host Hosting',
-          'Event type':      type,
-          Name:              name,
-          Email:             email,
-          Phone:             phone  || '—',
-          'Estimated guests': guests || '—',
-          'Preferred date':  date   || '—',
-          Message:           msg    || '—',
-        }),
+      document.getElementById('reserve-modal').addEventListener('click', function (e) {
+        if (e.target === this) closeReserve();
       });
+    });
 
-      if (res.ok) {
-        okEl.textContent   = "inquiry received — we'll be in touch soon. ✦";
-        okEl.style.display = 'block';
-        ['pi-name','pi-email','pi-phone','pi-guests','pi-date','pi-message'].forEach(id => {
-          document.getElementById(id).value = '';
-        });
-        document.getElementById('pi-type').selectedIndex = 0;
-        if (btn) { btn.disabled = false; btn.textContent = 'send inquiry →'; }
-      } else {
-        throw new Error('server error');
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && document.getElementById('reserve-modal').style.display === 'flex') {
+        closeReserve();
       }
-    } catch (err) {
-      errEl.textContent   = 'something went wrong — please try again or email us at info@foundandformedart.com.';
-      errEl.style.display = 'block';
-      if (btn) { btn.disabled = false; btn.textContent = 'send inquiry →'; }
+    });
+
+    // ── Share button ─────────────────────────────────────────────────
+    async function shareEvent(btn, title) {
+      const url = window.location.origin + window.location.pathname + '#events';
+      const orig = btn.innerHTML;
+
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: 'found & formed — ' + (title || 'reserve a seat'),
+            text: 'join us for a creative pop-up! reserve your spot here:',
+            url,
+          });
+        } catch (e) { /* user cancelled */ }
+      } else {
+        await navigator.clipboard.writeText(url).catch(() => { });
+        btn.textContent = 'copied!';
+        setTimeout(() => { btn.innerHTML = orig; }, 2200);
+      }
     }
-  }
 
-  // ── Load upcoming events ─────────────────────────────────────────
-  (async () => {
-    const container = document.getElementById('events-container');
-    const today = new Date().toISOString().split('T')[0];
-    const { data, error } = await sb
-      .from('events')
-      .select('*')
-      .gte('event_date', today)
-      .order('event_date', { ascending: true });
+    // ── Pop-up inquiry form ──────────────────────────────────────────
+    async function submitPopupInquiry() {
+      const name = document.getElementById('pi-name').value.trim();
+      const email = document.getElementById('pi-email').value.trim();
+      const phone = document.getElementById('pi-phone').value.trim();
+      const type = document.getElementById('pi-type').value;
+      const guests = document.getElementById('pi-guests').value.trim();
+      const date = document.getElementById('pi-date').value.trim();
+      const msg = document.getElementById('pi-message').value.trim();
+      const errEl = document.getElementById('pi-error');
+      const okEl = document.getElementById('pi-success');
+      const btn = document.getElementById('pi-submit-btn');
 
-    if (error || !data || data.length === 0) {
-      container.innerHTML = `
+      errEl.style.display = 'none';
+      okEl.style.display = 'none';
+
+      if (!name || !email) {
+        errEl.textContent = 'please enter your name and email so we can get back to you.';
+        errEl.style.display = 'block';
+        return;
+      }
+      if (!type) {
+        errEl.textContent = 'please select a type of event.';
+        errEl.style.display = 'block';
+        return;
+      }
+
+      if (btn) { btn.disabled = true; btn.textContent = 'sending…'; }
+
+      try {
+        const res = await sb.functions.invoke('notify-admin', {
+          body: {
+            subject: '✦ Pop-up inquiry from ' + name,
+            type: 'inquiry',
+            data: {
+              'Inquiry type': 'host Hosting',
+              'Event type': type,
+              'Name': name,
+              'Email': email,
+              'Phone': phone || '—',
+              'Estimated guests': guests || '—',
+              'Preferred date': date || '—',
+              'Message': msg || '—'
+            }
+          }
+        });
+
+        if (!res.error) {
+          okEl.textContent = "inquiry received — we'll be in touch soon. ✦";
+          okEl.style.display = 'block';
+          ['pi-name', 'pi-email', 'pi-phone', 'pi-guests', 'pi-date', 'pi-message'].forEach(id => {
+            document.getElementById(id).value = '';
+          });
+          document.getElementById('pi-type').selectedIndex = 0;
+          if (btn) { btn.disabled = false; btn.textContent = 'send inquiry →'; }
+        } else {
+          throw new Error('server error');
+        }
+      } catch (err) {
+        errEl.textContent = 'something went wrong — please try again or email us at info@foundandformedart.com.';
+        errEl.style.display = 'block';
+        if (btn) { btn.disabled = false; btn.textContent = 'send inquiry →'; }
+      }
+    }
+
+    // ── Contact Form ─────────────────────────────────────────────────
+    async function submitContactForm(event) {
+      event.preventDefault();
+      const name = document.getElementById('cf-name').value.trim();
+      const email = document.getElementById('cf-email').value.trim();
+      const msg = document.getElementById('cf-message').value.trim();
+      const errEl = document.getElementById('cf-error');
+      const okEl = document.getElementById('cf-success');
+      const btn = document.getElementById('cf-submit-btn');
+      const form = document.getElementById('contact-form');
+
+      errEl.classList.add('hidden');
+      okEl.classList.add('hidden');
+
+      if (!name || !email || !msg) return;
+
+      btn.disabled = true;
+      btn.textContent = 'sending…';
+
+      try {
+        const res = await sb.functions.invoke('notify-admin', {
+          body: {
+            subject: '✦ New message from ' + name,
+            type: 'contact',
+            data: {
+              'Name': name,
+              'Email': email,
+              'Message': msg
+            }
+          }
+        });
+
+        if (!res.error) {
+          form.classList.add('hidden');
+          okEl.classList.remove('hidden');
+          document.getElementById('cf-name').value = '';
+          document.getElementById('cf-email').value = '';
+          document.getElementById('cf-message').value = '';
+        } else {
+          throw new Error('server error');
+        }
+      } catch (err) {
+        errEl.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'send message';
+      }
+    }
+
+    // ── Load upcoming events ─────────────────────────────────────────
+    (async () => {
+      const container = document.getElementById('events-container');
+      const today = new Date().toISOString().split('T')[0];
+      const { data, error } = await sb
+        .from('events')
+        .select('*')
+        .gte('event_date', today)
+        .order('event_date', { ascending: true });
+
+      if (error || !data || data.length === 0) {
+        container.innerHTML = `
         <div class="text-center py-16 rounded-[24px] border border-brand-brown/10 bg-white/25">
           <p class="font-serif italic text-[26px] text-brand-brown/35 mb-3">nothing scheduled just yet</p>
           <p class="font-sans text-[13px] text-brand-brown/40 leading-[1.85] mb-7 max-w-xs mx-auto">
@@ -1714,18 +2028,18 @@
           <a href="https://stats.sender.net/forms/e9rvP4/view" target="_blank" rel="noopener noreferrer"
              class="btn btn-sm-ghost">join the email list</a>
         </div>`;
-      return;
-    }
+        return;
+      }
 
-    const cards = data.map(ev => {
-      const d = new Date(ev.event_date + 'T12:00:00');
-      const dateLine = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }).toUpperCase()
-                     + (ev.event_time ? ' · ' + ev.event_time : '');
-      // Use data-* attributes to avoid quote conflicts with JSON.stringify inside onclick
-      const safeTitle  = ev.title.replace(/"/g, '&quot;');
-      const safeDate   = dateLine.replace(/"/g, '&quot;');
-      const safeSquare = (ev.square_payment_link || '').replace(/"/g, '&quot;');
-      return `
+      const cards = data.map(ev => {
+        const d = new Date(ev.event_date + 'T12:00:00');
+        const dateLine = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }).toUpperCase()
+          + (ev.event_time ? ' · ' + ev.event_time : '');
+        // Use data-* attributes to avoid quote conflicts with JSON.stringify inside onclick
+        const safeTitle = ev.title.replace(/"/g, '&quot;');
+        const safeDate = dateLine.replace(/"/g, '&quot;');
+        const safeSquare = (ev.square_payment_link || '').replace(/"/g, '&quot;');
+        return `
         <div class="rounded-[20px] border border-brand-brown/12 bg-white/35 p-7 flex flex-col">
           <p class="label text-brand-olive mb-1">${dateLine}</p>
           <h3 class="font-serif text-[26px] font-light text-brand-brown leading-tight mb-2">${ev.title}</h3>
@@ -1740,22 +2054,23 @@
             <button class="btn btn-ghost w-full text-center share-btn" data-title="${safeTitle}" aria-label="Share this event">share</button>
           </div>
         </div>`;
-    }).join('');
+      }).join('');
 
-    container.innerHTML = `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">${cards}</div>`;
+      container.innerHTML = `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">${cards}</div>`;
 
-    // Handle reserve and share button clicks via delegation
-    container.addEventListener('click', function(e) {
-      const reserveBtn = e.target.closest('.reserve-btn');
-      if (reserveBtn) {
-        openReserve(reserveBtn.dataset.id, reserveBtn.dataset.title, reserveBtn.dataset.date, reserveBtn.dataset.square);
-        return;
-      }
-      const shareBtn = e.target.closest('.share-btn');
-      if (shareBtn) shareEvent(shareBtn, shareBtn.dataset.title);
-    });
-  })();
-</script>
+      // Handle reserve and share button clicks via delegation
+      container.addEventListener('click', function (e) {
+        const reserveBtn = e.target.closest('.reserve-btn');
+        if (reserveBtn) {
+          openReserve(reserveBtn.dataset.id, reserveBtn.dataset.title, reserveBtn.dataset.date, reserveBtn.dataset.square);
+          return;
+        }
+        const shareBtn = e.target.closest('.share-btn');
+        if (shareBtn) shareEvent(shareBtn, shareBtn.dataset.title);
+      });
+    })();
+  </script>
 
 </body>
+
 </html>
